@@ -221,6 +221,35 @@ export class FilesService {
     });
   }
 
+  async listVersions(user: User, nodeId: string) {
+    const node = await this.loadNode(nodeId);
+    if (node.trashedAt) throw new NotFoundException('File ada di sampah.');
+    await this.requireRole(user, node.spaceId, node.path, Role.VIEWER);
+    const versions = await this.prisma.fileVersion.findMany({ where: { nodeId }, orderBy: { createdAt: 'desc' } });
+    const ids = [...new Set(versions.map((v) => v.createdById).filter((x): x is string => !!x))];
+    const users = await this.prisma.user.findMany({ where: { id: { in: ids } }, select: { id: true, displayName: true } });
+    const uname = new Map(users.map((u) => [u.id, u.displayName]));
+    return versions.map((v) => ({
+      id: v.id,
+      sizeBytes: v.sizeBytes,
+      createdAt: v.createdAt,
+      by: v.createdById ? uname.get(v.createdById) ?? '—' : '—',
+      isCurrent: v.isCurrent,
+    }));
+  }
+
+  async restoreVersion(user: User, nodeId: string, versionId: string) {
+    const node = await this.loadNode(nodeId);
+    await this.requireRole(user, node.spaceId, node.path, Role.EDITOR);
+    const ver = await this.prisma.fileVersion.findFirst({ where: { id: versionId, nodeId } });
+    if (!ver) throw new NotFoundException('Versi tidak ditemukan.');
+    await this.prisma.fileVersion.updateMany({ where: { nodeId }, data: { isCurrent: false } });
+    await this.prisma.fileVersion.update({ where: { id: versionId }, data: { isCurrent: true } });
+    const updated = await this.prisma.node.update({ where: { id: nodeId }, data: { sizeBytes: ver.sizeBytes, ownerId: user.id } });
+    await this.audit(user.id, 'Pulihkan versi', nodeId);
+    return mapNode(updated, user.displayName);
+  }
+
   async emptyTrash(user: User): Promise<{ count: number }> {
     const spaces = await this.access.spacesForUser(user);
     const editorSpaceIds = spaces

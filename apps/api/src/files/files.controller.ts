@@ -85,6 +85,16 @@ export class FilesController {
     return this.files.restore(user, id);
   }
 
+  @Get('nodes/:id/versions')
+  versions(@CurrentUser() user: User, @Param('id') id: string) {
+    return this.files.listVersions(user, id);
+  }
+
+  @Post('nodes/:id/versions/:vid/restore')
+  restoreVersion(@CurrentUser() user: User, @Param('id') id: string, @Param('vid') vid: string) {
+    return this.files.restoreVersion(user, id, vid);
+  }
+
   @Get('trash')
   listTrash(@CurrentUser() user: User) {
     return this.files.listTrash(user);

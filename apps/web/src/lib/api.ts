@@ -181,6 +181,31 @@ export async function trashNode(id: string): Promise<void> {
   if (!res.ok) throw new HttpError(res.status);
 }
 
+export async function renameNode(id: string, name: string): Promise<NodeDto> {
+  const res = await fetch(`/api/nodes/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  });
+  if (!res.ok) throw new HttpError(res.status);
+  return (await res.json()) as NodeDto;
+}
+
+export interface VersionDto {
+  id: string;
+  sizeBytes: number;
+  createdAt: string;
+  by: string;
+  isCurrent: boolean;
+}
+export async function fetchVersions(nodeId: string): Promise<VersionDto[]> {
+  return getJson<VersionDto[]>(`/api/nodes/${nodeId}/versions`);
+}
+export async function restoreVersion(nodeId: string, versionId: string): Promise<void> {
+  const res = await fetch(`/api/nodes/${nodeId}/versions/${versionId}/restore`, { method: 'POST' });
+  if (!res.ok) throw new HttpError(res.status);
+}
+
 export async function createFolderApi(spaceId: string, name: string, path = '/'): Promise<NodeDto> {
   const res = await fetch(`/api/spaces/${spaceId}/folders?path=${encodeURIComponent(path)}`, {
     method: 'POST',

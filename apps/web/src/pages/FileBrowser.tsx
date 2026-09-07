@@ -7,14 +7,20 @@ import {
   createFolderApi,
   downloadNodeUrl,
   fetchNodes,
+  fetchVersions,
   HttpError,
+  renameNode,
+  restoreVersion,
   trashNode,
   type NodeDto,
   type NodesResponse,
+  type VersionDto,
 } from '../lib/api';
 import { formatBytes, formatDate } from '../data/types';
 import { Icon } from '../ui/icons';
 import { Badge, Button, EmptyState, FileTypeChip, RoleBadge } from '../ui/primitives';
+import { ContextMenu, type MenuItem } from '../ui/ContextMenu';
+import { Modal } from '../ui/Modal';
 import { CreateLinkDialog } from '../components/CreateLinkDialog';
 import './filebrowser.css';
 
@@ -27,6 +33,10 @@ function download(id: string): void {
   document.body.appendChild(a);
   a.click();
   a.remove();
+}
+
+function previewUrl(n: NodeDto): string {
+  return `/pratinjau?node=${n.id}&name=${encodeURIComponent(n.name)}&ext=${n.ext ?? ''}&cat=${n.category}`;
 }
 
 export function FileBrowser(): JSX.Element {
@@ -42,6 +52,10 @@ export function FileBrowser(): JSX.Element {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [shareNode, setShareNode] = useState<NodeDto | null>(null);
+  const [menu, setMenu] = useState<{ node: NodeDto; x: number; y: number } | null>(null);
+  const [renameTarget, setRenameTarget] = useState<NodeDto | null>(null);
+  const [renameValue, setRenameValue] = useState('');
+  const [versions, setVersions] = useState<VersionDto[] | null>(null);
 
   const reload = useCallback(() => {
     if (!space) return;
@@ -69,6 +83,16 @@ export function FileBrowser(): JSX.Element {
   const totalSize = nodes.reduce((a, n) => a + n.sizeBytes, 0);
   const hasSel = sel.size > 0;
 
+  // Riwayat versi untuk satu file terpilih
+  useEffect(() => {
+    if (activeNode && !activeNode.isFolder) {
+      setVersions(null);
+      fetchVersions(activeNode.id).then(setVersions).catch(() => setVersions([]));
+    } else {
+      setVersions(null);
+    }
+  }, [activeNode?.id]);
+
   function rowClick(n: NodeDto): void {
     setSel(new Set([n.id]));
     setActiveId(n.id);
@@ -80,6 +104,37 @@ export function FileBrowser(): JSX.Element {
       else next.delete(id);
       return next;
     });
+  }
+
+  function openMenu(node: NodeDto, x: number, y: number): void {
+    setSel(new Set([node.id]));
+    setActiveId(node.id);
+    setMenu({ node, x, y });
+  }
+
+  function menuItems(n: NodeDto): MenuItem[] {
+    return [
+      { label: 'Pratinjau', icon: 'file', disabled: n.isFolder, onClick: () => navigate(previewUrl(n)) },
+      { label: 'Unduh', icon: 'download', disabled: n.isFolder || !caps.download, onClick: () => download(n.id) },
+      { label: 'Ganti nama', icon: 'file', separatorBefore: true, disabled: !caps.rename, onClick: () => { setRenameTarget(n); setRenameValue(n.name); } },
+      { label: 'Buat link berbagi', icon: 'share', disabled: n.isFolder || !caps.download, onClick: () => setShareNode(n) },
+      { label: 'Pindahkan ke sampah', icon: 'trash', separatorBefore: true, danger: true, disabled: !caps.deleteOwn, onClick: () => void trashOne(n.id) },
+    ];
+  }
+
+  async function trashOne(id: string): Promise<void> {
+    setBusy(true);
+    try {
+      await trashNode(id);
+      setSel(new Set());
+      setActiveId(null);
+      reload();
+      refreshSpaces();
+    } catch {
+      window.alert('Gagal menghapus (tidak cukup hak akses).');
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function trashSelected(): Promise<void> {
@@ -98,6 +153,34 @@ export function FileBrowser(): JSX.Element {
       setActiveId(null);
       reload();
       refreshSpaces();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function doRename(): Promise<void> {
+    if (!renameTarget) return;
+    setBusy(true);
+    try {
+      await renameNode(renameTarget.id, renameValue.trim());
+      setRenameTarget(null);
+      reload();
+    } catch {
+      window.alert('Gagal mengganti nama (nama dipakai atau tidak cukup hak).');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function doRestoreVersion(vid: string): Promise<void> {
+    if (!activeNode) return;
+    setBusy(true);
+    try {
+      await restoreVersion(activeNode.id, vid);
+      fetchVersions(activeNode.id).then(setVersions).catch(() => {});
+      reload();
+    } catch {
+      window.alert('Gagal memulihkan versi.');
     } finally {
       setBusy(false);
     }
@@ -180,7 +263,12 @@ export function FileBrowser(): JSX.Element {
               </thead>
               <tbody>
                 {nodes.map((n) => (
-                  <tr key={n.id} className={`fb-row${sel.has(n.id) ? ' selected' : ''}`} onClick={() => rowClick(n)}>
+                  <tr
+                    key={n.id}
+                    className={`fb-row${sel.has(n.id) ? ' selected' : ''}`}
+                    onClick={() => rowClick(n)}
+                    onContextMenu={(e) => { e.preventDefault(); openMenu(n, e.clientX, e.clientY); }}
+                  >
                     <td className="col-check" onClick={(e) => e.stopPropagation()}>
                       <input type="checkbox" checked={sel.has(n.id)} onChange={(e) => toggle(n.id, e.target.checked)} aria-label={`Pilih ${n.name}`} />
                     </td>
@@ -200,7 +288,7 @@ export function FileBrowser(): JSX.Element {
                     <td className="col-act" onClick={(e) => e.stopPropagation()}>
                       <div className="fb-actions">
                         <button className="act" title="Unduh" disabled={!caps.download || n.isFolder} onClick={() => download(n.id)}><Icon name="download" size={16} /></button>
-                        <button className="act" title="Menu"><Icon name="more" size={16} /></button>
+                        <button className="act" title="Menu" onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); openMenu(n, r.left, r.bottom); }}><Icon name="more" size={16} /></button>
                       </div>
                     </td>
                   </tr>
@@ -230,7 +318,7 @@ export function FileBrowser(): JSX.Element {
               </div>
               <div className="fb-detail-actions">
                 <Button size="sm" variant="secondary" disabled={!caps.download || activeNode.isFolder} onClick={() => download(activeNode.id)}><Icon name="download" size={16} /> Unduh</Button>
-                <Button size="sm" variant="ghost" disabled={activeNode.isFolder} onClick={() => navigate(`/pratinjau?node=${activeNode.id}&name=${encodeURIComponent(activeNode.name)}&ext=${activeNode.ext ?? ''}&cat=${activeNode.category}`)}>Pratinjau</Button>
+                <Button size="sm" variant="ghost" disabled={activeNode.isFolder} onClick={() => navigate(previewUrl(activeNode))}>Pratinjau</Button>
                 <Button size="sm" variant="ghost" disabled={!caps.download || activeNode.isFolder} onClick={() => setShareNode(activeNode)}><Icon name="share" size={16} /> Bagikan</Button>
               </div>
             </div>
@@ -248,6 +336,21 @@ export function FileBrowser(): JSX.Element {
                 <RoleBadge role={role} />
               </div>
             </div>
+            {!activeNode.isFolder && (
+              <>
+                <div className="fb-section-label">Riwayat versi</div>
+                <div className="fb-access">
+                  {versions === null && <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-tertiary)' }}>Memuat…</span>}
+                  {versions?.slice(0, 3).map((v) => (
+                    <div className="fb-access-row" key={v.id}>
+                      <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-secondary)' }} className="num">{formatDate(v.createdAt)} · {formatBytes(v.sizeBytes)}</span>
+                      {v.isCurrent ? <Badge tone="success">Saat ini</Badge> : <Button size="sm" variant="ghost" disabled={!caps.rename || busy} onClick={() => void doRestoreVersion(v.id)}>Pulihkan</Button>}
+                    </div>
+                  ))}
+                  {versions?.length === 0 && <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-tertiary)' }}>Belum ada versi.</span>}
+                </div>
+              </>
+            )}
           </>
         )}
         {selectedNodes.length > 1 && (
@@ -258,8 +361,34 @@ export function FileBrowser(): JSX.Element {
         )}
       </aside>
 
+      {menu && (
+        <ContextMenu x={menu.x} y={menu.y} items={menuItems(menu.node)} onClose={() => setMenu(null)} />
+      )}
+
       {shareNode && (
         <CreateLinkDialog nodeId={shareNode.id} fileName={shareNode.name} onClose={() => setShareNode(null)} />
+      )}
+
+      {renameTarget && (
+        <Modal
+          size="sm"
+          title="Ganti nama"
+          onClose={() => setRenameTarget(null)}
+          footer={
+            <>
+              <Button variant="ghost" onClick={() => setRenameTarget(null)}>Batal</Button>
+              <Button variant="primary" disabled={busy || !renameValue.trim()} onClick={() => void doRename()}>Simpan</Button>
+            </>
+          }
+        >
+          <input
+            autoFocus
+            style={{ width: '100%', height: 40, padding: '0 12px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', color: 'var(--ink)', fontFamily: 'var(--font-ui)', fontSize: 'var(--text-base)' }}
+            value={renameValue}
+            onChange={(e) => setRenameValue(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter' && renameValue.trim()) void doRename(); }}
+          />
+        </Modal>
       )}
     </div>
   );
