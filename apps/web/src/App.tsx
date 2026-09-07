@@ -11,6 +11,8 @@ import { StatesGallery } from './pages/stubs';
 import { Preview } from './pages/Preview';
 import { UploadDemo } from './pages/UploadDemo';
 import { Mobile } from './pages/Mobile';
+import { ChangePassword } from './pages/ChangePassword';
+import { Keamanan } from './pages/Keamanan';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import { Users } from './pages/admin/Users';
 import { Groups } from './pages/admin/Groups';
@@ -21,7 +23,7 @@ import { ActiveLinks } from './pages/admin/ActiveLinks';
 import { SystemHealth } from './pages/admin/SystemHealth';
 
 function RequireAuth({ children }: { children: JSX.Element }): JSX.Element {
-  const { authed } = useSession();
+  const { authed, user } = useSession();
   if (authed === null) {
     return (
       <div
@@ -40,6 +42,7 @@ function RequireAuth({ children }: { children: JSX.Element }): JSX.Element {
     );
   }
   if (!authed) return <Navigate to="/login" replace />;
+  if (user?.mustChangePassword) return <Navigate to="/ganti-sandi" replace />;
   return children;
 }
 
@@ -48,6 +51,7 @@ export function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/ganti-sandi" element={<ChangePassword />} />
         <Route path="/l/:slug" element={<PublicLink />} />
         <Route path="/" element={<RequireAuth><AppShell /></RequireAuth>}>
           <Route index element={<FileBrowser />} />
@@ -56,6 +60,7 @@ export function App(): JSX.Element {
           <Route path="cari" element={<SearchPage />} />
           <Route path="dibagikan" element={<Shared />} />
           <Route path="unggah" element={<UploadDemo />} />
+          <Route path="keamanan" element={<Keamanan />} />
           <Route path="state" element={<StatesGallery />} />
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/pengguna" replace />} />

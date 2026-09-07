@@ -13,6 +13,19 @@ export interface PublicUser {
   initials: string;
   isSuperuser: boolean;
   mustChangePassword: boolean;
+  twoFactorEnabled: boolean;
+}
+
+export interface LoginErrorBody {
+  message?: string;
+  twoFactorRequired?: boolean;
+  remaining?: number;
+  retryAfter?: number;
+}
+export class LoginError extends Error {
+  constructor(public status: number, public body: LoginErrorBody) {
+    super(body.message ?? 'Gagal masuk.');
+  }
 }
 
 export interface SpaceDto {
@@ -101,17 +114,43 @@ export async function getHealth(): Promise<HealthResponse> {
   return getJson<HealthResponse>('/api/health');
 }
 
-export async function apiLogin(username: string, password: string): Promise<PublicUser> {
+export async function apiLogin(username: string, password: string, code?: string): Promise<PublicUser> {
   const res = await fetch('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, code }),
   });
   if (!res.ok) {
-    const e = (await res.json().catch(() => null)) as { message?: string } | null;
-    throw new Error(e?.message ?? 'Gagal masuk. Coba lagi.');
+    const b = (await res.json().catch(() => ({}))) as LoginErrorBody;
+    throw new LoginError(res.status, b);
   }
   return (await res.json()) as PublicUser;
+}
+
+export async function changePasswordApi(newPassword: string): Promise<void> {
+  const res = await fetch('/api/auth/change-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ newPassword }),
+  });
+  if (!res.ok) {
+    const b = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(b.message ?? 'Gagal mengganti kata sandi.');
+  }
+}
+
+export async function enroll2fa(): Promise<{ secret: string; otpauth: string }> {
+  const res = await fetch('/api/auth/2fa/enroll', { method: 'POST' });
+  if (!res.ok) throw new HttpError(res.status);
+  return (await res.json()) as { secret: string; otpauth: string };
+}
+export async function verify2fa(code: string): Promise<void> {
+  const res = await fetch('/api/auth/2fa/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
+  if (!res.ok) throw new Error('Kode salah.');
+}
+export async function disable2fa(): Promise<void> {
+  const res = await fetch('/api/auth/2fa/disable', { method: 'POST' });
+  if (!res.ok) throw new HttpError(res.status);
 }
 
 export async function apiLogout(): Promise<void> {

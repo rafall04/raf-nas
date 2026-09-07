@@ -24,6 +24,7 @@
     "@prisma/client": "^5.22.0",
     "@rafnas/shared": "*",
     "cookie-parser": "^1.4.7",
+    "otplib": "^12.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

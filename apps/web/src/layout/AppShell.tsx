@@ -54,6 +54,7 @@ function Sidebar({ spaces, active }: { spaces: SpaceDto[]; active?: SpaceDto }):
 
         <div className="sb-sep" />
         <NavLink to="/admin" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="shield" size={18} /> <span>Admin</span></NavLink>
+        <NavLink to="/keamanan" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="lock" size={18} /> <span>Keamanan</span></NavLink>
         <NavLink to="/state" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="info" size={18} /> <span>Contoh state</span></NavLink>
 
         {active && (
