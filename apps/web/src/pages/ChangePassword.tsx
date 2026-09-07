@@ -7,6 +7,7 @@ import './Login.css';
 export function ChangePassword(): JSX.Element {
   const { authed, user, refresh } = useSession();
   const navigate = useNavigate();
+  const [oldPw, setOldPw] = useState('');
   const [pw, setPw] = useState('');
   const [pw2, setPw2] = useState('');
   const [err, setErr] = useState<string | null>(null);
@@ -17,8 +18,12 @@ export function ChangePassword(): JSX.Element {
   async function submit(e: FormEvent): Promise<void> {
     e.preventDefault();
     setErr(null);
+    if (!oldPw) {
+      setErr('Masukkan kata sandi lama.');
+      return;
+    }
     if (pw.length < 8) {
-      setErr('Kata sandi minimal 8 karakter.');
+      setErr('Kata sandi baru minimal 8 karakter.');
       return;
     }
     if (pw !== pw2) {
@@ -27,7 +32,7 @@ export function ChangePassword(): JSX.Element {
     }
     setBusy(true);
     try {
-      await changePasswordApi(pw);
+      await changePasswordApi(oldPw, pw);
       await refresh();
       navigate('/', { replace: true });
     } catch (e2) {
@@ -52,6 +57,12 @@ export function ChangePassword(): JSX.Element {
         {err && <div className="login-error" role="alert">{err}</div>}
 
         <form onSubmit={submit} noValidate>
+          <div className="field">
+            <label htmlFor="oldpw">Kata sandi lama</label>
+            <div className="input-wrap">
+              <input id="oldpw" type="password" autoComplete="current-password" value={oldPw} onChange={(e) => setOldPw(e.target.value)} />
+            </div>
+          </div>
           <div className="field">
             <label htmlFor="pw">Kata sandi baru</label>
             <div className="input-wrap">

@@ -127,11 +127,11 @@ export async function apiLogin(username: string, password: string, code?: string
   return (await res.json()) as PublicUser;
 }
 
-export async function changePasswordApi(newPassword: string): Promise<void> {
+export async function changePasswordApi(oldPassword: string, newPassword: string): Promise<void> {
   const res = await fetch('/api/auth/change-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ newPassword }),
+    body: JSON.stringify({ oldPassword, newPassword }),
   });
   if (!res.ok) {
     const b = (await res.json().catch(() => ({}))) as { message?: string };
@@ -364,7 +364,20 @@ export async function publicMeta(slug: string): Promise<PublicMetaDto> {
   return (await res.json()) as PublicMetaDto;
 }
 
-export function publicDownloadUrl(slug: string, password?: string): string {
-  const q = password ? `?password=${encodeURIComponent(password)}` : '';
-  return `/api/public/${slug}/download${q}`;
+/** Verifikasi sandi (bila ada) dan dapatkan token unduh sekali-pakai. Sandi TIDAK masuk URL. */
+export async function publicVerify(slug: string, password?: string): Promise<string> {
+  const res = await fetch(`/api/public/${slug}/verify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  });
+  if (!res.ok) {
+    const b = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(b.message ?? (res.status === 429 ? 'Terlalu banyak percobaan. Coba lagi sebentar.' : 'Kata sandi salah.'));
+  }
+  return ((await res.json()) as { token: string }).token;
+}
+
+export function publicDownloadUrl(slug: string, token: string): string {
+  return `/api/public/${slug}/download?token=${encodeURIComponent(token)}`;
 }

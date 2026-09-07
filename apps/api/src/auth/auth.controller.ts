@@ -44,8 +44,12 @@ export class AuthController {
 
   @Post('change-password')
   @UseGuards(SessionGuard)
-  changePassword(@CurrentUser() user: User, @Body() body: { newPassword?: string }) {
-    return this.auth.changePassword(user, body.newPassword ?? '');
+  changePassword(
+    @CurrentUser() user: User,
+    @Body() body: { oldPassword?: string; newPassword?: string },
+    @Req() req: Request & { cookies: Record<string, string> },
+  ) {
+    return this.auth.changePassword(user, body.oldPassword ?? '', body.newPassword ?? '', req.cookies['rafnas_sess']);
   }
 
   @Post('2fa/enroll')

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { publicDownloadUrl, publicMeta, type PublicMetaDto } from '../lib/api';
+import { publicDownloadUrl, publicMeta, publicVerify, type PublicMetaDto } from '../lib/api';
 import { formatBytes } from '../data/types';
 import { Button, FileTypeChip } from '../ui/primitives';
 import { Icon } from '../ui/icons';
@@ -37,6 +37,8 @@ export function PublicLink(): JSX.Element {
   const [meta, setMeta] = useState<PublicMetaDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     let alive = true;
@@ -48,12 +50,21 @@ export function PublicLink(): JSX.Element {
     };
   }, [slug]);
 
-  function dl(): void {
-    const a = document.createElement('a');
-    a.href = publicDownloadUrl(slug, meta?.needsPassword ? password : undefined);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+  async function dl(): Promise<void> {
+    setBusy(true);
+    setError('');
+    try {
+      const token = await publicVerify(slug, meta?.needsPassword ? password : undefined);
+      const a = document.createElement('a');
+      a.href = publicDownloadUrl(slug, token);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Gagal mengunduh.');
+    } finally {
+      setBusy(false);
+    }
   }
 
   if (loading) {
@@ -96,12 +107,17 @@ export function PublicLink(): JSX.Element {
               onChange={(e) => setPassword(e.target.value)}
               style={{ width: '100%', height: 44, padding: '0 12px', border: '1px solid var(--border-strong)', borderRadius: 'var(--radius-sm)', background: 'var(--surface)', color: 'var(--ink)', fontFamily: 'var(--font-ui)', fontSize: 'var(--text-base)' }}
               placeholder="Masukkan kata sandi dari pengirim"
+              onKeyDown={(e) => { if (e.key === 'Enter' && password && !busy) void dl(); }}
             />
           </div>
         )}
 
-        <Button variant="primary" size="lg" style={{ width: '100%' }} disabled={meta?.needsPassword && !password} onClick={dl}>
-          <Icon name="download" size={18} /> Unduh
+        {error && (
+          <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', color: 'var(--danger-ink, #b42318)' }}>{error}</p>
+        )}
+
+        <Button variant="primary" size="lg" style={{ width: '100%' }} disabled={busy || (meta?.needsPassword && !password)} onClick={() => void dl()}>
+          <Icon name="download" size={18} /> {busy ? 'Memproses…' : 'Unduh'}
         </Button>
       </div>
       <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-tertiary)', fontFamily: 'var(--font-mono)' }}>rafnas.sfl.local/l/{slug}</p>

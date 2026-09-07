@@ -106,10 +106,17 @@ export class AuthService {
     if (token) await this.prisma.session.deleteMany({ where: { tokenHash: sha256(token) } });
   }
 
-  async changePassword(user: User, newPassword: string): Promise<{ ok: boolean }> {
-    if (!newPassword || newPassword.length < 8) throw new BadRequestException('Kata sandi minimal 8 karakter.');
+  async changePassword(user: User, oldPassword: string, newPassword: string, currentToken?: string): Promise<{ ok: boolean }> {
+    if (!newPassword || newPassword.length < 8) throw new BadRequestException('Kata sandi baru minimal 8 karakter.');
+    const okOld = oldPassword ? await argonVerify(user.passwordHash, oldPassword).catch(() => false) : false;
+    if (!okOld) throw new UnauthorizedException('Kata sandi lama salah.');
+    if (oldPassword === newPassword) throw new BadRequestException('Kata sandi baru harus berbeda dari yang lama.');
     const passwordHash = await argonHash(newPassword);
     await this.prisma.user.update({ where: { id: user.id }, data: { passwordHash, mustChangePassword: false } });
+    // Cabut semua sesi lain (perangkat lain), sisakan sesi saat ini.
+    await this.prisma.session.deleteMany({
+      where: { userId: user.id, ...(currentToken ? { tokenHash: { not: sha256(currentToken) } } : {}) },
+    });
     return { ok: true };
   }
 
