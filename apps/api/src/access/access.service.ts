@@ -19,14 +19,14 @@ export class AccessService {
     if (groupIds.length === 0) return Role.NONE;
 
     const grants = await this.prisma.grant.findMany({ where: { spaceId, groupId: { in: groupIds } } });
-    const exceptions = await this.prisma.folderException.findMany({ where: { groupId: { in: groupIds } } });
+    const exceptions = await this.prisma.folderException.findMany({ where: { spaceId, groupId: { in: groupIds } } });
 
     return resolveEffectiveRole({
       userGroupIds: groupIds,
       spaceId,
       targetPath: path,
       grants: grants.map<SpaceGrant>((g) => ({ groupId: g.groupId, spaceId: g.spaceId, role: g.role as Role })),
-      exceptions: exceptions.map<FolderException>((e) => ({ folderPath: e.folderPath, groupId: e.groupId, role: e.role as Role })),
+      exceptions: exceptions.map<FolderException>((e) => ({ spaceId: e.spaceId, folderPath: e.folderPath, groupId: e.groupId, role: e.role as Role })),
     });
   }
 

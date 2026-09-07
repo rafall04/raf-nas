@@ -18,6 +18,26 @@
 .sel-count { font-size: var(--text-base); font-weight: 600; }
 
 .fb-table-wrap { flex: 1; overflow: auto; }
+.fb-drop-overlay {
+  position: absolute;
+  inset: 8px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--primary-border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-selected) 82%, transparent);
+  pointer-events: none;
+}
+.fb-drop-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--primary-ink);
+}
 .fb-table { width: 100%; border-collapse: collapse; font-size: var(--text-base); }
 .fb-table thead th {
   position: sticky;

@@ -19,8 +19,23 @@ export function categoryOf(ext?: string): string {
   return MAP[ext.toLowerCase()] ?? 'any';
 }
 
+/** Normalisasi path logis + BUANG segmen '.' dan '..' agar tak bisa keluar dari root. */
 export function normalizePath(p: string): string {
-  return '/' + p.split('/').filter(Boolean).join('/');
+  const segs = p
+    .split('/')
+    .filter(Boolean)
+    .filter((s) => s !== '.' && s !== '..');
+  return '/' + segs.join('/');
+}
+
+/**
+ * Ambil nama file/berkas aman: basename saja, tanpa pemisah path atau '..'.
+ * Melempar bila hasilnya kosong atau berbahaya.
+ */
+export function sanitizeFileName(name: string): string {
+  const clean = (name ?? '').replace(/\\/g, '/').split('/').pop()?.trim() ?? '';
+  if (!clean || clean === '.' || clean === '..') return '';
+  return clean;
 }
 
 const MIME: Record<string, string> = {

@@ -41,7 +41,7 @@ describe('resolveEffectiveRole', () => {
     expect(
       resolveEffectiveRole({
         ...base,
-        exceptions: [{ folderPath: '/Laporan', groupId: 'g-qc', role: Role.EDITOR }],
+        exceptions: [{ spaceId: 's-qc', folderPath: '/Laporan', groupId: 'g-qc', role: Role.EDITOR }],
       }),
     ).toBe(Role.EDITOR);
   });
@@ -51,8 +51,8 @@ describe('resolveEffectiveRole', () => {
       resolveEffectiveRole({
         ...base,
         exceptions: [
-          { folderPath: '/Laporan', groupId: 'g-qc', role: Role.MANAGER },
-          { folderPath: '/Laporan/Shift-A', groupId: 'g-qc', role: Role.VIEWER },
+          { spaceId: 's-qc', folderPath: '/Laporan', groupId: 'g-qc', role: Role.MANAGER },
+          { spaceId: 's-qc', folderPath: '/Laporan/Shift-A', groupId: 'g-qc', role: Role.VIEWER },
         ],
       }),
     ).toBe(Role.VIEWER);
@@ -63,9 +63,19 @@ describe('resolveEffectiveRole', () => {
       resolveEffectiveRole({
         ...base,
         grants: [{ groupId: 'g-qc', spaceId: 's-qc', role: Role.MANAGER }],
-        exceptions: [{ folderPath: '/Laporan/Shift-A', groupId: 'g-qc', role: Role.NONE }],
+        exceptions: [{ spaceId: 's-qc', folderPath: '/Laporan/Shift-A', groupId: 'g-qc', role: Role.NONE }],
       }),
     ).toBe(Role.NONE);
+  });
+
+  it('mengabaikan pengecualian dari ruang lain (tidak lintas ruang)', () => {
+    // Deny di /Laporan/Shift-A milik ruang s-lain TIDAK boleh mempengaruhi s-qc.
+    expect(
+      resolveEffectiveRole({
+        ...base,
+        exceptions: [{ spaceId: 's-lain', folderPath: '/Laporan/Shift-A', groupId: 'g-qc', role: Role.NONE }],
+      }),
+    ).toBe(Role.CONTRIBUTOR);
   });
 
   it('tanpa grant & tanpa pengecualian = NONE', () => {

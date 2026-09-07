@@ -41,6 +41,11 @@ export class FilesController {
     return this.files.upload(user, spaceId, path, file);
   }
 
+  @Get('spaces/:spaceId/folders')
+  listFolders(@CurrentUser() user: User, @Param('spaceId') spaceId: string) {
+    return this.files.listFolders(user, spaceId);
+  }
+
   @Post('spaces/:spaceId/folders')
   createFolder(
     @CurrentUser() user: User,
@@ -73,6 +78,11 @@ export class FilesController {
   @Patch('nodes/:id')
   rename(@CurrentUser() user: User, @Param('id') id: string, @Body() body: { name?: string }) {
     return this.files.rename(user, id, body.name ?? '');
+  }
+
+  @Post('nodes/:id/move')
+  move(@CurrentUser() user: User, @Param('id') id: string, @Body() body: { destPath?: string }) {
+    return this.files.move(user, id, body.destPath ?? '/');
   }
 
   @Post('nodes/:id/trash')

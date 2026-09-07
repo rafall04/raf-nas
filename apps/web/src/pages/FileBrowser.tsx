@@ -1,20 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { capabilitiesFor, Role, ROLE_LABEL_ID } from '@rafnas/shared';
 import { useWorkspace } from '../state/workspace';
 import { useFileRefresh } from '../layout/AppShell';
+import { useUpload } from '../state/uploads';
 import { useToast } from '../state/toasts';
 import {
   createFolderApi,
   downloadNodeUrl,
   nodeContentUrl,
   fetchNodes,
+  fetchSpaceFolders,
   fetchVersions,
   HttpError,
+  moveNode,
   renameNode,
   restoreNode,
   restoreVersion,
   trashNode,
+  type FolderOptionDto,
   type NodeDto,
   type NodesResponse,
   type VersionDto,
@@ -64,6 +68,7 @@ export function FileBrowser(): JSX.Element {
   const { key: refreshKey, bump } = useFileRefresh();
   const navigate = useNavigate();
   const { notify } = useToast();
+  const { upload } = useUpload();
   const [sp, setSp] = useSearchParams();
   const path = sp.get('path') ?? '/';
   const pathSegs = path.split('/').filter(Boolean);
@@ -82,16 +87,24 @@ export function FileBrowser(): JSX.Element {
   const [dense, setDense] = useState<boolean>(() => lsBool('rafnas.dense', false));
   const [grid, setGrid] = useState<boolean>(() => lsBool('rafnas.grid', false));
   const [showDetail, setShowDetail] = useState<boolean>(() => lsBool('rafnas.detail', true));
+  const [dragOver, setDragOver] = useState(false);
+  const [moveOpen, setMoveOpen] = useState(false);
 
+  const reqIdRef = useRef(0);
   const reload = useCallback(() => {
     if (!space) return;
+    const myReq = ++reqIdRef.current;
     setView('loading');
     fetchNodes(space.id, path)
       .then((d) => {
+        if (myReq !== reqIdRef.current) return; // balasan usang — abaikan
         setData(d);
         setView('ok');
       })
-      .catch((e: unknown) => setView(e instanceof HttpError && e.status === 403 ? 'forbidden' : 'error'));
+      .catch((e: unknown) => {
+        if (myReq !== reqIdRef.current) return;
+        setView(e instanceof HttpError && e.status === 403 ? 'forbidden' : 'error');
+      });
   }, [space?.id, path]);
 
   useEffect(() => {
@@ -241,6 +254,45 @@ export function FileBrowser(): JSX.Element {
     }
   }
 
+  function onDrop(e: React.DragEvent): void {
+    e.preventDefault();
+    setDragOver(false);
+    if (!space || !caps.upload) return;
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length === 0) return;
+    upload(space.id, path, files);
+  }
+  function onDragOver(e: React.DragEvent): void {
+    if (!caps.upload) return;
+    if (Array.from(e.dataTransfer.types).includes('Files')) {
+      e.preventDefault();
+      if (!dragOver) setDragOver(true);
+    }
+  }
+
+  async function doMove(destPath: string): Promise<void> {
+    setBusy(true);
+    try {
+      let failed = 0;
+      for (const n of selectedNodes) {
+        try {
+          await moveNode(n.id, destPath);
+        } catch {
+          failed += 1;
+        }
+      }
+      setMoveOpen(false);
+      setSel(new Set());
+      setActiveId(null);
+      reload();
+      refreshSpaces();
+      if (failed) notify(`${failed} item gagal dipindahkan.`, { tone: 'danger' });
+      else notify(`${selectedNodes.length} item dipindahkan.`, { tone: 'success' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
   function onTableKey(e: { key: string; preventDefault(): void }): void {
     if (!nodes.length) return;
     const idx = activeId ? nodes.findIndex((n) => n.id === activeId) : -1;
@@ -269,7 +321,7 @@ export function FileBrowser(): JSX.Element {
             <div className="fb-bar-spacer" />
             <Button size="sm" variant="ghost" disabled={!caps.download || selectedNodes.some((n) => n.isFolder)} onClick={() => selectedNodes.forEach((n) => !n.isFolder && download(n.id))}><Icon name="download" size={16} /> Unduh</Button>
             <Button size="sm" variant="ghost" disabled={!caps.download || sel.size !== 1 || (selectedNodes[0]?.isFolder ?? true)} onClick={() => selectedNodes[0] && setShareNode(selectedNodes[0])}><Icon name="share" size={16} /> Bagikan</Button>
-            <Button size="sm" variant="ghost" disabled={!caps.move}>Pindahkan</Button>
+            <Button size="sm" variant="ghost" disabled={!caps.move || busy} onClick={() => setMoveOpen(true)}><Icon name="folder" size={16} /> Pindahkan</Button>
             <Button size="sm" variant="ghost" disabled={!caps.deleteOwn || busy} onClick={() => void trashSelected()}><Icon name="trash" size={16} /> Hapus</Button>
             <button className="act" title="Kosongkan pilihan" onClick={() => setSel(new Set())}><Icon name="close" size={16} /></button>
           </div>
@@ -303,7 +355,20 @@ export function FileBrowser(): JSX.Element {
           </div>
         )}
 
-        <div className="fb-table-wrap" tabIndex={0} onKeyDown={onTableKey}>
+        <div
+          className="fb-table-wrap"
+          tabIndex={0}
+          onKeyDown={onTableKey}
+          style={{ position: 'relative' }}
+          onDragOver={onDragOver}
+          onDragLeave={(e) => { if (e.currentTarget === e.target) setDragOver(false); }}
+          onDrop={onDrop}
+        >
+          {dragOver && caps.upload && (
+            <div className="fb-drop-overlay">
+              <div className="fb-drop-inner"><Icon name="upload" size={28} /> Lepas untuk mengunggah ke folder ini</div>
+            </div>
+          )}
           {view === 'loading' && <TableSkeleton />}
           {view === 'forbidden' && <EmptyState title="Tidak ada akses." description="Anda tidak punya akses ke ruang ini. Minta akses ke Admin IT." />}
           {view === 'error' && <EmptyState title="Gagal memuat daftar file." description="Periksa koneksi lalu coba lagi." action={<Button size="sm" variant="secondary" onClick={reload}>Coba lagi</Button>} />}
@@ -408,7 +473,7 @@ export function FileBrowser(): JSX.Element {
               <div className="fb-meta-row"><span className="k">Ukuran</span><span className="v num">{activeNode.isFolder ? `${activeNode.itemCount ?? 0} item` : formatBytes(activeNode.sizeBytes)}</span></div>
               <div className="fb-meta-row"><span className="k">Diubah</span><span className="v num">{formatDate(activeNode.updatedAt)}</span></div>
               <div className="fb-meta-row"><span className="k">Oleh</span><span className="v">{activeNode.updatedBy}</span></div>
-              <div className="fb-meta-row"><span className="k">Path</span><span className="v mono">/{space.name}/{activeNode.name}</span></div>
+              <div className="fb-meta-row"><span className="k">Path</span><span className="v mono">/{space.name}{activeNode.path}</span></div>
             </div>
             <div className="fb-section-label">Akses efektif Anda</div>
             <div className="fb-access">
@@ -451,6 +516,18 @@ export function FileBrowser(): JSX.Element {
         <CreateLinkDialog nodeId={shareNode.id} fileName={shareNode.name} onClose={() => setShareNode(null)} />
       )}
 
+      {moveOpen && space && (
+        <MoveDialog
+          spaceId={space.id}
+          count={selectedNodes.length}
+          currentPath={path}
+          selectedPaths={selectedNodes.map((n) => n.path)}
+          busy={busy}
+          onClose={() => setMoveOpen(false)}
+          onMove={(dest) => void doMove(dest)}
+        />
+      )}
+
       {renameTarget && (
         <Modal
           size="sm"
@@ -473,6 +550,83 @@ export function FileBrowser(): JSX.Element {
         </Modal>
       )}
     </div>
+  );
+}
+
+function MoveDialog({
+  spaceId,
+  count,
+  currentPath,
+  selectedPaths,
+  busy,
+  onClose,
+  onMove,
+}: {
+  spaceId: string;
+  count: number;
+  currentPath: string;
+  selectedPaths: string[];
+  busy: boolean;
+  onClose: () => void;
+  onMove: (destPath: string) => void;
+}): JSX.Element {
+  const [folders, setFolders] = useState<FolderOptionDto[] | null>(null);
+  const [dest, setDest] = useState('/');
+
+  useEffect(() => {
+    let alive = true;
+    fetchSpaceFolders(spaceId)
+      .then((f) => alive && setFolders(f))
+      .catch(() => alive && setFolders([]));
+    return () => { alive = false; };
+  }, [spaceId]);
+
+  // Tujuan tak valid: folder saat ini, atau folder yang sedang dipindah / turunannya.
+  const invalid = (p: string): boolean => {
+    if (p === currentPath) return true;
+    return selectedPaths.some((sp) => p === sp || p.startsWith(sp + '/'));
+  };
+  const options = (folders ?? []).filter((f) => !invalid(f.path));
+
+  return (
+    <Modal
+      size="sm"
+      title={`Pindahkan ${count} item`}
+      onClose={onClose}
+      footer={
+        <>
+          <Button variant="ghost" onClick={onClose}>Batal</Button>
+          <Button variant="primary" disabled={busy || folders === null} onClick={() => onMove(dest)}>Pindahkan ke sini</Button>
+        </>
+      }
+    >
+      {folders === null ? (
+        <div style={{ padding: 12, color: 'var(--ink-tertiary)', fontSize: 'var(--text-sm)' }}>Memuat folder…</div>
+      ) : (
+        <>
+          <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-secondary)', marginBottom: 8 }}>Pilih folder tujuan:</div>
+          <div style={{ maxHeight: 240, overflow: 'auto', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)' }}>
+            {options.map((f) => (
+              <button
+                key={f.path}
+                onClick={() => setDest(f.path)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, width: '100%', textAlign: 'left',
+                  padding: '8px 12px', border: 'none', cursor: 'pointer', fontSize: 'var(--text-sm)',
+                  fontFamily: 'var(--font-ui)', background: dest === f.path ? 'var(--surface-selected)' : 'transparent',
+                  color: dest === f.path ? 'var(--primary-ink)' : 'var(--ink)',
+                }}
+              >
+                <Icon name="folder" size={16} /> {f.name}
+              </button>
+            ))}
+            {options.length === 0 && (
+              <div style={{ padding: 12, color: 'var(--ink-tertiary)', fontSize: 'var(--text-sm)' }}>Tidak ada folder tujuan yang tersedia.</div>
+            )}
+          </div>
+        </>
+      )}
+    </Modal>
   );
 }
 

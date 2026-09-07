@@ -9,6 +9,8 @@ export interface SpaceGrant {
 
 /** Pengecualian per-folder. role = NONE berarti "Tidak ada akses" (deny). */
 export interface FolderException {
+  /** Ruang tempat pengecualian ini berlaku — pengecualian TIDAK lintas ruang. */
+  spaceId: string;
   /** path folder relatif dari root ruang, mis. "/QC/Laporan". Root = "/". */
   folderPath: string;
   groupId: string;
@@ -67,7 +69,7 @@ export function resolveEffectiveRole(input: ResolveInput): Role {
   );
 
   const applicable = input.exceptions.filter(
-    (e) => groups.has(e.groupId) && isAncestorPath(e.folderPath, input.targetPath),
+    (e) => e.spaceId === input.spaceId && groups.has(e.groupId) && isAncestorPath(e.folderPath, input.targetPath),
   );
   if (applicable.length === 0) return base;
 

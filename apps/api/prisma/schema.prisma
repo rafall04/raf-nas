@@ -61,6 +61,7 @@ model Space {
 
   nodes          Node[]
   grants         Grant[]
+  exceptions     FolderException[]
 }
 
 // Pohon file/folder logis. path = jalur dari root ruang, mis. "/Laporan/Shift-A".
@@ -81,7 +82,7 @@ model Node {
   trashedById String?
 
   space       Space         @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  parent      Node?         @relation("NodeChildren", fields: [parentId], references: [id])
+  parent      Node?         @relation("NodeChildren", fields: [parentId], references: [id], onDelete: Cascade)
   children    Node[]        @relation("NodeChildren")
   owner       User?         @relation("NodeOwner", fields: [ownerId], references: [id])
   versions    FileVersion[]
@@ -120,15 +121,20 @@ model Grant {
 }
 
 // Pengecualian per-folder. role NONE = "Tidak ada akses" (deny-override).
+// spaceId membatasi pengecualian ke satu ruang — TIDAK berlaku lintas ruang.
 model FolderException {
   id         String @id @default(cuid())
+  spaceId    String
   folderPath String
   groupId    String
   role       String
 
   group      Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  space      Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
 
+  @@unique([groupId, spaceId, folderPath])
   @@index([groupId])
+  @@index([spaceId])
 }
 
 model ShareLink {
