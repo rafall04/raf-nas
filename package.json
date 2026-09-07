@@ -1,0 +1,20 @@
+{
+  "name": "rafnas",
+  "version": "0.0.0",
+  "private": true,
+  "description": "RAF NAS — sistem file-sharing internal (produk RAF untuk PT Shou Fong Lastindo)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w @rafnas/web",
+    "dev:api": "npm run start:dev -w @rafnas/api",
+    "build:shared": "npm run build -w @rafnas/shared",
+    "build": "npm run build -w @rafnas/shared && npm run build -w @rafnas/api && npm run build -w @rafnas/web",
+    "test": "npm run test -w @rafnas/shared"
+  }
+}

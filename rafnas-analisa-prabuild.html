@@ -1,0 +1,480 @@
+<title>RAF NAS Pra-Build</title>
+<meta name="description" content="Analisa design handoff & rencana arsitektur RAF NAS sebelum implementasi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    --surface:#FFFFFF; --sunken:#F6F7F9; --raised:#FFFFFF; --hover:#F0F2F5; --selected:#E7EFF7;
+    --border:#DFE3E9; --border-strong:#C3CAD4; --focus:#1D5B8F;
+    --ink:#131820; --ink-2:#59616F; --ink-3:#626A77;
+    --primary:#1D5B8F; --primary-ink:#144A75; --primary-subtle:#E7EFF7; --primary-border:#CBDCEB;
+    --success:#0A7040; --success-subtle:#E4F3EB; --success-border:#C3E3D1; --success-ink:#075430;
+    --warning:#A65B00; --warning-subtle:#FDF0DF; --warning-border:#EBD3AE; --warning-ink:#6E3D00;
+    --danger:#B3261E; --danger-subtle:#FCEAE8; --danger-border:#F0C9C5; --danger-ink:#8E1E17;
+    --shadow:0 1px 2px rgba(19,24,32,.05);
+    --font:'IBM Plex Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --surface:#151A21; --sunken:#0F141A; --raised:#1B2129; --hover:#1F262F; --selected:#16303F;
+      --border:#2A313A; --border-strong:#3C4653; --focus:#7FB3DC;
+      --ink:#E7EBF1; --ink-2:#A4ADBA; --ink-3:#949DAB;
+      --primary:#2C74AE; --primary-ink:#9BC8E8; --primary-subtle:#17293A; --primary-border:#2E5474;
+      --success:#48AC7D; --success-subtle:#12261C; --success-border:#2C4E3A; --success-ink:#7FD0A5;
+      --warning:#C8892C; --warning-subtle:#28200F; --warning-border:#4E3E20; --warning-ink:#E8B978;
+      --danger:#E4807A; --danger-subtle:#2B1717; --danger-border:#5A2E2C; --danger-ink:#EE9C97;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --surface:#151A21; --sunken:#0F141A; --raised:#1B2129; --hover:#1F262F; --selected:#16303F;
+    --border:#2A313A; --border-strong:#3C4653; --focus:#7FB3DC;
+    --ink:#E7EBF1; --ink-2:#A4ADBA; --ink-3:#949DAB;
+    --primary:#2C74AE; --primary-ink:#9BC8E8; --primary-subtle:#17293A; --primary-border:#2E5474;
+    --success:#48AC7D; --success-subtle:#12261C; --success-border:#2C4E3A; --success-ink:#7FD0A5;
+    --warning:#C8892C; --warning-subtle:#28200F; --warning-border:#4E3E20; --warning-ink:#E8B978;
+    --danger:#E4807A; --danger-subtle:#2B1717; --danger-border:#5A2E2C; --danger-ink:#EE9C97;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--sunken); color:var(--ink);
+    font-family:var(--font); font-size:14.5px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:960px; margin:0 auto; padding:0 20px 96px; }
+  .doc{ background:var(--surface); border-inline:1px solid var(--border); }
+  @media (max-width:1000px){ .doc{ border-inline:none; } }
+
+  a{ color:var(--primary); text-underline-offset:2px; }
+  h1,h2,h3{ text-wrap:balance; margin:0; }
+  p{ margin:0; }
+  .mono{ font-family:var(--mono); }
+  code{ font-family:var(--mono); font-size:.86em; background:var(--sunken); border:1px solid var(--border); border-radius:4px; padding:.05em .34em; }
+
+  /* ---- Title block (echoes an engineering drawing title block) ---- */
+  header.title{ border-bottom:2px solid var(--border-strong); padding:34px 34px 0; }
+  .eyebrow{ font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); }
+  .mark{ display:inline-flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .mark .logo{ font-family:var(--mono); font-weight:500; font-size:13px; color:#fff; background:var(--primary); border-radius:4px; padding:5px 8px; letter-spacing:.02em; }
+  .mark .whom{ font-size:12px; color:var(--ink-2); }
+  h1{ font-size:31px; font-weight:700; letter-spacing:-.015em; line-height:1.1; max-width:20ch; }
+  .lede{ margin-top:14px; font-size:15.5px; color:var(--ink-2); max-width:62ch; line-height:1.5; }
+  .metagrid{ margin-top:26px; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--border); }
+  .metagrid > div{ padding:12px 16px 14px; border-right:1px solid var(--border); }
+  .metagrid > div:last-child{ border-right:none; }
+  .metagrid dt{ font-size:10.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
+  .metagrid dd{ margin:4px 0 0; font-family:var(--mono); font-size:12.5px; color:var(--ink); }
+  @media (max-width:720px){
+    header.title{ padding:24px 20px 0; }
+    h1{ font-size:25px; }
+    .metagrid{ grid-template-columns:repeat(2,1fr); }
+    .metagrid > div:nth-child(2n){ border-right:none; }
+    .metagrid > div:nth-child(n+3){ border-top:1px solid var(--border); }
+  }
+
+  /* ---- Sections ---- */
+  section{ padding:34px; border-top:1px solid var(--border); }
+  @media (max-width:720px){ section{ padding:26px 20px; } }
+  .sec-label{ display:flex; align-items:baseline; gap:12px; margin-bottom:18px; }
+  .sec-num{ font-family:var(--mono); font-size:12px; color:var(--primary); font-weight:500; }
+  h2{ font-size:19.5px; font-weight:600; letter-spacing:-.01em; }
+  h3{ font-size:14px; font-weight:600; margin:0 0 4px; }
+  .body-col{ max-width:66ch; }
+  .body-col p + p{ margin-top:12px; }
+  .muted{ color:var(--ink-2); }
+
+  /* ---- Callout ---- */
+  .callout{ margin-top:20px; border:1px solid var(--border); border-left:3px solid var(--primary); background:var(--sunken); border-radius:0 6px 6px 0; padding:16px 18px; }
+  .callout.warn{ border-left-color:var(--warning); }
+  .callout.good{ border-left-color:var(--success); }
+  .callout h3{ font-size:13.5px; }
+
+  /* ---- Decision rows ---- */
+  .decisions{ margin-top:6px; display:grid; gap:0; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .decision{ display:grid; grid-template-columns:150px 1fr; gap:20px; padding:16px 18px; border-top:1px solid var(--border); }
+  .decision:first-child{ border-top:none; }
+  .decision .k{ font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3); padding-top:2px; }
+  .decision .v b{ color:var(--ink); }
+  .decision .v{ color:var(--ink-2); font-size:13.8px; }
+  @media (max-width:640px){ .decision{ grid-template-columns:1fr; gap:5px; } }
+
+  /* ---- Two-col compare ---- */
+  .cols2{ margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px){ .cols2{ grid-template-columns:1fr; } }
+  .panel{ border:1px solid var(--border); border-radius:6px; padding:16px 18px; background:var(--raised); }
+  .panel.gone{ border-top:3px solid var(--success); }
+  .panel.hard{ border-top:3px solid var(--warning); }
+  .panel h3{ display:flex; align-items:center; gap:8px; font-size:13.5px; margin-bottom:10px; }
+  .list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .list li{ position:relative; padding-left:20px; font-size:13.6px; color:var(--ink-2); line-height:1.45; }
+  .list li b{ color:var(--ink); font-weight:600; }
+  .list.check li::before{ content:""; position:absolute; left:0; top:.5em; width:9px; height:9px; border:2px solid var(--success); border-top:none; border-right:none; transform:rotate(-45deg); }
+  .list.cross li::before{ content:"×"; position:absolute; left:2px; top:-.06em; color:var(--danger); font-weight:700; font-size:15px; }
+  .list.dot li::before{ content:""; position:absolute; left:3px; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--primary); }
+  .list.warn li::before{ content:""; position:absolute; left:3px; top:.5em; width:6px; height:6px; background:var(--warning); transform:rotate(45deg); }
+
+  /* ---- Tables ---- */
+  .tblwrap{ margin-top:8px; overflow-x:auto; border:1px solid var(--border); border-radius:6px; }
+  table{ border-collapse:collapse; width:100%; font-size:13.4px; }
+  th,td{ text-align:left; padding:10px 14px; border-top:1px solid var(--border); vertical-align:top; }
+  thead th{ background:var(--sunken); border-top:none; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap; }
+  tbody tr:hover{ background:var(--hover); }
+  td b{ font-weight:600; }
+  .num{ font-variant-numeric:tabular-nums; font-family:var(--mono); white-space:nowrap; }
+
+  /* ---- Badges ---- */
+  .badge{ display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; letter-spacing:.02em; padding:2px 8px; border-radius:4px; border:1px solid; white-space:nowrap; }
+  .b-yes{ color:var(--success-ink); background:var(--success-subtle); border-color:var(--success-border); }
+  .b-later{ color:var(--warning-ink); background:var(--warning-subtle); border-color:var(--warning-border); }
+  .b-info{ color:var(--primary-ink); background:var(--primary-subtle); border-color:var(--primary-border); }
+  .b-risk{ color:var(--danger-ink); background:var(--danger-subtle); border-color:var(--danger-border); }
+
+  /* ---- Phases ---- */
+  .phases{ margin-top:6px; display:flex; flex-direction:column; }
+  .phase{ display:grid; grid-template-columns:52px 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--border); }
+  .phase:first-child{ border-top:none; }
+  .phase .n{ font-family:var(--mono); font-size:19px; font-weight:500; color:var(--primary); line-height:1; padding-top:2px; }
+  .phase .n small{ display:block; font-size:9px; letter-spacing:.14em; color:var(--ink-3); margin-bottom:4px; font-family:var(--font); font-weight:600; }
+  .phase h3{ font-size:14.5px; }
+  .phase p{ font-size:13.4px; color:var(--ink-2); margin-top:3px; }
+
+  /* ---- Diagram ---- */
+  .diagram{ margin-top:8px; overflow-x:auto; border:1px solid var(--border); border-radius:6px; background:var(--raised); padding:8px; }
+  .diagram svg{ display:block; min-width:640px; width:100%; height:auto; }
+  .dg-fill{ fill:var(--raised); }
+  .dg-sunk{ fill:var(--sunken); }
+  .dg-stroke{ stroke:var(--border-strong); stroke-width:1.4; fill:none; }
+  .dg-accent{ fill:var(--primary); }
+  .dg-accent-s{ stroke:var(--primary); stroke-width:1.6; fill:none; }
+  .dg-line{ stroke:var(--border-strong); stroke-width:1.6; fill:none; }
+  .dg-t{ fill:var(--ink); font-family:var(--font); font-size:13px; font-weight:600; }
+  .dg-d{ fill:var(--ink-2); font-family:var(--font); font-size:11px; }
+  .dg-m{ fill:var(--ink-2); font-family:var(--mono); font-size:10.5px; }
+  .dg-boundary{ stroke:var(--primary); stroke-width:1.4; stroke-dasharray:5 4; fill:none; }
+
+  /* ---- Footer ---- */
+  footer{ padding:26px 34px 34px; border-top:2px solid var(--border-strong); display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:center; color:var(--ink-3); font-size:12px; }
+  footer .mono{ font-size:11.5px; }
+  @media (max-width:720px){ footer{ padding:22px 20px; } }
+
+  /* ---- Theme toggle ---- */
+  .toggle{ position:sticky; top:0; z-index:5; display:flex; justify-content:flex-end; padding:10px 12px 0; }
+  .toggle button{ font-family:var(--font); font-size:12px; font-weight:600; color:var(--ink-2); background:var(--raised); border:1px solid var(--border-strong); border-radius:4px; padding:6px 11px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+  .toggle button:hover{ background:var(--hover); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce){ *{ transition:none!important; animation:none!important; } }
+</style>
+
+<div class="wrap">
+  <div class="toggle">
+    <button id="tt" type="button" aria-label="Ganti tema terang/gelap">
+      <span id="tt-ico" aria-hidden="true">◐</span><span id="tt-txt">Tema</span>
+    </button>
+  </div>
+
+  <div class="doc">
+    <header class="title">
+      <div class="mark">
+        <span class="logo">RAF</span>
+        <span class="whom">RAF NAS · dibuat untuk PT Shou Fong Lastindo</span>
+      </div>
+      <div class="eyebrow">Dokumen keputusan — fase analisa</div>
+      <h1>Analisa &amp; rencana pra-build RAF NAS</h1>
+      <p class="lede">Pembacaan menyeluruh atas design handoff dan pemetaan seluruh pekerjaan backend/infrastruktur yang belum tersentuh — supaya keputusan arsitektur yang menentukan diambil <em>sebelum</em> satu baris kode ditulis, bukan sesudah.</p>
+
+      <dl class="metagrid">
+        <div><dt>Klien</dt><dd>PT Shou Fong Lastindo</dd></div>
+        <div><dt>Host</dt><dd>rafnas.sfl.local</dd></div>
+        <div><dt>Server</dt><dd>Windows Server 2019</dd></div>
+        <div><dt>Pengguna</dt><dd>± 85 orang</dd></div>
+        <div><dt>Alamat</dt><dd>192.168.10.4 (LAN)</dd></div>
+        <div><dt>Status repo</dt><dd>Hanya desain FE</dd></div>
+        <div><dt>Tanggal</dt><dd>7 Sep 2026</dd></div>
+        <div><dt>Versi</dt><dd>Draf 1</dd></div>
+      </dl>
+    </header>
+
+    <!-- 1. Ringkasan -->
+    <section>
+      <div class="sec-label"><span class="sec-num">01</span><h2>Ringkasan eksekutif</h2></div>
+      <div class="body-col">
+        <p>Yang tersedia sekarang adalah <b>design handoff frontend kelas atas</b>: 11 layar hi-fi, design token light/dark yang sudah diaudit WCAG, copywriting Bahasa Indonesia, dan perilaku antarmuka yang rinci. Itu aset berharga — tetapi ia menjawab <em>tampilan</em>, bukan <em>mesin</em>.</p>
+        <p>Membangun sebuah NAS adalah <b>75–85% pekerjaan backend dan integrasi</b>: penyimpanan file, autentikasi, model data, mesin hak akses, audit, dan operasional server. Bagian itu <b>belum ada sama sekali</b> di repo. README pun mengakuinya secara eksplisit — desain diasumsikan “dibuat ulang di dalam codebase target” yang belum dipilih.</p>
+      </div>
+      <div class="callout warn">
+        <h3>Jebakan “salah jalan” yang paling mahal</h3>
+        <p class="muted" style="font-size:13.6px">Memperlakukan aplikasi sebagai sumber kebenaran padahal file diubah di luar aplikasi. Tiga keputusan arah di bawah menetralkan jebakan ini sepenuhnya — itulah kenapa keduanya diambil lebih dulu.</p>
+      </div>
+    </section>
+
+    <!-- 2. Keputusan dikunci -->
+    <section>
+      <div class="sec-label"><span class="sec-num">02</span><h2>Keputusan arah yang sudah dikunci</h2></div>
+      <p class="body-col muted" style="margin-bottom:18px">Empat keputusan induk yang menentukan seluruh arsitektur turunannya. Diambil bersama pemangku keputusan pada 7 Sep 2026.</p>
+      <div class="decisions">
+        <div class="decision"><div class="k">Kepemilikan</div><div class="v"><b>Produk milik RAF</b> — akan dipakai-ulang / dijual ke pabrik lain. Karena itu <b>build custom dibenarkan</b> demi kepemilikan IP; reskin Nextcloud (AGPL) / Seafile Pro dikesampingkan.</div></div>
+        <div class="decision"><div class="k">Identitas</div><div class="v"><b>Tanpa Active Directory</b> → autentikasi memakai <b>akun lokal aplikasi (argon2id)</b>. Seluruh alur Login di mockup — wajib ganti sandi, 2FA admin, rate-limit, “Ingat saya” — jadi relevan penuh.</div></div>
+        <div class="decision"><div class="k">Jalur akses</div><div class="v"><b>Web-only</b> — tidak ada pengeditan paralel lewat drive jaringan (SMB). Konsekuensinya besar: <b>aplikasi boleh menjadi sumber kebenaran</b>.</div></div>
+        <div class="decision"><div class="k">Stack</div><div class="v"><b>React + TypeScript + Vite</b> (frontend) · <b>NestJS / Node</b> (backend) · <b>PostgreSQL</b> (audit 24 bulan) · <b>object-store di NTFS</b> berbasis <code>fileId/versionId</code>.</div></div>
+      </div>
+    </section>
+
+    <!-- 3. Efek web-only -->
+    <section>
+      <div class="sec-label"><span class="sec-num">03</span><h2>Efek keputusan “web-only”: penyederhanaan besar</h2></div>
+      <p class="body-col muted" style="margin-bottom:16px">Karena hanya aplikasi yang menulis ke file store, tiga jebakan terberat dari analisa awal <b>lenyap</b> — dan fokus effort berpindah ke hal yang benar-benar bernilai.</p>
+      <div class="cols2">
+        <div class="panel gone">
+          <h3><span class="badge b-yes">Hilang</span> Tidak perlu lagi</h3>
+          <ul class="list cross">
+            <li>Rekonsiliasi <b>USN Journal / watcher</b> — DB &amp; disk konsisten karena satu penulis.</li>
+            <li><b>“Confused deputy”</b> — otorisasi cukup di API; NTFS ACL hanya mengunci store ke akun service.</li>
+            <li><b>Deteksi lock SMB</b> (“sedang dibuka oleh X”) — dibuang atau di-scope ulang jadi “sedang diedit lewat web”, opsional.</li>
+            <li>Memalsukan riwayat versi dari snapshot VSS.</li>
+          </ul>
+        </div>
+        <div class="panel hard">
+          <h3><span class="badge b-later">Tetap</span> Fokus effort tersulit</h3>
+          <ul class="list warn">
+            <li><b>Tabel file virtualized</b> — mulus di 5.000 baris.</li>
+            <li><b>Mesin hak akses</b> — matriks Group×Ruang + 4 peran + pengecualian per-folder + superuser.</li>
+            <li><b>Auth custom lengkap</b> — 2FA admin, rate-limit per-akun &amp; per-IP.</li>
+            <li><b>Audit append-only</b> retensi 24 bulan + ekspor CSV ter-stream.</li>
+            <li><b>Keamanan link publik</b> — hash argon2id, slug ≥16 char, rate-limit.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout good">
+        <h3>Bonus: riwayat versi jadi bersih</h3>
+        <p class="muted" style="font-size:13.6px">Tiap unggah web = <b>copy-on-write</b> versi lama sebelum menimpa. Fitur murni aplikasi, per-save, tanpa perlu didamaikan dengan snapshot sistem.</p>
+      </div>
+    </section>
+
+    <!-- 4. Arsitektur -->
+    <section>
+      <div class="sec-label"><span class="sec-num">04</span><h2>Arsitektur target</h2></div>
+      <p class="body-col muted" style="margin-bottom:6px">Satu server, LAN pabrik, tanpa internet. Otorisasi ditegakkan di API; file logis di DB, file fisik di object-store ber-id sehingga rename/pindah tak pernah menyentuh disk dan tak memutus referensi versi/link.</p>
+      <div class="diagram">
+        <svg viewBox="0 0 840 430" role="img" aria-label="Diagram arsitektur: klien browser mengakses NestJS API lewat HTTPS; API menegakkan otorisasi dan menyimpan metadata di PostgreSQL serta file di object-store NTFS, semuanya di dalam satu server Windows Server 2019.">
+          <!-- clients -->
+          <g>
+            <rect x="40" y="20" width="230" height="44" rx="5" class="dg-sunk"/><rect x="40" y="20" width="230" height="44" rx="5" class="dg-stroke"/>
+            <text x="56" y="40" class="dg-t">PC kantor</text><text x="56" y="56" class="dg-m">1366×768</text>
+            <rect x="305" y="20" width="230" height="44" rx="5" class="dg-sunk"/><rect x="305" y="20" width="230" height="44" rx="5" class="dg-stroke"/>
+            <text x="321" y="40" class="dg-t">Tablet produksi</text><text x="321" y="56" class="dg-m">layar sentuh</text>
+            <rect x="570" y="20" width="230" height="44" rx="5" class="dg-sunk"/><rect x="570" y="20" width="230" height="44" rx="5" class="dg-stroke"/>
+            <text x="586" y="40" class="dg-t">HP lapangan</text><text x="586" y="56" class="dg-m">unggah kamera</text>
+          </g>
+          <text x="420" y="82" text-anchor="middle" class="dg-d">React SPA (browser) — satu-satunya jalur tulis</text>
+          <!-- arrow down -->
+          <path d="M420 90 L420 116" class="dg-accent-s"/>
+          <path d="M420 116 l-5 -8 l10 0 z" class="dg-accent"/>
+          <text x="432" y="108" class="dg-m">HTTPS · CA internal</text>
+
+          <!-- server boundary -->
+          <rect x="40" y="126" width="760" height="286" rx="8" class="dg-boundary"/>
+          <text x="58" y="150" class="dg-d" style="font-weight:600">WINDOWS SERVER 2019</text>
+          <text x="58" y="166" class="dg-m">rafnas.sfl.local · 192.168.10.4</text>
+
+          <!-- reverse proxy -->
+          <rect x="250" y="178" width="340" height="42" rx="5" class="dg-fill"/><rect x="250" y="178" width="340" height="42" rx="5" class="dg-stroke"/>
+          <text x="420" y="204" text-anchor="middle" class="dg-t">IIS / reverse proxy — terminasi TLS</text>
+          <path d="M420 220 L420 244" class="dg-line"/><path d="M420 244 l-5 -8 l10 0 z" class="dg-accent"/>
+
+          <!-- API -->
+          <rect x="196" y="250" width="448" height="60" rx="6" class="dg-fill"/><rect x="196" y="250" width="448" height="60" rx="6" class="dg-accent-s"/>
+          <text x="420" y="276" text-anchor="middle" class="dg-t">NestJS API — Windows Service</text>
+          <text x="420" y="296" text-anchor="middle" class="dg-d">otorisasi (guards) · auth akun lokal argon2id · versi copy-on-write</text>
+
+          <!-- split arrows -->
+          <path d="M320 310 L250 346" class="dg-line"/><path d="M250 346 l9 -3 l-3 9 z" class="dg-accent"/>
+          <path d="M520 310 L590 346" class="dg-line"/><path d="M590 346 l-6 -7 l9 -2 z" class="dg-accent"/>
+
+          <!-- stores -->
+          <rect x="70" y="350" width="330" height="50" rx="6" class="dg-sunk"/><rect x="70" y="350" width="330" height="50" rx="6" class="dg-stroke"/>
+          <text x="86" y="372" class="dg-t">PostgreSQL</text>
+          <text x="86" y="390" class="dg-m">metadata · user · izin · audit 24 bln</text>
+
+          <rect x="440" y="350" width="330" height="50" rx="6" class="dg-sunk"/><rect x="440" y="350" width="330" height="50" rx="6" class="dg-stroke"/>
+          <text x="456" y="372" class="dg-t">Object-store (NTFS)</text>
+          <text x="456" y="390" class="dg-m">fileId / versionId · dikunci ke akun service</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 5. Model data + izin -->
+    <section>
+      <div class="sec-label"><span class="sec-num">05</span><h2>Model data inti &amp; mesin hak akses</h2></div>
+      <div class="cols2">
+        <div>
+          <h3>Entitas inti</h3>
+          <ul class="list dot" style="margin-top:10px">
+            <li><b>User</b> — id, nama, username, sandi (argon2id), status, 2FA.</li>
+            <li><b>Group</b> &amp; keanggotaan.</li>
+            <li><b>Ruang</b> — id, nama, kuota, kebijakan snapshot.</li>
+            <li><b>Node</b> — file/folder, path logis, kategori, ukuran, pemilik.</li>
+            <li><b>Version</b> — per node, copy-on-write, penanda “saat ini”.</li>
+            <li><b>Grant</b> — {group, ruang, peran} + <b>FolderException</b> {path, group, peran}.</li>
+            <li><b>ShareLink</b> — slug, hash sandi, kedaluwarsa, batas unduh.</li>
+            <li><b>AuditEvent</b> — append-only, before/after, retensi 24 bln.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Aturan resolusi izin (tetapkan sebelum coding)</h3>
+          <ul class="list dot" style="margin-top:10px">
+            <li>User di banyak group → ambil <b>peran tertinggi</b> dari union grant ruang.</li>
+            <li>Pengecualian folder <b>paling spesifik</b> (path terpanjang) menang atas grant ruang.</li>
+            <li><b>“Tidak ada akses” selalu menang</b> (deny-override) atas grant mana pun.</li>
+            <li><b>Superuser Admin IT</b> = group global yang bypass matriks, dengan audit khusus. <span class="muted">(kini tak dimodelkan — harus ditambahkan.)</span></li>
+            <li>Satu <b>sumber kebenaran tunggal</b>: matriks. Halaman Ruang diturunkan darinya. <span class="muted">(kini bertentangan.)</span></li>
+            <li>Penegakan <b>di server</b>; tombol nonaktif di UI hanya kosmetik.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. MVP -->
+    <section>
+      <div class="sec-label"><span class="sec-num">06</span><h2>Lingkup MVP ≈ 30% desain</h2></div>
+      <p class="body-col muted" style="margin-bottom:14px">Baca cepat, tulis aman. Yang ditunda justru fitur paling berat &amp; berisiko — menundanya memangkas separuh risiko sambil tetap mengirim produk yang berguna harian bagi ± 100 orang.</p>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th style="width:50%">Masuk Fase 1 — wajib</th><th>Ditunda ke fase lanjut</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>
+                Auth + sesi (tanpa 2FA) · <b>4 peran ditegakkan server</b> · tabel file virtualized · upload/download sederhana (chunked non-resumable) · folder / rename / pindah / sampah + pulihkan · kuota per-ruang · pencarian nama file terfilter izin · panel detail · admin dasar (pengguna / group / ruang / matriks) + audit dasar · dark mode · FAB kamera mobile.
+              </td>
+              <td class="muted">
+                2FA admin · QR link · resumable / background upload · offline sync · pengecualian matriks per-folder · badge Terkunci real-time · snapshot per-ruang · disk SMART / suhu · integrasi backup · render server PDF / XLSX · link publik berpassword · thumbnail worker.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:12.6px; margin-top:12px">Banyak item “ditunda” bisa <b>diserahkan ke OS</b> ketimbang dibangun: snapshot → VSS/Storage Spaces, backup → Veeam/WSB (app hanya baca status), pratinjau → pdf.js di klien, XLSX → “unduh saja” dulu.</p>
+    </section>
+
+    <!-- 7. Rencana bertahap -->
+    <section>
+      <div class="sec-label"><span class="sec-num">07</span><h2>Rencana implementasi bertahap</h2></div>
+      <div class="phases">
+        <div class="phase"><div class="n"><small>SPIKE</small>0</div><div><h3>Buktikan yang paling berisiko dulu</h3><p>Vertical-slice tipis end-to-end: login → daftar folder → unggah → unduh, di atas object-store + PostgreSQL. Uji throughput unggah dari HP lapangan sebelum komit UI penuh.</p></div></div>
+        <div class="phase"><div class="n">1</div><div><h3>Fondasi desain</h3><p>Token + tema light/dark + tipografi + komponen dasar (tombol, input, badge, chip tipe file). <b>Perbaiki bug token</b> lebih dulu (lihat bagian 08).</p></div></div>
+        <div class="phase"><div class="n">2</div><div><h3>Kerangka backend</h3><p>NestJS + PostgreSQL + akun lokal argon2id + object-store + model data inti + <b>mesin izin ditegakkan di API</b>.</p></div></div>
+        <div class="phase"><div class="n">3</div><div><h3>Shell aplikasi</h3><p>Sidebar, header, breadcrumb, toolbar seleksi.</p></div></div>
+        <div class="phase"><div class="n">4</div><div><h3>Tabel file — jantung produk</h3><p>Virtualisasi 5.000 baris + seleksi + keyboard + menu konteks + upload/download + folder/rename/pindah/sampah.</p></div></div>
+        <div class="phase"><div class="n">5</div><div><h3>Detail, pratinjau, versi</h3><p>Panel detail · pratinjau (pdf.js klien, XLSX unduh-saja) · riwayat versi copy-on-write.</p></div></div>
+        <div class="phase"><div class="n">6</div><div><h3>Login, sampah, pencarian, berbagi</h3><p>Login lengkap · Sampah (retensi 30 hari) · Pencarian nama+path terfilter izin · File dibagikan · halaman link publik (hash argon2id, slug ≥16 char, rate-limit).</p></div></div>
+        <div class="phase"><div class="n">7</div><div><h3>Admin — paling teliti, paling akhir</h3><p>Pengguna / group / ruang / <b>matriks hak akses</b> · audit append-only + ekspor CSV · link aktif · halaman Sistem (kesehatan, baca VSS/kapasitas dengan fallback “tidak tersedia”).</p></div></div>
+        <div class="phase"><div class="n">8</div><div><h3>Sapu state &amp; go-live</h3><p>Semua state (memuat/kosong/tanpa-hasil/tanpa-akses/error/terputus/kuota-penuh) · DR: backup 3-2-1 diuji + UPS + graceful shutdown · TLS via CA internal · hardening keamanan.</p></div></div>
+      </div>
+    </section>
+
+    <!-- 8. Temuan desain -->
+    <section>
+      <div class="sec-label"><span class="sec-num">08</span><h2>Temuan di file desain — murah dibereskan sekarang</h2></div>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Temuan</th><th style="width:42%">Tindakan</th><th>Tingkat</th></tr></thead>
+          <tbody>
+            <tr><td>Blok <code>:root</code> mode terang di <span class="mono">Sistem Desain.dc.html</span> pakai <code>var()</code> sirkular → badge danger/primer/sukses/peringatan kehilangan warna. Membantah klaim “0 pelanggaran kontras” mode terang.</td><td>Nilai kanonik = <b>README + State dan Error.dc.html</b> (hex konkret). Jangan salin blok itu.</td><td><span class="badge b-risk">Tinggi</span></td></tr>
+            <tr><td><code>--ink-tertiary</code> tak konsisten (swatch dokumentasi <span class="num">#6A727F</span>).</td><td>Pakai <span class="num">#626A77</span>.</td><td><span class="badge b-later">Sedang</span></td></tr>
+            <tr><td>Token <code>--paper*</code> &amp; <code>--highlight</code> belum ada di lembar token global.</td><td>Tambahkan saat sentralisasi token.</td><td><span class="badge b-later">Sedang</span></td></tr>
+            <tr><td>Prefiks localStorage campur: <code>rafnas.tema</code> vs <code>nas.dense/rail/detail</code>.</td><td>Standarkan satu prefiks (<code>rafnas.</code>).</td><td><span class="badge b-later">Sedang</span></td></tr>
+            <tr><td>Kepadatan “Sentuh” — pilihan tersimpan atau otomatis?</td><td>Perlakukan sebagai <b>state didorong-lebar</b> (&lt;1023px), bukan tersimpan.</td><td><span class="badge b-info">Rendah</span></td></tr>
+            <tr><td>Dua sumber kebenaran “group akses ruang” &amp; superuser tak dimodelkan.</td><td>Satu tabel grant; tambahkan peran superuser + audit khusus.</td><td><span class="badge b-risk">Tinggi</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 9. Keamanan -->
+    <section>
+      <div class="sec-label"><span class="sec-num">09</span><h2>Keamanan non-negotiable</h2></div>
+      <p class="body-col muted" style="margin-bottom:14px">Kelas kerentanan yang gratis dicegah di desain API, tapi mahal ditambal setelah rilis — dan produk yang mungkin dijual ke banyak klien menanggung risikonya berlipat.</p>
+      <ul class="list check" style="max-width:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px">
+        <li>Penegakan izin di <b>server</b>; filter listing &amp; search per-izin.</li>
+        <li>Hash sandi <b>argon2id</b>; tak pernah plaintext.</li>
+        <li>Sandi link publik = <b>hash + tampil sekali</b> (bukan reversible seperti mockup).</li>
+        <li>Slug link <b>≥16 char CSPRNG</b> + rate-limit + respons generik “Tidak ditemukan”.</li>
+        <li>Lockout login <b>per-akun DAN per-IP</b>; sisa-percobaan dari backend.</li>
+        <li>“Ingat saya” <b>default OFF</b> di PC bersama + idle timeout pendek.</li>
+        <li><code>Content-Disposition: attachment</code> + <code>X-Content-Type-Options: nosniff</code>.</li>
+        <li>Validasi tipe via <b>magic bytes</b> + nama/path NTFS + cegah traversal.</li>
+        <li>Audit <b>append-only</b>, tamper-evident, ekspor CSV UTF-8+BOM.</li>
+        <li>AV scan (Defender/ClamAV) saat finalisasi sebelum file tersedia.</li>
+      </ul>
+    </section>
+
+    <!-- 10. Keputusan terbuka -->
+    <section>
+      <div class="sec-label"><span class="sec-num">10</span><h2>Keputusan kebijakan yang masih terbuka</h2></div>
+      <p class="body-col muted" style="margin-bottom:14px">Bukan penghalang mulai (arsitektur sudah jelas), tapi harus disepakati sebelum fitur terkait dibangun.</p>
+      <div class="cols2">
+        <ul class="list dot">
+          <li><b>Penyimpanan Windows:</b> satu volume + kuota app vs volume-per-ruang.</li>
+          <li><b>Snapshot &amp; backup:</b> produk (Veeam / Windows Server Backup), RPO/RTO, UPS.</li>
+          <li><b>Sampah:</b> per-ruang; siapa boleh kosongkan; kuota memperhitungkan sampah.</li>
+          <li><b>Zona waktu resmi</b> (WIB) untuk semua timestamp &amp; kedaluwarsa.</li>
+        </ul>
+        <ul class="list dot">
+          <li><b>Pratinjau XLSX:</b> “unduh saja” (MVP) vs render server (fase lanjut).</li>
+          <li><b>Batas unduh link:</b> per-event vs per-file; “Unduh semua” = 1 atau N.</li>
+          <li><b>2FA admin:</b> alur enrol + kode pemulihan + jalur bila admin terkunci.</li>
+          <li><b>Pemeliharaan pasca-rilis:</b> kontrak RAF vs 1–2 admin SFL.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11. Risiko -->
+    <section>
+      <div class="sec-label"><span class="sec-num">11</span><h2>Risiko utama &amp; mitigasi</h2></div>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Risiko</th><th>Dampak</th><th style="width:38%">Mitigasi</th></tr></thead>
+          <tbody>
+            <tr><td>Server tunggal = <b>single point of failure</b> untuk seluruh data operasional pabrik.</td><td>Produksi berhenti; potensi kehilangan drawing/SOP permanen.</td><td>Backup 3-2-1 diuji restore · RPO/RTO disepakati · UPS + graceful shutdown.</td></tr>
+            <tr><td>Kejar <b>pixel-perfect</b> sebelum backend terbukti.</td><td>Berbulan-bulan habis; showstopper arsitektur ditemukan terlambat.</td><td>Spike Fase 0 dulu · vertical-slice tipis sebelum poles.</td></tr>
+            <tr><td>Resume upload ditafsirkan <b>lintas-tutup-browser</b>.</td><td>Buntu teknis (File API tak persist handle lokal).</td><td>“Sesi” = dalam SPA yang sama · tunda dari MVP.</td></tr>
+            <tr><td>XLSX/laporan QC masuk “tidak didukung” pratinjau.</td><td>Use-case inti terasa lumpuh.</td><td>Terima “unduh saja” untuk MVP secara sadar · render server fase lanjut.</td></tr>
+            <tr><td>Beban pemeliharaan sistem bespoke di tangan 1–2 admin.</td><td>Rot &amp; kerentanan tak ter-patch setelah tim build pergi.</td><td>Stack seminimal mungkin · dokumentasi ops · kontrak pemeliharaan RAF.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <span>RAF NAS · dokumen keputusan pra-build · Draf 1</span>
+      <span class="mono">rafnas.sfl.local · 7 Sep 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var root=document.documentElement, KEY='rafnas.tema';
+    function apply(t){
+      if(t==='light'||t==='dark'){ root.setAttribute('data-theme',t); }
+      else{ root.removeAttribute('data-theme'); }
+    }
+    var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+    if(saved) apply(saved);
+    function current(){
+      var a=root.getAttribute('data-theme');
+      if(a) return a;
+      return (window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+    }
+    document.getElementById('tt').addEventListener('click',function(){
+      var next=current()==='dark'?'light':'dark';
+      apply(next);
+      try{ localStorage.setItem(KEY,next); }catch(e){}
+    });
+  })();
+</script>

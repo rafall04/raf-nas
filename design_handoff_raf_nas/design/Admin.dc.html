@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:1100px){[data-resp="hide"]{display:none!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="height:100vh;display:flex;overflow:hidden;background:var(--surface)">
+
+  <aside style="width:236px;flex:none;background:var(--surface-sunken);border-right:1px solid var(--border-strong);display:flex;flex-direction:column;min-height:0">
+    <div style="height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--border)">
+      <span style="flex:none;width:28px;height:28px;border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--font-mono)">IT</span>
+      <span style="min-width:0">
+        <span style="display:block;font:600 14px/18px var(--font-ui);color:var(--ink)">Administrasi</span>
+        <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">rafnas.sfl.local</span>
+      </span>
+    </div>
+    <div style="flex:1;min-height:0;overflow-y:auto;padding:12px 8px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
+        <button type="button" onClick="{{ n.open }}" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 8px;margin-bottom:2px;border:0;border-left:2px solid {{ n.edge }};border-radius:var(--radius-sm);background:{{ n.bg }};color:{{ n.ink }};font:{{ n.font }};text-align:left;cursor:pointer">
+          <span style="flex:none;display:flex;opacity:.8">{{ n.icon }}</span>
+          <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ n.name }}</span>
+          <sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}">
+            <span style="flex:none;height:18px;padding:0 6px;display:inline-flex;align-items:center;border-radius:9px;background:var(--warning-subtle);border:1px solid var(--warning-border);font:500 11px/14px var(--font-mono);color:var(--warning-ink);font-variant-numeric:tabular-nums">{{ n.badge }}</span>
+          </sc-if>
+        </button>
+      </sc-for>
+      <div style="height:1px;background:var(--border);margin:12px 6px"></div>
+      <a href="File Browser.dc.html" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 8px;border-radius:var(--radius-sm);color:var(--ink-secondary);font:400 14px/20px var(--font-ui);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none;opacity:.8" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" /></svg>
+        Kembali ke file
+      </a>
+    </div>
+    <div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--border)">
+      <span style="flex:none;width:26px;height:26px;border-radius:13px;background:var(--surface-hover);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font:500 11px/1 var(--font-mono);color:var(--ink-secondary)">AD</span>
+      <span style="min-width:0;flex:1">
+        <span style="display:block;font:500 13px/16px var(--font-ui);color:var(--ink)">admin.it</span>
+        <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Admin IT</span>
+      </span>
+      <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;width:30px;height:30px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}</button>
+    </div>
+  </aside>
+
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+
+    <div style="height:56px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--surface)">
+      <span style="flex:1;min-width:0;display:flex;align-items:baseline;gap:12px">
+        <span style="font:600 17px/24px var(--font-ui);color:var(--ink);white-space:nowrap">{{ pageTitle }}</span>
+        <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pageSub }}</span>
+      </span>
+
+      <sc-if value="{{ isUsers }}" hint-placeholder-val="{{ false }}">
+        <span style="flex:none;display:flex;align-items:center;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px;width:220px;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+            <input type="text" value="{{ uq }}" onChange="{{ onUq }}" placeholder="Cari nama atau username" aria-label="Cari pengguna" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font:400 13px/18px var(--font-ui);color:var(--ink)" />
+          </div>
+          <div style="display:flex;height:32px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden">
+            <sc-for list="{{ userFilters }}" as="f" hint-placeholder-count="3">
+              <button type="button" onClick="{{ f.pick }}" style="height:100%;padding:0 10px;border:0;border-right:1px solid var(--border-strong);background:{{ f.bg }};color:{{ f.ink }};font:500 13px/18px var(--font-ui);cursor:pointer">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <button type="button" onClick="{{ openUser }}" style="height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:7px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12" /></svg>
+            Tambah pengguna
+          </button>
+        </span>
+      </sc-if>
+
+      <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+        <span style="flex:none;display:flex;align-items:center;gap:8px">
+          <div style="display:flex;align-items:center;gap:8px;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Rentang</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">01–12 Mar 2026</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:150px;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Semua aksi</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><path d="M5.5 9.5 12 16l6.5-6.5" /></svg>
+          </div>
+          <button type="button" style="height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:7px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>
+            Ekspor CSV
+          </button>
+        </span>
+      </sc-if>
+
+      <sc-if value="{{ isSpaces }}" hint-placeholder-val="{{ false }}">
+        <button type="button" style="flex:none;height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:7px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12" /></svg>
+          Buat ruang
+        </button>
+      </sc-if>
+
+      <sc-if value="{{ isLinks }}" hint-placeholder-val="{{ false }}">
+        <span style="flex:none;display:flex;align-items:center;gap:8px">
+          <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ linkSelLabel }}</span>
+          <button type="button" disabled="{{ noLinkSel }}" style="height:32px;padding:0 12px;border:1px solid {{ revokeBorder }};border-radius:var(--radius-sm);background:{{ revokeBg }};color:{{ revokeInk }};font:500 13px/18px var(--font-ui);cursor:{{ revokeCursor }}">Cabut link terpilih</button>
+        </span>
+      </sc-if>
+    </div>
+
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden">
+
+      <sc-if value="{{ isUsers }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+          <div style="flex:none;display:grid;grid-template-columns:minmax(0,1.4fr) 150px minmax(0,1.2fr) 140px 112px 148px;align-items:center;height:34px;padding:0 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">Nama</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Username</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Group</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Terakhir masuk</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Status</span>
+            <span></span>
+          </div>
+          <div style="flex:1;min-height:0;overflow-y:auto">
+            <sc-for list="{{ users }}" as="u" hint-placeholder-count="9">
+              <div style="display:grid;grid-template-columns:minmax(0,1.4fr) 150px minmax(0,1.2fr) 140px 112px 148px;align-items:center;height:48px;padding:0 16px;border-bottom:1px solid var(--border);background:{{ u.bg }}" style-hover="background:var(--surface-hover)">
+                <span style="display:flex;align-items:center;gap:10px;min-width:0;padding-right:12px">
+                  <span style="flex:none;width:28px;height:28px;border-radius:14px;background:{{ u.avBg }};border:1px solid {{ u.avBorder }};display:flex;align-items:center;justify-content:center;font:500 11px/1 var(--font-mono);color:{{ u.avInk }}">{{ u.initials }}</span>
+                  <span style="min-width:0;font:{{ u.nameFont }};color:{{ u.nameInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.name }}</span>
+                </span>
+                <span style="font:400 13px/18px var(--font-mono);color:{{ u.metaInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:12px">{{ u.username }}</span>
+                <span style="display:flex;gap:5px;min-width:0;padding-right:12px;overflow:hidden">
+                  <sc-for list="{{ u.groups }}" as="g" hint-placeholder-count="2">
+                    <span style="flex:none;height:20px;padding:0 7px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary);white-space:nowrap">{{ g.name }}</span>
+                  </sc-for>
+                </span>
+                <span style="font:400 13px/18px var(--font-mono);color:{{ u.metaInk }};font-variant-numeric:tabular-nums">{{ u.last }}</span>
+                <span style="display:flex">
+                  <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:{{ u.stBg }};border:1px solid {{ u.stBorder }};font:500 12px/16px var(--font-ui);color:{{ u.stInk }}">{{ u.stIcon }}{{ u.status }}</span>
+                </span>
+                <span style="display:flex;justify-content:flex-end;gap:4px">
+                  <button type="button" onClick="{{ openUser }}" style="height:28px;padding:0 9px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 12px/16px var(--font-ui);cursor:pointer">Ubah</button>
+                  <button type="button" style="height:28px;padding:0 9px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 12px/16px var(--font-ui);cursor:pointer">Reset sandi</button>
+                  <button type="button" onClick="{{ u.menu }}" aria-label="Menu untuk {{ u.name }}" style="width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink-secondary)" aria-hidden="true"><circle cx="12" cy="6" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="18" r="1.6" /></svg>
+                  </button>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5.5" /><path d="M12 7.6v.6" /></svg>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Pengguna tidak bisa dihapus, hanya dinonaktifkan — supaya nama di audit log tetap punya rujukan. Akun nonaktif tidak bisa masuk dan tidak memakai lisensi.</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isGroups }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;display:flex">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--border)">
+            <div style="flex:none;display:grid;grid-template-columns:minmax(0,1fr) 108px 128px;align-items:center;height:34px;padding:0 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+              <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">Group</span>
+              <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Anggota</span>
+              <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Ruang diakses</span>
+            </div>
+            <div style="flex:1;min-height:0;overflow-y:auto">
+              <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+                <button type="button" onClick="{{ g.pick }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1fr) 108px 128px;align-items:center;height:44px;padding:0 16px;border:0;border-bottom:1px solid var(--border);border-left:2px solid {{ g.edge }};background:{{ g.bg }};cursor:pointer;text-align:left">
+                  <span style="min-width:0;font:{{ g.font }};color:var(--ink);font-family:var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.name }}</span>
+                  <span style="font:400 14px/20px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">{{ g.members }}</span>
+                  <span style="font:400 14px/20px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">{{ g.spaces }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="width:340px;flex:none;display:flex;flex-direction:column;min-height:0">
+            <div style="flex:none;padding:14px 16px;border-bottom:1px solid var(--border)">
+              <div style="font:600 15px/22px var(--font-mono);color:var(--ink)">{{ groupName }}</div>
+              <div style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);margin-top:2px">{{ groupDesc }}</div>
+            </div>
+            <div style="flex:none;padding:12px 16px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:8px;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+                <span style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary)">Cari pengguna untuk ditambahkan</span>
+              </div>
+            </div>
+            <div style="flex:1;min-height:0;overflow-y:auto">
+              <sc-for list="{{ members }}" as="m" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:10px;height:44px;padding:0 16px;border-bottom:1px solid var(--border)">
+                  <span style="flex:none;width:26px;height:26px;border-radius:13px;background:var(--surface-hover);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font:500 11px/1 var(--font-mono);color:var(--ink-secondary)">{{ m.initials }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.name }}</span>
+                    <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">{{ m.username }}</span>
+                  </span>
+                  <button type="button" aria-label="Keluarkan {{ m.name }} dari group" style="flex:none;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--danger-subtle);border-color:var(--danger-border)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12" /></svg>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSpaces }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;overflow-y:auto">
+          <sc-for list="{{ spaceRows }}" as="s" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:minmax(0,1.1fr) 280px 132px 168px;gap:24px;align-items:center;padding:16px;border-bottom:1px solid var(--border);background:var(--surface)">
+              <span style="min-width:0">
+                <span style="display:flex;align-items:center;gap:10px">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ink-secondary)" style="flex:none" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg>
+                  <span style="font:600 15px/22px var(--font-ui);color:var(--ink)">{{ s.name }}</span>
+                </span>
+                <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);margin-top:4px;text-wrap:pretty">{{ s.desc }}</span>
+              </span>
+              <span>
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Kuota</span>
+                  <span style="font:400 13px/18px var(--font-mono);color:{{ s.qInk }};font-variant-numeric:tabular-nums">{{ s.quota }}</span>
+                </span>
+                <span style="display:block;height:6px;border-radius:3px;background:var(--surface-hover);border:1px solid var(--border);margin-top:6px;overflow:hidden">
+                  <span style="display:block;width:{{ s.pct }}%;height:100%;background:{{ s.qColor }}"></span>
+                </span>
+                <sc-if value="{{ s.warn }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;align-items:center;gap:6px;margin-top:5px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ s.qColor }}" stroke-width="2" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                    <span style="font:400 12px/16px var(--font-ui);color:{{ s.qInk }}">{{ s.warnText }}</span>
+                  </span>
+                </sc-if>
+              </span>
+              <span>
+                <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">File</span>
+                <span style="display:block;font:500 15px/22px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ s.files }}</span>
+                <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-top:6px">Snapshot</span>
+                <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">{{ s.snapshot }}</span>
+              </span>
+              <span>
+                <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-bottom:5px">Group dengan akses</span>
+                <span style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ s.groups }}" as="g" hint-placeholder-count="2">
+                    <span style="height:20px;padding:0 7px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">{{ g.name }}</span>
+                  </sc-for>
+                </span>
+                <button type="button" style="margin-top:8px;height:28px;padding:0 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 12px/16px var(--font-ui);cursor:pointer">Ubah ruang</button>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPerms }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+          <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface-sunken)">
+            <span style="flex:1;min-width:280px;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Satu sel menentukan apa yang boleh dilakukan sebuah group di sebuah ruang. Sel kosong berarti tidak ada akses.</span>
+            <span style="display:flex;align-items:center;gap:8px;flex:none;flex-wrap:wrap">
+              <span style="font:500 12px/16px var(--font-ui);color:var(--ink-tertiary)">Peran</span>
+              <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4">
+                <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:{{ l.bg }};border:1px solid {{ l.border }};font:{{ l.font }};color:{{ l.ink }}">{{ l.name }}</span>
+              </sc-for>
+            </span>
+          </div>
+
+          <div style="flex:1;min-height:0;overflow:auto">
+            <div style="min-width:920px">
+              <div style="position:sticky;top:0;z-index:6;display:grid;grid-template-columns:200px repeat(5,minmax(132px,1fr));background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+                <span style="display:flex;align-items:flex-end;padding:10px 12px;font:500 13px/18px var(--font-ui);color:var(--ink);border-right:1px solid var(--border);position:sticky;left:0;background:var(--surface-sunken);z-index:7">Group</span>
+                <sc-for list="{{ matrixCols }}" as="c" hint-placeholder-count="5">
+                  <span style="display:flex;flex-direction:column;justify-content:flex-end;gap:2px;padding:10px 12px;border-right:1px solid var(--border)">
+                    <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">{{ c.name }}</span>
+                    <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ c.quota }}</span>
+                  </span>
+                </sc-for>
+              </div>
+              <sc-for list="{{ matrixRows }}" as="r" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:200px repeat(5,minmax(132px,1fr));border-bottom:1px solid var(--border);background:var(--surface)">
+                  <span style="display:flex;flex-direction:column;justify-content:center;gap:1px;padding:8px 12px;border-right:1px solid var(--border);position:sticky;left:0;background:var(--surface);z-index:5">
+                    <span style="font:500 14px/20px var(--font-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.group }}</span>
+                    <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ r.members }} anggota</span>
+                  </span>
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="5">
+                    <span style="border-right:1px solid var(--border);padding:6px;display:flex;align-items:center;background:{{ c.cellBg }};position:relative">
+                      <button type="button" onClick="{{ c.toggle }}" aria-label="{{ c.aria }}" style="width:100%;height:32px;display:flex;align-items:center;justify-content:{{ c.justify }};gap:6px;padding:0 8px;border:1px solid {{ c.border }};border-radius:var(--radius-sm);background:{{ c.bg }};color:{{ c.ink }};font:{{ c.font }};cursor:pointer;text-align:left" style-hover="border-color:var(--border-strong);background:var(--surface-hover)">
+                        <span style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</span>
+                        <sc-if value="{{ c.filled }}" hint-placeholder-val="{{ true }}">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;opacity:.55" aria-hidden="true"><path d="M5.5 9.5 12 16l6.5-6.5" /></svg>
+                        </sc-if>
+                      </button>
+                      <sc-if value="{{ c.changed }}" hint-placeholder-val="{{ false }}">
+                        <span title="Belum disimpan" style="position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:4px;background:var(--warning);border:1px solid var(--surface)"></span>
+                      </sc-if>
+                    </span>
+                  </sc-for>
+                </div>
+              </sc-for>
+
+              <div style="border-bottom:1px solid var(--border-strong);background:var(--surface-sunken)">
+                <button type="button" onClick="{{ toggleExc }}" aria-expanded="{{ excOpen }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:12px 16px;border:0;background:transparent;cursor:pointer;text-align:left">
+                  <span style="flex:none;display:flex">{{ excChevron }}</span>
+                  <span style="font:500 14px/20px var(--font-ui);color:var(--ink)">Pengecualian per folder</span>
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);font-variant-numeric:tabular-nums">3 aturan</span>
+                  <span style="margin-left:auto;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Pakai matriks di atas sebagai jalur utama. Pengecualian membuat audit sulit dibaca.</span>
+                </button>
+                <sc-if value="{{ excOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:0 16px 16px">
+                    <div style="border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)">
+                      <sc-for list="{{ exceptions }}" as="e" hint-placeholder-count="3">
+                        <div style="display:grid;grid-template-columns:minmax(0,1fr) 150px 130px 96px;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--border)">
+                          <span style="font:400 13px/18px var(--font-mono);color:var(--ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.path }}</span>
+                          <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">{{ e.group }}</span>
+                          <span style="display:flex"><span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:{{ e.bg }};border:1px solid {{ e.border }};font:500 12px/16px var(--font-ui);color:{{ e.ink }}">{{ e.role }}</span></span>
+                          <span style="display:flex;justify-content:flex-end">
+                            <button type="button" style="height:26px;padding:0 9px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);font:500 12px/16px var(--font-ui);cursor:pointer">Hapus</button>
+                          </span>
+                        </div>
+                      </sc-for>
+                      <div style="padding:10px 12px">
+                        <button type="button" style="height:28px;padding:0 10px;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);background:transparent;color:var(--ink-secondary);font:500 12px/16px var(--font-ui);cursor:pointer">Tambah pengecualian</button>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="padding:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+                <sc-for list="{{ roleDocs }}" as="d" hint-placeholder-count="4">
+                  <div style="border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;background:var(--surface)">
+                    <div style="font:600 13px/18px var(--font-ui);color:var(--ink)">{{ d.name }}</div>
+                    <div style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);margin-top:2px;text-wrap:pretty">{{ d.desc }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ hasChanges }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:none;display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--warning-border);background:var(--warning-subtle)">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+              <span style="flex:none;font:500 14px/20px var(--font-ui);color:var(--warning-ink);font-variant-numeric:tabular-nums;white-space:nowrap">{{ changeLabel }}</span>
+              <span data-resp="hide" style="flex:1;font:400 13px/18px var(--font-ui);color:var(--warning-ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ changeDetail }}</span>
+              <span style="margin-left:auto;display:flex;gap:8px;flex:none">
+                <button type="button" onClick="{{ discard }}" style="height:34px;padding:0 12px;border:1px solid var(--warning-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--warning-ink);font:500 14px/20px var(--font-ui);cursor:pointer">Batalkan perubahan</button>
+                <button type="button" onClick="{{ save }}" style="height:34px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Simpan perubahan</button>
+              </span>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+          <div style="flex:none;display:grid;grid-template-columns:148px 132px 190px minmax(0,1fr) 132px;align-items:center;height:32px;padding:0 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">Waktu</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Pengguna</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Aksi</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Objek</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Alamat IP</span>
+          </div>
+          <div style="flex:1;min-height:0;overflow-y:auto">
+            <sc-for list="{{ audit }}" as="a" hint-placeholder-count="14">
+              <div>
+                <div onClick="{{ a.toggle }}" style="display:grid;grid-template-columns:148px 132px 190px minmax(0,1fr) 132px;align-items:center;height:36px;padding:0 16px;border-bottom:1px solid var(--border);background:{{ a.bg }};cursor:pointer" style-hover="background:var(--surface-hover)">
+                  <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ a.time }}</span>
+                  <span style="font:400 13px/18px var(--font-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px">{{ a.user }}</span>
+                  <span style="display:flex;align-items:center;gap:7px;min-width:0">
+                    <span style="flex:none;width:6px;height:6px;border-radius:3px;background:{{ a.dot }}"></span>
+                    <span style="font:{{ a.actFont }};color:{{ a.actInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.action }}</span>
+                  </span>
+                  <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px">{{ a.object }}</span>
+                  <span style="font:400 13px/18px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ a.ip }}</span>
+                </div>
+                <sc-if value="{{ a.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:14px 16px 14px 164px;border-bottom:1px solid var(--border);background:var(--info-subtle)">
+                    <div style="font:500 13px/18px var(--font-ui);color:var(--ink);margin-bottom:8px">Detail perubahan</div>
+                    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,420px));gap:12px">
+                      <div style="border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)">
+                        <div style="padding:6px 10px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font:500 12px/16px var(--font-ui);color:var(--ink-secondary)">Sebelum</div>
+                        <div style="padding:8px 10px;font:400 13px/20px var(--font-mono);color:var(--ink);white-space:pre-wrap">{{ a.before }}</div>
+                      </div>
+                      <div style="border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)">
+                        <div style="padding:6px 10px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font:500 12px/16px var(--font-ui);color:var(--ink-secondary)">Sesudah</div>
+                        <div style="padding:8px 10px;font:400 13px/20px var(--font-mono);color:var(--ink);white-space:pre-wrap">{{ a.after }}</div>
+                      </div>
+                    </div>
+                    <div style="margin-top:10px;font:400 12px/16px var(--font-ui);color:var(--ink-secondary)">{{ a.note }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">18.402 kejadian dalam rentang ini</span>
+            <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Log disimpan 24 bulan, lalu diarsipkan otomatis</span>
+            <span style="margin-left:auto;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Klik baris untuk melihat detail</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isLinks }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+          <div style="flex:none;display:grid;grid-template-columns:36px minmax(0,1fr) 140px 132px 108px 128px 96px;align-items:center;height:34px;padding:0 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span style="display:flex;justify-content:center">
+              <button type="button" onClick="{{ toggleAllLinks }}" aria-label="Pilih semua link" style="width:16px;height:16px;padding:0;border:1px solid {{ allLinkBorder }};border-radius:3px;background:{{ allLinkBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <span style="width:9px;height:2px;border-radius:1px;background:{{ allLinkMark }}"></span>
+              </button>
+            </span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">File atau folder</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Dibuat oleh</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Kedaluwarsa</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Akses</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);padding-left:16px">Status</span>
+            <span></span>
+          </div>
+          <div style="flex:1;min-height:0;overflow-y:auto">
+            <sc-for list="{{ adminLinks }}" as="l" hint-placeholder-count="8">
+              <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 140px 132px 108px 128px 96px;align-items:center;height:48px;padding:0 16px;border-bottom:1px solid var(--border);background:{{ l.bg }}" style-hover="background:var(--surface-hover)">
+                <span style="display:flex;justify-content:center">
+                  <button type="button" onClick="{{ l.toggle }}" aria-label="Pilih link {{ l.name }}" style="width:16px;height:16px;padding:0;border:1px solid {{ l.boxBorder }};border-radius:3px;background:{{ l.boxBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ l.check }}</button>
+                </span>
+                <span style="min-width:0;padding-right:12px">
+                  <span style="display:block;font:400 14px/20px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</span>
+                  <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.path }}</span>
+                </span>
+                <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px">{{ l.by }}</span>
+                <span style="font:400 13px/18px var(--font-mono);color:{{ l.expInk }};font-variant-numeric:tabular-nums">{{ l.expires }}</span>
+                <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">{{ l.hits }}</span>
+                <span style="padding-left:16px;display:flex">
+                  <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:{{ l.stBg }};border:1px solid {{ l.stBorder }};font:500 12px/16px var(--font-ui);color:{{ l.stInk }}">{{ l.status }}</span>
+                </span>
+                <span style="display:flex;justify-content:flex-end">
+                  <button type="button" style="height:28px;padding:0 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--danger);font:500 12px/16px var(--font-ui);cursor:pointer" style-hover="background:var(--danger-subtle);border-color:var(--danger-border)">Cabut</button>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5.5" /><path d="M12 7.6v.6" /></svg>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Semua link berbagi di seluruh sistem terkumpul di sini. Tanpa halaman ini, dalam setahun akan ada puluhan link terbuka tanpa ada yang tahu.</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSystem }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;overflow-y:auto;padding:20px 24px">
+          <div style="max-width:920px">
+            <sc-if value="{{ sysAlert }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;margin-bottom:16px;background:var(--warning-subtle);border:1px solid var(--warning-border);border-radius:var(--radius-sm)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                <span style="font:400 14px/20px var(--font-ui);color:var(--warning-ink);text-wrap:pretty">Backup semalam selesai dengan 2 file dilewati karena sedang dibuka. Backup berikutnya akan mencoba ulang file itu.</span>
+                <button type="button" style="margin-left:auto;flex:none;height:30px;padding:0 10px;border:1px solid var(--warning-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--warning-ink);font:500 13px/18px var(--font-ui);cursor:pointer">Lihat daftar</button>
+              </div>
+            </sc-if>
+
+            <div style="border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--surface)">
+              <div style="padding:12px 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                <span style="font:600 14px/20px var(--font-ui);color:var(--ink)">Kapasitas penyimpanan</span>
+                <span style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">diperbarui 2 menit lalu</span>
+              </div>
+              <div style="padding:16px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+                  <span style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary)">Pool utama</span>
+                  <span style="font:600 20px/28px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">1,42 TB dari 2 TB</span>
+                </div>
+                <div style="height:8px;border-radius:4px;background:var(--surface-hover);border:1px solid var(--border);margin-top:8px;overflow:hidden">
+                  <div style="width:71%;height:100%;background:var(--primary)"></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Sisa 580 GB</span>
+                  <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Snapshot memakai 214 GB</span>
+                </div>
+              </div>
+              <sc-for list="{{ sysSpaces }}" as="s" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 220px 180px;gap:16px;align-items:center;padding:10px 16px;border-top:1px solid var(--border)">
+                  <span style="font:400 14px/20px var(--font-ui);color:var(--ink);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</span>
+                  <span style="height:6px;border-radius:3px;background:var(--surface-hover);border:1px solid var(--border);overflow:hidden">
+                    <span style="display:block;width:{{ s.pct }}%;height:100%;background:{{ s.color }}"></span>
+                  </span>
+                  <span style="font:400 14px/20px var(--font-mono);color:{{ s.ink }};text-align:right;font-variant-numeric:tabular-nums">{{ s.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--surface);margin-top:16px">
+              <div style="padding:12px 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font:600 14px/20px var(--font-ui);color:var(--ink)">Kesehatan sistem</div>
+              <sc-for list="{{ sysRows }}" as="r" hint-placeholder-count="8">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border)">
+                  <span style="min-width:0">
+                    <span style="display:flex;align-items:center;gap:8px">
+                      <span style="flex:none;width:7px;height:7px;border-radius:4px;background:{{ r.dot }}"></span>
+                      <span style="font:400 14px/20px var(--font-ui);color:var(--ink)">{{ r.label }}</span>
+                    </span>
+                    <sc-if value="{{ r.sub }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-top:2px;padding-left:15px">{{ r.sub }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="font:{{ r.valFont }};color:{{ r.valInk }};text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.value }}</span>
+                </div>
+              </sc-for>
+              <div style="padding:12px 16px;display:flex;align-items:center;gap:10px">
+                <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Halaman ini dibuka saat ada masalah, jadi isinya daftar angka — bukan grafik yang harus ditafsirkan dulu.</span>
+                <button type="button" style="margin-left:auto;flex:none;height:30px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:7px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v3.5h-3.5" /></svg>
+                  Muat ulang
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+
+  <sc-if value="{{ cellMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="menu" aria-label="Pilih peran" style="position:fixed;top:{{ cellMenuY }}px;left:{{ cellMenuX }}px;width:196px;padding:4px;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);z-index:70;display:flex;flex-direction:column">
+      <div style="padding:5px 8px 6px;border-bottom:1px solid var(--border);margin-bottom:4px">
+        <div style="font:500 12px/16px var(--font-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ cellMenuGroup }}</div>
+        <div style="font:400 12px/16px var(--font-ui);color:var(--ink-secondary)">di ruang {{ cellMenuSpace }}</div>
+      </div>
+      <sc-for list="{{ cellMenuOptions }}" as="o" hint-placeholder-count="5">
+        <button type="button" role="menuitem" onClick="{{ o.pick }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;height:32px;padding:0 8px;border:0;border-radius:var(--radius-sm);background:{{ o.bg }};color:{{ o.ink }};font:{{ o.font }};text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">
+          {{ o.name }}{{ o.check }}
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ userModal }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:var(--scrim-veil);display:flex;align-items:center;justify-content:center;padding:24px;z-index:60">
+      <div role="dialog" aria-label="Tambah pengguna" style="width:560px;max-width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-modal);overflow:hidden">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 0">
+          <div>
+            <h3 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Tambah pengguna</h3>
+            <p style="margin:6px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:52ch;text-wrap:pretty">Akun langsung aktif setelah disimpan. Kata sandi awal diberikan ke pengguna secara langsung, bukan lewat pesan.</p>
+          </div>
+          <button type="button" onClick="{{ closeUser }}" aria-label="Tutup" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Nama lengkap</label>
+              <input type="text" value="Sari Puspita" style="width:100%;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-ui)" />
+            </div>
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Username</label>
+              <input type="text" value="sari.p" style="width:100%;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-mono)" />
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Kata sandi awal</label>
+            <div style="display:flex;gap:8px">
+              <input type="text" value="Pabrik-7241-QC" style="flex:1;min-width:0;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-mono)" />
+              <button type="button" style="flex:none;height:36px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Buat acak</button>
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+            <button type="button" role="checkbox" aria-checked="{{ mustChange }}" onClick="{{ toggleMustChange }}" style="flex:none;width:18px;height:18px;padding:0;border:1px solid {{ mcBorder }};border-radius:3px;background:{{ mcBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ mcCheck }}</button>
+            Wajib ganti kata sandi saat login pertama
+          </label>
+          <div>
+            <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:6px">Keanggotaan group</label>
+            <div style="border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden">
+              <sc-for list="{{ groupPicks }}" as="g" hint-placeholder-count="6">
+                <label style="display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-bottom:1px solid var(--border);cursor:pointer;background:{{ g.rowBg }}">
+                  <button type="button" role="checkbox" aria-checked="{{ g.on }}" onClick="{{ g.toggle }}" style="flex:none;width:16px;height:16px;padding:0;border:1px solid {{ g.border }};border-radius:3px;background:{{ g.bg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ g.check }}</button>
+                  <span style="flex:1;min-width:0;font:400 13px/18px var(--font-mono);color:var(--ink)">{{ g.name }}</span>
+                  <span style="flex:none;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">{{ g.desc }}</span>
+                </label>
+              </sc-for>
+            </div>
+            <div style="margin-top:6px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Akses ke ruang ditentukan oleh group, bukan per orang. Atur di halaman Hak akses.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;padding:16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+          <button type="button" onClick="{{ closeUser }}" style="height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Batalkan</button>
+          <button type="button" onClick="{{ closeUser }}" style="height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Simpan pengguna</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 },
+  &quot;halaman&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Pengguna&quot;, &quot;Group&quot;, &quot;Ruang penyimpanan&quot;, &quot;Hak akses&quot;, &quot;Audit&quot;, &quot;Link aktif&quot;, &quot;Sistem&quot;], &quot;default&quot;: &quot;Hak akses&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Halaman admin&quot; },
+  &quot;perubahanBelumDisimpan&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hak akses&quot; },
+  &quot;dialog&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Tidak ada&quot;, &quot;Tambah pengguna&quot;], &quot;default&quot;: &quot;Tidak ada&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Dialog&quot; }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  state = {
+    page: null, uq: '', uFilter: 'Semua', group: 'produksi-staff',
+    cellOpen: null, cellMenu: null, changes: {}, exc: false, audit: null,
+    linkSel: [], userModal: null, mustChange: true, picks: ['produksi-staff'],
+    saved: false
+  };
+
+  mkSvg(nodes, o) {
+    o = o || {};
+    const s = o.size || 16;
+    const p = { width: s, height: s, viewBox: '0 0 24 24', fill: o.fill || 'none', strokeWidth: o.sw == null ? 1.9 : o.sw, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    if (o.stroke !== 'none') p.stroke = o.stroke || 'currentColor';
+    return React.createElement('svg', p, nodes.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+  }
+
+  glyph(n, o) {
+    const G = {
+      users: [['circle', { cx: 12, cy: 8.5, r: 3.5 }], ['path', { d: 'M5.5 19.5a6.5 6.5 0 0 1 13 0' }]],
+      group: [['circle', { cx: 9, cy: 9, r: 3 }], ['path', { d: 'M3.5 19a5.5 5.5 0 0 1 11 0' }], ['path', { d: 'M16 7.2a3 3 0 0 1 0 5.6' }], ['path', { d: 'M17.5 15.5a5.5 5.5 0 0 1 3 3.5' }]],
+      folder: [['path', { d: 'M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z' }]],
+      shield: [['path', { d: 'M12 3.5 19 6v6c0 4-3 7-7 8.5C8 19 5 16 5 12V6z' }]],
+      list: [['path', { d: 'M4 6.5h16M4 12h16M4 17.5h16' }]],
+      link: [['path', { d: 'M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3' }], ['path', { d: 'M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3' }]],
+      server: [['rect', { x: 4, y: 4.5, width: 16, height: 6, rx: 1.5 }], ['rect', { x: 4, y: 13.5, width: 16, height: 6, rx: 1.5 }], ['path', { d: 'M7.5 7.5h.5M7.5 16.5h.5' }]],
+      check: [['path', { d: 'M5 12.5 9.5 17 19 7.5' }]],
+      chevRight: [['path', { d: 'M9.5 5.5 16 12l-6.5 6.5' }]],
+      chevDown: [['path', { d: 'M5.5 9.5 12 16l6.5-6.5' }]],
+      clock: [['circle', { cx: 12, cy: 12, r: 8 }], ['path', { d: 'M12 7.5V12l3.5 2' }]],
+      slash: [['circle', { cx: 12, cy: 12, r: 8 }], ['path', { d: 'M7 17 17 7' }]]
+    };
+    return this.mkSvg(G[n] || [], o);
+  }
+
+  roleStyle(r) {
+    return {
+      'Pengelola': ['var(--primary-subtle)', 'var(--primary-border)', 'var(--primary-ink)'],
+      'Editor': ['var(--cat-doc-bg)', 'var(--info-border)', 'var(--cat-doc-ink)'],
+      'Kontributor': ['var(--surface)', 'var(--border-strong)', 'var(--ink)'],
+      'Pelihat': ['var(--surface)', 'var(--border)', 'var(--ink-secondary)'],
+      'Tidak ada akses': ['transparent', 'transparent', 'var(--ink-tertiary)']
+    }[r];
+  }
+
+  componentDidMount() {
+    this.__onDocDown = e => {
+      if (this.state.cellOpen && !(e.target.closest && e.target.closest('[role="menu"]'))) {
+        this.setState({ cellOpen: null, cellMenu: null });
+      }
+    };
+    this.__onKey = e => { if (e.key === 'Escape') this.setState({ cellOpen: null, cellMenu: null, userModal: false }); };
+    this.__onReflow = () => { if (this.state.cellOpen) this.setState({ cellOpen: null, cellMenu: null }); };
+    document.addEventListener('mousedown', this.__onDocDown);
+    document.addEventListener('keydown', this.__onKey);
+    window.addEventListener('resize', this.__onReflow);
+    if (this.__scrollHost) this.__scrollHost.addEventListener('scroll', this.__onReflow, true);
+    document.addEventListener('scroll', this.__onReflow, true);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.__onDocDown);
+    document.removeEventListener('keydown', this.__onKey);
+    window.removeEventListener('resize', this.__onReflow);
+    document.removeEventListener('scroll', this.__onReflow, true);
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const st = this.state;
+    const page = st.page || this.props.halaman || 'Hak akses';
+    const isUsers = page === 'Pengguna', isGroups = page === 'Group', isSpaces = page === 'Ruang penyimpanan',
+      isPerms = page === 'Hak akses', isAudit = page === 'Audit', isLinks = page === 'Link aktif', isSystem = page === 'Sistem';
+
+    const nav = [
+      ['Pengguna', 'users', ''], ['Group', 'group', ''], ['Ruang penyimpanan', 'folder', ''],
+      ['Hak akses', 'shield', ''], ['Audit', 'list', ''], ['Link aktif', 'link', '7'], ['Sistem', 'server', '1']
+    ].map(([name, g, badge]) => {
+      const on = page === name;
+      return {
+        name, badge, icon: this.glyph(g, { size: 18, sw: 1.8 }),
+        open: () => this.setState({ page: name, cellOpen: null, audit: null }),
+        bg: on ? 'var(--surface-selected)' : 'transparent',
+        ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+        edge: on ? 'var(--primary)' : 'transparent',
+        font: (on ? '500 ' : '400 ') + '14px/20px var(--font-ui)'
+      };
+    });
+
+    const subs = {
+      'Pengguna': '86 akun aktif, 4 nonaktif',
+      'Group': '6 group memetakan akses ke 5 ruang',
+      'Ruang penyimpanan': 'Kuota, kebijakan snapshot, dan group yang punya akses',
+      'Hak akses': 'Matriks group × ruang — jalur utama pengaturan akses',
+      'Audit': 'Setiap aksi tercatat dengan pengguna, objek, dan alamat IP',
+      'Link aktif': 'Semua link berbagi di seluruh sistem',
+      'Sistem': 'Ringkasan kesehatan server dan penyimpanan'
+    };
+
+    /* Pengguna */
+    const uSrc = [
+      ['Ani Wulandari', 'ani.w', ['produksi-staff', 'qc-staff'], '12 Mar 07:41', 'Aktif'],
+      ['Budi Santoso', 'budi.s', ['produksi-mgr'], '12 Mar 06:58', 'Aktif'],
+      ['Rudi Hartono', 'rudi.h', ['gudang-staff'], '12 Mar 07:12', 'Aktif'],
+      ['Sari Puspita', 'sari.p', ['qc-mgr', 'qc-staff'], '11 Mar 16:30', 'Aktif'],
+      ['Dedi Kurniawan', 'dedi.k', ['produksi-staff'], '11 Mar 22:05', 'Aktif'],
+      ['Tono Mulyono', 'tono.m', ['maintenance'], '10 Mar 08:20', 'Aktif'],
+      ['Lina Fitriani', 'lina.f', ['qc-staff'], '28 Feb 09:14', 'Nonaktif'],
+      ['Agus Prasetyo', 'agus.p', ['gudang-staff'], '14 Feb 13:47', 'Nonaktif'],
+      ['Admin IT', 'admin.it', ['admin'], '12 Mar 08:02', 'Aktif']
+    ];
+    const uq = st.uq.trim().toLowerCase();
+    const users = uSrc
+      .filter(u => st.uFilter === 'Semua' || (st.uFilter === 'Aktif' ? u[4] === 'Aktif' : u[4] === 'Nonaktif'))
+      .filter(u => !uq || u[0].toLowerCase().indexOf(uq) >= 0 || u[1].indexOf(uq) >= 0)
+      .map(([name, username, groups, last, status]) => {
+        const off = status === 'Nonaktif';
+        return {
+          name, username, last, status,
+          initials: name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+          groups: groups.map(g => ({ name: g })),
+          bg: off ? 'var(--surface-sunken)' : 'var(--surface)',
+          nameFont: (off ? '400 ' : '500 ') + '14px/20px var(--font-ui)',
+          nameInk: off ? 'var(--ink-secondary)' : 'var(--ink)',
+          metaInk: off ? 'var(--ink-tertiary)' : 'var(--ink-secondary)',
+          avBg: off ? 'var(--surface-hover)' : 'var(--surface-selected)',
+          avBorder: off ? 'var(--border-strong)' : 'var(--primary-border)',
+          avInk: off ? 'var(--ink-tertiary)' : 'var(--primary-ink)',
+          stBg: off ? 'var(--surface-hover)' : 'var(--success-subtle)',
+          stBorder: off ? 'var(--border-strong)' : 'var(--success-border)',
+          stInk: off ? 'var(--ink-secondary)' : 'var(--success-ink)',
+          stIcon: off ? this.glyph('slash', { size: 12, stroke: 'currentColor', sw: 2.2 }) : null,
+          menu: () => {}
+        };
+      });
+
+    /* Group */
+    const gSrc = [
+      ['produksi-staff', 42, 3, 'Staff produksi semua line'],
+      ['produksi-mgr', 4, 4, 'Manager dan supervisor produksi'],
+      ['qc-staff', 18, 2, 'Inspektor QC'],
+      ['qc-mgr', 3, 4, 'Manager QC'],
+      ['gudang-staff', 14, 2, 'Staff gudang dan logistik'],
+      ['maintenance', 9, 3, 'Teknisi maintenance']
+    ];
+    const groups = gSrc.map(([name, members, spaces]) => {
+      const on = st.group === name;
+      return {
+        name, members, spaces, pick: () => this.setState({ group: name }),
+        bg: on ? 'var(--surface-selected)' : 'var(--surface)',
+        edge: on ? 'var(--primary)' : 'transparent',
+        font: (on ? '600 ' : '400 ') + '14px/20px var(--font-mono)'
+      };
+    });
+    const gRow = gSrc.filter(g => g[0] === st.group)[0] || gSrc[0];
+    const memberNames = {
+      'produksi-staff': [['Ani Wulandari', 'ani.w'], ['Dedi Kurniawan', 'dedi.k'], ['Joko Susilo', 'joko.s'], ['Wati Ningsih', 'wati.n'], ['Bayu Pratama', 'bayu.p']],
+      'produksi-mgr': [['Budi Santoso', 'budi.s'], ['Hendra Wijaya', 'hendra.w']],
+      'qc-staff': [['Ani Wulandari', 'ani.w'], ['Lina Fitriani', 'lina.f'], ['Sari Puspita', 'sari.p']],
+      'qc-mgr': [['Sari Puspita', 'sari.p']],
+      'gudang-staff': [['Rudi Hartono', 'rudi.h'], ['Agus Prasetyo', 'agus.p']],
+      'maintenance': [['Tono Mulyono', 'tono.m'], ['Eko Saputra', 'eko.s']]
+    };
+
+    /* Ruang */
+    const spSrc = [
+      ['Produksi', 'SOP, form, dan dokumentasi seluruh line produksi', 39, '312 GB dari 800 GB', '5.000', 'Standar — harian 7, mingguan 4', ['produksi-staff', 'produksi-mgr', 'qc-staff']],
+      ['QC', 'Laporan QC harian, rekap bulanan, paparan manajemen', 87, '348 GB dari 400 GB', '1.284', 'Retensi panjang — harian 30, bulanan 12', ['qc-staff', 'qc-mgr', 'produksi-mgr']],
+      ['Gudang', 'Data stok, surat jalan, foto penerimaan barang', 98, '196 GB dari 200 GB', '642', 'Standar — harian 7, mingguan 4', ['gudang-staff', 'produksi-mgr']],
+      ['Maintenance', 'Manual peralatan, checklist, riwayat perbaikan', 22, '44 GB dari 200 GB', '318', 'Minimal — harian 3', ['maintenance', 'produksi-mgr']],
+      ['Engineering', 'Drawing teknik dan revisi desain', 54, '216 GB dari 400 GB', '892', 'Retensi panjang — harian 30, bulanan 12', ['produksi-mgr']]
+    ];
+    const spaceRows = spSrc.map(([name, desc, pct, quota, files, snapshot, gs]) => ({
+      name, desc, pct, quota, files, snapshot,
+      groups: gs.map(g => ({ name: g })),
+      qColor: pct >= 95 ? 'var(--danger)' : pct >= 80 ? 'var(--warning)' : 'var(--primary)',
+      qInk: pct >= 95 ? 'var(--danger-ink)' : pct >= 80 ? 'var(--warning-ink)' : 'var(--ink)',
+      warn: pct >= 80,
+      warnText: pct >= 95 ? 'Kuota hampir penuh, unggahan baru akan ditolak' : 'Sisa 52 GB, pertimbangkan menambah kuota'
+    }));
+
+    /* Matriks hak akses */
+    const cols = [['Produksi', '312/800 GB'], ['QC', '348/400 GB'], ['Gudang', '196/200 GB'], ['Maintenance', '44/200 GB'], ['Engineering', '216/400 GB']];
+    const base = {
+      'produksi-staff': ['Kontributor', 'Tidak ada akses', 'Pelihat', 'Tidak ada akses', 'Tidak ada akses'],
+      'produksi-mgr': ['Pengelola', 'Pelihat', 'Pelihat', 'Pelihat', 'Pelihat'],
+      'qc-staff': ['Pelihat', 'Editor', 'Tidak ada akses', 'Tidak ada akses', 'Tidak ada akses'],
+      'qc-mgr': ['Pelihat', 'Pengelola', 'Tidak ada akses', 'Tidak ada akses', 'Pelihat'],
+      'gudang-staff': ['Pelihat', 'Tidak ada akses', 'Kontributor', 'Tidak ada akses', 'Tidak ada akses'],
+      'maintenance': ['Pelihat', 'Tidak ada akses', 'Pelihat', 'Pengelola', 'Tidak ada akses']
+    };
+    const options = ['Tidak ada akses', 'Pelihat', 'Kontributor', 'Editor', 'Pengelola'];
+    const seedChanges = this.props.perubahanBelumDisimpan === true && Object.keys(st.changes).length === 0
+      ? { 'qc-staff|0': 'Kontributor', 'gudang-staff|1': 'Pelihat', 'maintenance|4': 'Pelihat' }
+      : st.changes;
+    const changes = st.saved ? {} : seedChanges;
+
+    const matrixRows = gSrc.map(([g, members]) => ({
+      group: g, members,
+      cells: cols.map((c, i) => {
+        const key = g + '|' + i;
+        const cur = changes[key] || base[g][i];
+        const changed = !!changes[key] && changes[key] !== base[g][i];
+        const empty = cur === 'Tidak ada akses';
+        const rs = this.roleStyle(cur);
+        const open = st.cellOpen === key;
+        return {
+          label: empty ? '—' : cur, changed,
+          filled: !empty, justify: empty ? 'center' : 'space-between',
+          aria: g + ' di ruang ' + c[0] + ': ' + cur,
+          cellBg: empty ? 'var(--surface-sunken)' : 'transparent',
+          bg: empty ? 'transparent' : rs[0],
+          border: empty ? 'transparent' : rs[1],
+          ink: rs[2],
+          font: (cur === 'Pengelola' ? '600 ' : '400 ') + '13px/18px var(--font-ui)',
+          toggle: e => {
+            e.stopPropagation();
+            if (open) { this.setState({ cellOpen: null }); return; }
+            const b = e.currentTarget.getBoundingClientRect();
+            const mh = 5 * 32 + 46, mw = 196;
+            const flip = b.bottom + mh + 8 > window.innerHeight;
+            this.setState({
+              cellOpen: key, saved: false,
+              cellMenu: {
+                group: g, space: c[0],
+                x: Math.max(8, Math.min(b.left, window.innerWidth - mw - 8)),
+                y: flip ? Math.max(8, b.top - mh - 4) : b.bottom + 4
+              }
+            });
+          },
+          options: options.map(o => {
+            const on = o === cur;
+            return {
+              name: o === 'Tidak ada akses' ? 'Tidak ada akses' : o,
+              pick: e => {
+                e.stopPropagation();
+                const next = Object.assign({}, changes);
+                if (o === base[g][i]) delete next[key]; else next[key] = o;
+                this.setState({ changes: next, cellOpen: null, saved: false });
+              },
+              bg: on ? 'var(--surface-selected)' : 'transparent',
+              ink: o === 'Tidak ada akses' ? 'var(--ink-secondary)' : 'var(--ink)',
+              font: (on ? '500 ' : '400 ') + '13px/18px var(--font-ui)',
+              check: on ? this.glyph('check', { size: 13, stroke: 'var(--primary)', sw: 2.6 }) : null
+            };
+          })
+        };
+      })
+    }));
+    const changeKeys = Object.keys(changes);
+
+    /* Audit */
+    const aSrc = [
+      ['12 Mar 08:42:11', 'ani.w', 'Unggah file', '/Produksi/Foto Dokumentasi Mesin/Foto-Injeksi-A2-12-04.jpg', '192.168.10.87', 'netral'],
+      ['12 Mar 08:40:02', 'ani.w', 'Masuk', 'sesi web', '192.168.10.87', 'netral'],
+      ['12 Mar 08:22:47', 'admin.it', 'Ubah hak akses', 'group qc-staff di ruang Produksi', '192.168.10.4', 'permission'],
+      ['12 Mar 08:19:30', 'budi.s', 'Hapus file', '/Produksi/Arsip 2025/Arsip-Laporan-QC-2024-Q4.zip', '192.168.10.31', 'hapus'],
+      ['12 Mar 08:04:12', 'budi.s', 'Pulihkan versi', '/Produksi/SOP Produksi/SOP-Setting-Mesin-Rev3.pdf', '192.168.10.31', 'netral'],
+      ['12 Mar 07:58:55', 'rudi.h', 'Buat link berbagi', '/Gudang/Surat Jalan/SJ-2026-03-12.pdf', '192.168.10.64', 'link'],
+      ['12 Mar 07:52:03', 'ani.w', 'Ganti nama', '/Produksi/Laporan QC Harian/Laporan-QC-Shift-1.xlsx', '192.168.10.87', 'netral'],
+      ['12 Mar 07:41:19', 'ani.w', 'Masuk', 'sesi web', '192.168.10.87', 'netral'],
+      ['12 Mar 07:38:44', 'sari.p', 'Cabut link berbagi', 'rafnas.sfl.local/l/m3j8s5fw', '192.168.10.52', 'link'],
+      ['12 Mar 07:30:10', 'admin.it', 'Nonaktifkan pengguna', 'lina.f', '192.168.10.4', 'permission'],
+      ['12 Mar 07:12:38', 'rudi.h', 'Masuk', 'sesi web', '192.168.10.64', 'netral'],
+      ['12 Mar 06:58:02', 'budi.s', 'Masuk', 'sesi web', '192.168.10.31', 'netral'],
+      ['12 Mar 06:44:51', 'dedi.k', 'Kosongkan sampah', 'Ruang Produksi, 18 item', '192.168.10.99', 'hapus'],
+      ['12 Mar 06:20:07', 'sistem', 'Snapshot selesai', 'pool utama, 214 GB', '127.0.0.1', 'netral']
+    ];
+    const tint = {
+      hapus: ['var(--tint-danger)', 'var(--danger)', 'var(--danger)'],
+      permission: ['var(--tint-warning)', 'var(--warning)', 'var(--warning-ink)'],
+      link: ['var(--tint-info)', 'var(--primary)', 'var(--primary-ink)'],
+      netral: ['var(--surface)', 'var(--ink-tertiary)', 'var(--ink)']
+    };
+    const audit = aSrc.map(([time, user, action, object, ip, kind], i) => {
+      const t = tint[kind];
+      const open = st.audit === i;
+      return {
+        time, user, action, object, ip, open,
+        bg: t[0], dot: t[1], actInk: t[2],
+        actFont: (kind === 'netral' ? '400 ' : '500 ') + '13px/18px var(--font-ui)',
+        toggle: () => this.setState({ audit: open ? null : i }),
+        before: kind === 'permission' ? 'group: qc-staff\nruang: Produksi\nperan: Pelihat' : 'ukuran: 42 MB\nlokasi: /Produksi/Arsip 2025',
+        after: kind === 'permission' ? 'group: qc-staff\nruang: Produksi\nperan: Kontributor' : 'lokasi: /Sampah\nterhapus permanen: 11 Apr 2026',
+        note: kind === 'permission'
+          ? 'Perubahan hak akses selalu menyimpan nilai sebelum dan sesudah, termasuk siapa yang menyetujuinya.'
+          : 'File masih bisa dipulihkan dari Sampah sampai tanggal di atas.'
+      };
+    });
+
+    /* Link aktif */
+    const lSrc = [
+      ['Laporan-QC-Shift-1-2026-03-12.xlsx', '/Produksi/Laporan QC Harian', 'ani.w', '19 Mar 2026', 4, 'Aktif'],
+      ['Manual-Kompresor-01.pdf', '/Maintenance/Manual Peralatan', 'tono.m', '18 Mar 2026', 12, 'Aktif'],
+      ['Foto Dokumentasi Mesin', '/Produksi', 'budi.s', '14 Mar 2026', 31, 'Segera habis'],
+      ['Drawing-Rangka-Konveyor-Rev4.dwg', '/Engineering/Drawing', 'budi.s', '13 Mar 2026', 6, 'Segera habis'],
+      ['SJ-2026-03-12.pdf', '/Gudang/Surat Jalan', 'rudi.h', '15 Mar 2026', 2, 'Aktif'],
+      ['Paparan-Hasil-QC-Minggu-10.pptx', '/QC/Paparan Manajemen', 'sari.p', '09 Mar 2026', 18, 'Kedaluwarsa'],
+      ['Data-Ekspor-Mesin-02-2026.csv', '/QC/Data Ekspor', 'sari.p', '05 Mar 2026', 25, 'Batas tercapai'],
+      ['Rekap-Stok-Februari.xlsx', '/Gudang/Rekap', 'agus.p', '01 Mar 2026', 7, 'Kedaluwarsa']
+    ];
+    const lStyle = s => ({
+      'Aktif': ['var(--success-subtle)', 'var(--success-border)', 'var(--success-ink)'],
+      'Segera habis': ['var(--warning-subtle)', 'var(--warning-border)', 'var(--warning-ink)'],
+      'Kedaluwarsa': ['var(--surface-hover)', 'var(--border-strong)', 'var(--ink-secondary)'],
+      'Batas tercapai': ['var(--surface-hover)', 'var(--border-strong)', 'var(--ink-secondary)']
+    }[s]);
+    const adminLinks = lSrc.map(([name, path, by, expires, hits, status], i) => {
+      const on = st.linkSel.indexOf(i) >= 0;
+      const s2 = lStyle(status);
+      const dead = status === 'Kedaluwarsa' || status === 'Batas tercapai';
+      return {
+        name, path, by, expires, hits, status,
+        bg: on ? 'var(--surface-selected)' : (dead ? 'var(--surface-sunken)' : 'var(--surface)'),
+        boxBorder: on ? 'var(--primary)' : 'var(--border-strong)',
+        boxBg: on ? 'var(--primary)' : 'var(--surface)',
+        check: on ? this.glyph('check', { size: 11, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+        toggle: () => this.setState({ linkSel: on ? st.linkSel.filter(x => x !== i) : st.linkSel.concat([i]) }),
+        expInk: status === 'Segera habis' ? 'var(--warning-ink)' : (dead ? 'var(--ink-tertiary)' : 'var(--ink-secondary)'),
+        stBg: s2[0], stBorder: s2[1], stInk: s2[2]
+      };
+    });
+
+    /* Sistem */
+    const sysSpaces = spSrc.map(([name, d, pct, quota]) => ({
+      name: 'Ruang ' + name, pct, text: quota,
+      color: pct >= 95 ? 'var(--danger)' : pct >= 80 ? 'var(--warning)' : 'var(--primary)',
+      ink: pct >= 95 ? 'var(--danger-ink)' : pct >= 80 ? 'var(--warning-ink)' : 'var(--ink)'
+    }));
+    const sysRows = [
+      ['Snapshot tersimpan', '', '148', 'ok'],
+      ['Snapshot terbaru', 'pool utama, otomatis', '12 Mar 06:20', 'ok'],
+      ['Backup terakhir', '2 file dilewati karena sedang dibuka', 'selesai dengan catatan', 'warn'],
+      ['Sesi aktif', 'pengguna yang sedang membuka sistem', '38', 'ok'],
+      ['Unggahan berjalan', '', '12', 'ok'],
+      ['Suhu disk tertinggi', 'disk 3 dari 6', '41 °C', 'ok'],
+      ['Disk dengan peringatan', 'SMART sehat semua', '0', 'ok'],
+      ['Error terakhir', 'gagal menulis ke /QC — kuota penuh', '11 Mar 22:41', 'warn']
+    ].map(([label, sub, value, kind]) => ({
+      label, sub, value,
+      dot: kind === 'warn' ? 'var(--warning)' : 'var(--success)',
+      valFont: (kind === 'warn' ? '500 ' : '500 ') + (String(value).length <= 4 ? '20px/28px' : '14px/20px') + ' var(--font-mono)',
+      valInk: kind === 'warn' ? 'var(--warning-ink)' : 'var(--ink)'
+    }));
+
+    const picks = st.picks;
+    const modal = st.userModal === null ? (this.props.dialog === 'Tambah pengguna') : st.userModal;
+
+    return {
+      nav, pageTitle: page, pageSub: subs[page],
+      isUsers, isGroups, isSpaces, isPerms, isAudit, isLinks, isSystem,
+      uq: st.uq, onUq: e => this.setState({ uq: e.target.value }),
+      userFilters: ['Semua', 'Aktif', 'Nonaktif'].map(label => {
+        const on = st.uFilter === label;
+        return {
+          label, pick: () => this.setState({ uFilter: label }),
+          bg: on ? 'var(--surface-selected)' : 'var(--surface)',
+          ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)'
+        };
+      }),
+      users,
+      groups, groupName: gRow[0], groupDesc: gRow[3] + ' — ' + gRow[1] + ' anggota, akses ke ' + gRow[2] + ' ruang',
+      members: (memberNames[st.group] || []).map(([name, username]) => ({
+        name, username, initials: name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+      })),
+      spaceRows,
+      matrixCols: cols.map(([name, quota]) => ({ name, quota })),
+      matrixRows,
+      cellMenuOpen: !!(st.cellOpen && st.cellMenu),
+      cellMenuX: st.cellMenu ? st.cellMenu.x : 0,
+      cellMenuY: st.cellMenu ? st.cellMenu.y : 0,
+      cellMenuGroup: st.cellMenu ? st.cellMenu.group : '',
+      cellMenuSpace: st.cellMenu ? st.cellMenu.space : '',
+      cellMenuOptions: (() => {
+        if (!st.cellOpen) return [];
+        const parts = st.cellOpen.split('|');
+        const g = parts[0], i = +parts[1];
+        const cur = changes[st.cellOpen] || base[g][i];
+        return options.map(o => {
+          const on = o === cur;
+          return {
+            name: o,
+            pick: e => {
+              e.stopPropagation();
+              const next = Object.assign({}, changes);
+              if (o === base[g][i]) delete next[st.cellOpen]; else next[st.cellOpen] = o;
+              this.setState({ changes: next, cellOpen: null, cellMenu: null, saved: false });
+            },
+            bg: on ? 'var(--surface-selected)' : 'transparent',
+            ink: o === 'Tidak ada akses' ? 'var(--ink-secondary)' : 'var(--ink)',
+            font: (on ? '500 ' : '400 ') + '13px/18px var(--font-ui)',
+            check: on ? this.glyph('check', { size: 13, stroke: 'var(--primary)', sw: 2.6 }) : null
+          };
+        });
+      })(),
+      legend: ['Pelihat', 'Kontributor', 'Editor', 'Pengelola'].map(n => {
+        const rs = this.roleStyle(n);
+        return { name: n, bg: rs[0], border: rs[1], ink: rs[2], font: (n === 'Pengelola' ? '600 ' : '400 ') + '12px/16px var(--font-ui)' };
+      }),
+      roleDocs: [
+        { name: 'Pelihat', desc: 'Lihat dan unduh.' },
+        { name: 'Kontributor', desc: 'Tambah unggah. Tidak bisa menghapus milik orang lain.' },
+        { name: 'Editor', desc: 'Tambah ganti nama, pindah, dan hapus.' },
+        { name: 'Pengelola', desc: 'Tambah mengatur akses di ruang itu.' }
+      ],
+      hasChanges: changeKeys.length > 0,
+      changeLabel: changeKeys.length + ' perubahan belum disimpan',
+      changeDetail: changeKeys.map(k => k.split('|')[0] + ' → ' + changes[k]).join(', '),
+      save: () => this.setState({ changes: {}, saved: true, cellOpen: null }),
+      discard: () => this.setState({ changes: {}, saved: true, cellOpen: null }),
+      excOpen: st.exc,
+      toggleExc: () => this.setState({ exc: !st.exc }),
+      excChevron: this.glyph(st.exc ? 'chevDown' : 'chevRight', { size: 16, stroke: 'var(--ink-secondary)', sw: 2 }),
+      exceptions: [
+        ['/Produksi/Laporan QC Harian/Rahasia Audit', 'produksi-staff', 'Tidak ada akses'],
+        ['/QC/Paparan Manajemen', 'qc-staff', 'Pelihat'],
+        ['/Engineering/Drawing/Revisi Aktif', 'produksi-mgr', 'Editor']
+      ].map(([path, group, role]) => {
+        const rs = this.roleStyle(role);
+        return { path, group, role, bg: rs[0] === 'transparent' ? 'var(--surface-hover)' : rs[0], border: rs[1] === 'transparent' ? 'var(--border-strong)' : rs[1], ink: rs[2] };
+      }),
+      audit,
+      adminLinks,
+      linkSelLabel: st.linkSel.length ? st.linkSel.length + ' link dipilih' : '8 link, 2 sudah kedaluwarsa',
+      noLinkSel: st.linkSel.length === 0,
+      revokeBg: st.linkSel.length ? 'var(--surface)' : 'var(--surface-hover)',
+      revokeInk: st.linkSel.length ? 'var(--danger)' : 'var(--ink-tertiary)',
+      revokeBorder: st.linkSel.length ? 'var(--danger)' : 'var(--border)',
+      revokeCursor: st.linkSel.length ? 'pointer' : 'not-allowed',
+      allLinkBorder: st.linkSel.length ? 'var(--primary)' : 'var(--border-strong)',
+      allLinkBg: st.linkSel.length ? 'var(--primary)' : 'var(--surface)',
+      allLinkMark: st.linkSel.length ? 'var(--ink-inverse)' : 'transparent',
+      toggleAllLinks: () => this.setState({ linkSel: st.linkSel.length ? [] : lSrc.map((x, i) => i) }),
+      sysSpaces, sysRows, sysAlert: true,
+      userModal: modal,
+      openUser: () => this.setState({ userModal: true }),
+      closeUser: () => this.setState({ userModal: false }),
+      mustChange: st.mustChange,
+      mcBg: st.mustChange ? 'var(--primary)' : 'var(--surface)',
+      mcBorder: st.mustChange ? 'var(--primary)' : 'var(--border-strong)',
+      mcCheck: st.mustChange ? this.glyph('check', { size: 12, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+      toggleMustChange: () => this.setState({ mustChange: !st.mustChange }),
+      groupPicks: gSrc.map(([name, m, s2, desc]) => {
+        const on = picks.indexOf(name) >= 0;
+        return {
+          name, desc, on,
+          toggle: e => { e.preventDefault(); this.setState({ picks: on ? picks.filter(x => x !== name) : picks.concat([name]) }); },
+          rowBg: on ? 'var(--surface-selected)' : 'var(--surface)',
+          bg: on ? 'var(--primary)' : 'var(--surface)',
+          border: on ? 'var(--primary)' : 'var(--border-strong)',
+          check: on ? this.glyph('check', { size: 11, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

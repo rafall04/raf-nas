@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="height:100vh;display:flex;flex-direction:column;background:var(--surface);overflow:hidden">
+
+  <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;align-items:center;gap:10px;height:32px;padding:0 16px;background:var(--surface-hover);border-bottom:1px solid var(--border-strong);flex:none">
+      <span style="flex:none;width:8px;height:8px;border-radius:4px;background:var(--ink-tertiary)"></span>
+      <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Koneksi ke server terputus. Daftar file mungkin belum yang terbaru.</span>
+      <span style="margin-left:auto;font:400 13px/18px var(--font-mono);color:var(--ink-tertiary)">mencoba ulang 8s</span>
+    </div>
+  </sc-if>
+
+  <div style="flex:1;display:flex;min-height:0">
+
+    <aside style="width:{{ sidebarW }}px;flex:none;background:var(--surface-sunken);border-right:1px solid var(--border-strong);display:flex;flex-direction:column;min-height:0;transition:width 160ms">
+      <div style="height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid var(--border)">
+        <span style="flex:none;width:28px;height:28px;border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);display:flex;align-items:center;justify-content:center;font:600 13px/1 var(--font-mono)">RAF</span>
+        <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+          <span style="min-width:0;flex:1">
+            <span style="display:block;font:600 14px/18px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">RAF NAS</span>
+            <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">rafnas.sfl.local</span>
+          </span>
+        </sc-if>
+        <button type="button" onClick="{{ toggleRail }}" title="{{ railTitle }}" aria-label="{{ railTitle }}" style="flex:none;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16M4 12h10M4 18.5h16" /></svg>
+        </button>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 8px">
+        <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:0 6px 6px;font:500 12px/16px var(--font-ui);color:var(--ink-tertiary)">Ruang</div>
+        </sc-if>
+        <sc-for list="{{ spaces }}" as="s" hint-placeholder-count="4">
+          <button type="button" onClick="{{ s.open }}" title="{{ s.name }}" style="width:100%;display:flex;align-items:center;gap:10px;height:{{ navH }}px;padding:0 8px;margin-bottom:2px;border:0;border-left:2px solid {{ s.edge }};border-radius:var(--radius-sm);background:{{ s.bg }};color:{{ s.ink }};font:{{ s.font }};text-align:left;cursor:pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex:none;opacity:.75" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg>
+            <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+              <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</span>
+            </sc-if>
+            <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+              <span style="flex:none;font:400 12px/16px var(--font-mono);color:{{ s.countInk }};font-variant-numeric:tabular-nums">{{ s.count }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+
+        <div style="height:1px;background:var(--border);margin:12px 6px"></div>
+
+        <sc-for list="{{ shelves }}" as="v" hint-placeholder-count="3">
+          <button type="button" onClick="{{ v.open }}" title="{{ v.name }}" style="width:100%;display:flex;align-items:center;gap:10px;height:{{ navH }}px;padding:0 8px;margin-bottom:2px;border:0;border-left:2px solid {{ v.edge }};border-radius:var(--radius-sm);background:{{ v.bg }};color:{{ v.ink }};font:{{ v.font }};text-align:left;cursor:pointer">
+            <span style="flex:none;width:18px;height:18px;display:flex;align-items:center;justify-content:center;opacity:.8">{{ v.icon }}</span>
+            <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+              <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.name }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:none;padding:12px 14px;border-top:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Kuota {{ spaceName }}</span>
+          </div>
+          <div style="height:6px;border-radius:3px;background:var(--surface-hover);margin-top:6px;overflow:hidden;border:1px solid var(--border)">
+            <div style="width:{{ quotaPct }}%;height:100%;background:{{ quotaColor }}"></div>
+          </div>
+          <div style="margin-top:5px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ quotaText }}</div>
+        </div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--border)">
+          <span style="flex:none;width:26px;height:26px;border-radius:13px;background:var(--surface-selected);border:1px solid var(--primary-border);display:flex;align-items:center;justify-content:center;font:500 11px/1 var(--font-mono);color:var(--primary-ink)">AW</span>
+          <span style="min-width:0;flex:1">
+            <span style="display:block;font:500 13px/16px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Ani Wulandari</span>
+            <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">{{ roleLabel }}</span>
+          </span>
+        </div>
+      </sc-if>
+    </aside>
+
+    <main style="flex:1;min-width:0;display:flex;flex-direction:column;background:var(--surface)">
+
+      <div style="height:56px;flex:none;display:flex;align-items:center;gap:12px;padding:0 12px 0 16px;border-bottom:1px solid var(--border);background:{{ headerBg }}">
+        <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px">
+            <span style="font:600 14px/20px var(--font-ui);color:var(--primary-ink);font-variant-numeric:tabular-nums;white-space:nowrap">{{ selLabel }}</span>
+            <span style="flex:none;width:1px;height:20px;background:var(--primary-border)"></span>
+            <button type="button" style="height:{{ ctlH }}px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:6px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>
+              Unduh
+            </button>
+            <button type="button" style="height:{{ ctlH }}px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Pindahkan</button>
+            <button type="button" style="height:{{ ctlH }}px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Bagikan</button>
+            <button type="button" onClick="{{ trashSel }}" style="height:{{ ctlH }}px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--danger);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:6px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 7h15" /><path d="M9.5 7V4.5h5V7" /><path d="M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z" /></svg>
+              Hapus
+            </button>
+          </div>
+          <button type="button" onClick="{{ clearSel }}" aria-label="Kosongkan pilihan" style="flex:none;width:{{ ctlH }}px;height:{{ ctlH }}px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--primary-ink)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </sc-if>
+
+        <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
+          <nav aria-label="Jalur folder" style="flex:1;min-width:0;display:flex;align-items:center;gap:4px;overflow:hidden">
+            <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="2">
+              <span style="display:flex;align-items:center;gap:4px;min-width:0">
+                <button type="button" onClick="{{ c.go }}" aria-current="{{ c.current }}" style="max-width:{{ c.maxW }}px;height:26px;padding:0 6px;border:0;border-radius:var(--radius-sm);background:transparent;font:{{ c.font }};color:{{ c.ink }};cursor:{{ c.cursor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</button>
+                <sc-if value="{{ c.sep }}" hint-placeholder-val="{{ true }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+                </sc-if>
+              </span>
+            </sc-for>
+          </nav>
+
+          <div style="flex:none;display:flex;align-items:center;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px;width:{{ searchW }}px;height:{{ ctlH }}px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+              <input type="text" value="{{ q }}" onChange="{{ onSearch }}" placeholder="{{ searchHint }}" aria-label="Cari file" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font:400 13px/18px var(--font-ui);color:var(--ink)" />
+            </div>
+
+            <sc-if value="{{ showDensity }}" hint-placeholder-val="{{ true }}">
+            <div role="group" aria-label="Kepadatan baris" style="display:flex;height:{{ ctlH }}px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden">
+              <button type="button" onClick="{{ setPadat }}" title="Kepadatan padat" aria-pressed="{{ isPadat }}" style="width:{{ ctlH }}px;height:100%;border:0;border-right:1px solid var(--border-strong);background:{{ padatBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ padatInk }}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+              </button>
+              <button type="button" onClick="{{ setNormal }}" title="Kepadatan normal" aria-pressed="{{ isNormal }}" style="width:{{ ctlH }}px;height:100%;border:0;border-right:1px solid var(--border-strong);background:{{ normalBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ normalInk }}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+              </button>
+              <button type="button" onClick="{{ setSentuh }}" title="Kepadatan sentuh" aria-pressed="{{ isSentuh }}" style="width:{{ ctlH }}px;height:100%;border:0;background:{{ sentuhBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ sentuhInk }}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
+              </button>
+            </div>
+            </sc-if>
+
+            <div role="group" aria-label="Tampilan" style="display:flex;height:{{ ctlH }}px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden">
+              <button type="button" onClick="{{ setList }}" title="Tampilan daftar" style="width:{{ ctlH }}px;height:100%;border:0;border-right:1px solid var(--border-strong);background:{{ listBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ listInk }}" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16" /></svg>
+              </button>
+              <button type="button" onClick="{{ setGrid }}" title="Tampilan grid" style="width:{{ ctlH }}px;height:100%;border:0;background:{{ gridBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ gridInk }}" stroke-width="1.9" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1" /><rect x="13" y="4" width="7" height="7" rx="1" /><rect x="4" y="13" width="7" height="7" rx="1" /><rect x="13" y="13" width="7" height="7" rx="1" /></svg>
+              </button>
+            </div>
+
+            <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="width:{{ ctlH }}px;height:{{ ctlH }}px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}</button>
+
+            <button type="button" onClick="{{ toggleDetail }}" title="Panel detail" aria-pressed="{{ detailOpen }}" style="width:{{ ctlH }}px;height:{{ ctlH }}px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:{{ detailBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ detailInk }}" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5" /><path d="M15 4.5v15" /></svg>
+            </button>
+
+            <div style="position:relative">
+              <button type="button" onClick="{{ toggleUploadMenu }}" disabled="{{ readOnly }}" title="{{ uploadTitle }}" style="height:{{ ctlH }}px;padding:0 12px;border:1px solid {{ uploadBorder }};border-radius:var(--radius-sm);background:{{ uploadBg }};color:{{ uploadInk }};font:500 14px/20px var(--font-ui);cursor:{{ uploadCursor }};display:flex;align-items:center;gap:8px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                Unggah
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8" aria-hidden="true"><path d="M5.5 9.5 12 16l6.5-6.5" /></svg>
+              </button>
+              <sc-if value="{{ uploadMenu }}" hint-placeholder-val="{{ false }}">
+                <div role="menu" style="position:absolute;top:calc(100% + 6px);right:0;width:212px;padding:4px;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);z-index:40">
+                  <button type="button" role="menuitem" onClick="{{ doUpload }}" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                    Unggah file
+                  </button>
+                  <button type="button" role="menuitem" onClick="{{ doUpload }}" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h3.6l1.8 2.4H19a1.5 1.5 0 0 1 1.5 1.5V17A1.5 1.5 0 0 1 19 18.5H5A1.5 1.5 0 0 1 3.5 17z" /></svg>
+                    Unggah folder
+                  </button>
+                  <div style="height:1px;background:var(--border);margin:4px 0"></div>
+                  <button type="button" role="menuitem" onClick="{{ newFolder }}" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 8v8M8 12h8" /><rect x="3.5" y="4.5" width="17" height="15" rx="1.5" /></svg>
+                    Folder baru
+                  </button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ quotaFull }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:none;display:flex;align-items:center;gap:10px;height:36px;padding:0 16px;background:var(--warning-subtle);border-bottom:1px solid var(--warning-border)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+          <span style="font:400 14px/20px var(--font-ui);color:var(--warning-ink)">Kuota Ruang {{ spaceName }} tersisa 4 GB. Unggahan besar akan ditolak.</span>
+          <a href="#kuota" style="margin-left:auto;font:500 14px/20px var(--font-ui);color:var(--warning-ink)">Lihat pemakaian</a>
+        </div>
+      </sc-if>
+
+      <div style="flex:1;display:flex;min-height:0;position:relative">
+
+        <section style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
+
+          <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:none;display:grid;grid-template-columns:{{ cols }};align-items:center;height:34px;padding-right:8px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+              <span style="display:flex;justify-content:center">
+                <button type="button" onClick="{{ toggleAll }}" aria-label="Pilih semua di folder ini" style="width:{{ boxS }}px;height:{{ boxS }}px;padding:0;border:1px solid {{ allBorder }};border-radius:3px;background:{{ allBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <span style="width:9px;height:2px;border-radius:1px;background:{{ allMark }}"></span>
+                </button>
+              </span>
+              <span></span>
+              <button type="button" onClick="{{ sortName }}" style="display:flex;align-items:center;gap:5px;height:100%;padding:0;border:0;background:transparent;font:{{ hName }};color:{{ hNameInk }};cursor:pointer;text-align:left">Nama<span style="display:flex">{{ caretName }}</span></button>
+              <button type="button" onClick="{{ sortSize }}" style="display:flex;align-items:center;justify-content:flex-end;gap:5px;height:100%;padding:0;border:0;background:transparent;font:{{ hSize }};color:{{ hSizeInk }};cursor:pointer">Ukuran<span style="display:flex">{{ caretSize }}</span></button>
+              <button type="button" onClick="{{ sortTime }}" style="display:flex;align-items:center;gap:5px;height:100%;padding:0 0 0 16px;border:0;background:transparent;font:{{ hTime }};color:{{ hTimeInk }};cursor:pointer;text-align:left">Diubah<span style="display:flex">{{ caretTime }}</span></button>
+              <sc-if value="{{ showBy }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ sortBy }}" style="display:flex;align-items:center;gap:5px;height:100%;padding:0;border:0;background:transparent;font:{{ hBy }};color:{{ hByInk }};cursor:pointer;text-align:left">Oleh<span style="display:flex">{{ caretBy }}</span></button>
+              </sc-if>
+              <sc-if value="{{ showAct }}" hint-placeholder-val="{{ true }}"><span></span></sc-if>
+            </div>
+          </sc-if>
+
+          <div ref="{{ scrollRef }}" tabindex="0" onScroll="{{ onScroll }}" onKeyDown="{{ onKeyDown }}" onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="flex:1;min-height:0;overflow:auto;position:relative;outline-offset:-2px">
+
+            <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <sc-for list="{{ skeletons }}" as="k" hint-placeholder-count="10">
+                  <div style="display:grid;grid-template-columns:{{ cols }};align-items:center;height:{{ rowH }}px;padding-right:8px;border-bottom:1px solid var(--border)">
+                    <span></span>
+                    <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--surface-hover)"></span></span>
+                    <span><span style="display:block;width:{{ k.w }}px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+                    <sc-if value="{{ showSize }}" hint-placeholder-val="{{ true }}"><span style="display:flex;justify-content:flex-end"><span style="width:48px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span></sc-if>
+                    <sc-if value="{{ showTime }}" hint-placeholder-val="{{ true }}"><span style="padding-left:16px"><span style="display:block;width:76px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span></sc-if>
+                    <sc-if value="{{ showBy }}" hint-placeholder-val="{{ true }}"><span><span style="display:block;width:52px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span></sc-if>
+                    <sc-if value="{{ showAct }}" hint-placeholder-val="{{ true }}"><span></span></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v5" /></svg>
+                <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Gagal memuat daftar file</div>
+                <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;max-width:38ch;text-wrap:pretty">Periksa koneksi ke server lalu coba lagi. File yang sudah diunduh tetap tersimpan di komputer Anda.</div>
+                <button type="button" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer;display:inline-flex;align-items:center;gap:8px">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v3.5h-3.5" /></svg>
+                  Coba lagi
+                </button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDenied }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></svg>
+                <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Anda tidak punya akses ke folder ini</div>
+                <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;max-width:40ch;text-wrap:pretty">Akses folder diatur per group. Minta ke manager departemen Anda atau Admin IT, sebutkan nama folder di jalur atas.</div>
+                <button type="button" onClick="{{ goRoot }}" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Kembali ke {{ spaceName }}</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px">
+                <span style="display:flex;margin-bottom:12px">{{ emptyIcon }}</span>
+                <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">{{ emptyTitle }}</div>
+                <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;max-width:40ch;text-wrap:pretty">{{ emptyBody }}</div>
+                <sc-if value="{{ emptyAction }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ doUpload }}" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">{{ emptyActionLabel }}</button>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showRows }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="height:{{ padTop }}px"></div>
+                <sc-for list="{{ visible }}" as="r" hint-placeholder-count="14">
+                  <div onClick="{{ r.onClick }}" onDoubleClick="{{ r.onOpen }}" onContextMenu="{{ r.onMenu }}" onMouseEnter="{{ r.onEnter }}" onMouseLeave="{{ r.onLeave }}" style="display:grid;grid-template-columns:{{ cols }};align-items:center;height:{{ rowH }}px;padding-right:8px;border-bottom:1px solid var(--border);border-left:2px solid {{ r.edge }};background:{{ r.bg }};cursor:pointer;user-select:none">
+                    <span style="display:flex;justify-content:center">
+                      <button type="button" onClick="{{ r.onCheck }}" aria-label="Pilih {{ r.name }}" style="width:{{ boxS }}px;height:{{ boxS }}px;padding:0;border:1px solid {{ r.boxBorder }};border-radius:3px;background:{{ r.boxBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">
+                        <span style="display:flex">{{ r.check }}</span>
+                      </button>
+                    </span>
+                    <span style="display:flex;justify-content:center">{{ r.icon }}</span>
+                    <span style="display:flex;align-items:center;gap:8px;min-width:0">
+                      <span style="font:{{ r.nameFont }};color:{{ r.nameInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.disp }}</span>
+                      <sc-if value="{{ r.locked }}" hint-placeholder-val="{{ false }}">
+                        <span title="Sedang dibuka oleh {{ r.lockBy }}" style="flex:none;display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:var(--radius-sm);background:var(--warning-subtle);border:1px solid var(--warning-border);font:500 12px/16px var(--font-ui);color:var(--warning-ink)">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></svg>
+                          Terkunci
+                        </span>
+                      </sc-if>
+                      <sc-if value="{{ r.shared }}" hint-placeholder-val="{{ false }}">
+                        <span title="Punya link berbagi aktif" style="flex:none;display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:var(--radius-sm);background:var(--primary-subtle);border:1px solid var(--primary-border);font:500 12px/16px var(--font-ui);color:var(--primary-ink)">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3" /><path d="M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3" /></svg>
+                          Dibagikan
+                        </span>
+                      </sc-if>
+                    </span>
+                    <sc-if value="{{ showSize }}" hint-placeholder-val="{{ true }}">
+                      <span style="font:400 14px/20px var(--font-mono);color:{{ r.metaInk }};text-align:right;font-variant-numeric:tabular-nums">{{ r.size }}</span>
+                    </sc-if>
+                    <sc-if value="{{ showTime }}" hint-placeholder-val="{{ true }}">
+                      <span style="font:400 13px/18px var(--font-mono);color:{{ r.metaInk }};padding-left:16px;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.time }}</span>
+                    </sc-if>
+                    <sc-if value="{{ showBy }}" hint-placeholder-val="{{ true }}">
+                      <span style="font:400 13px/18px var(--font-ui);color:{{ r.metaInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.by }}</span>
+                    </sc-if>
+                    <sc-if value="{{ showAct }}" hint-placeholder-val="{{ true }}">
+                    <span style="display:flex;justify-content:flex-end;gap:2px;visibility:{{ r.actVis }}">
+                      <button type="button" title="Unduh" aria-label="Unduh {{ r.name }}" style="width:{{ actS }}px;height:{{ actS }}px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>
+                      </button>
+                      <button type="button" onClick="{{ r.onMenuBtn }}" title="Menu" aria-label="Menu untuk {{ r.name }}" style="width:{{ actS }}px;height:{{ actS }}px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--ink-secondary)" aria-hidden="true"><circle cx="12" cy="6" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="18" r="1.6" /></svg>
+                      </button>
+                    </span>
+                    </sc-if>
+                  </div>
+                </sc-for>
+                <div style="height:{{ padBottom }}px"></div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:16px;padding:16px">
+                <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="12">
+                  <button type="button" onClick="{{ t.onClick }}" onDoubleClick="{{ t.onOpen }}" style="position:relative;padding:8px;border:1px solid {{ t.border }};border-radius:var(--radius-md);background:{{ t.bg }};cursor:pointer;text-align:left">
+                    <span style="display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;border-radius:var(--radius-sm);border:1px solid var(--border);background:{{ t.thumb }};background-size:8px 8px;position:relative;overflow:hidden">
+                      <sc-if value="{{ t.isDir }}" hint-placeholder-val="{{ false }}">
+                        <span style="display:flex">{{ t.glyph }}</span>
+                      </sc-if>
+                      <sc-if value="{{ t.isFile }}" hint-placeholder-val="{{ true }}">
+                        <span style="position:absolute;left:6px;bottom:6px;font:400 10px/14px var(--font-mono);color:var(--ink-tertiary);background:var(--surface);padding:0 4px;border-radius:2px">{{ t.ext }}</span>
+                      </sc-if>
+                    </span>
+                    <span style="display:block;margin-top:8px;font:400 13px/18px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.disp }}</span>
+                    <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ t.size }}</span>
+                    <span style="position:absolute;top:14px;left:14px;width:18px;height:18px;border:1px solid {{ t.boxBorder }};border-radius:3px;background:{{ t.boxBg }};display:flex;align-items:center;justify-content:center">{{ t.check }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ dragging }}" hint-placeholder-val="{{ false }}">
+              <div style="position:sticky;top:0;left:0;height:0;z-index:20">
+                <div style="position:absolute;top:8px;left:8px;right:8px;height:calc(100vh - 220px);border:2px dashed var(--primary);border-radius:var(--radius-md);background:var(--primary-subtle);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;pointer-events:none">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                  <span style="font:500 15px/22px var(--font-ui);color:var(--primary-ink)">Lepaskan untuk mengunggah ke folder ini</span>
+                  <span style="font:400 13px/18px var(--font-mono);color:var(--primary-ink);opacity:.8">{{ dropPath }}</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="flex:none;display:flex;align-items:center;gap:12px;height:30px;padding:0 16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ statCount }}</span>
+            <span style="width:1px;height:14px;background:var(--border-strong)"></span>
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ statSize }}</span>
+            <span style="width:1px;height:14px;background:var(--border-strong)"></span>
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">{{ statHidden }}</span>
+            <span style="margin-left:auto;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">{{ statHint }}</span>
+          </div>
+        </section>
+
+        <sc-if value="{{ detailOverlay }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ toggleDetail }}" aria-hidden="true" style="position:absolute;inset:0;background:var(--scrim-veil);z-index:{{ detailScrimZ }}"></div>
+        </sc-if>
+
+        <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+          <aside aria-label="Detail" style="width:{{ detailW }};flex:none;border-left:1px solid var(--border-strong);background:var(--surface);display:flex;flex-direction:column;min-height:0;position:{{ detailPos }};right:0;top:0;bottom:0;box-shadow:{{ detailShadow }};z-index:{{ detailZ }}">
+            <div style="flex:none;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px;border-bottom:1px solid var(--border);background:var(--surface-sunken)">
+              <span style="font:600 13px/18px var(--font-ui);color:var(--ink)">Detail</span>
+              <button type="button" onClick="{{ toggleDetail }}" aria-label="Tutup panel detail" style="width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              </button>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;padding:16px">
+              <sc-if value="{{ detailNone }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:32px 8px;text-align:center">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linejoin="round" style="margin-bottom:10px" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5" /><path d="M15 4.5v15" /></svg>
+                  <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Pilih satu file untuk melihat metadata, akses, dan riwayat versinya.</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ detailMulti }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font:600 17px/24px var(--font-ui);color:var(--ink);font-variant-numeric:tabular-nums">{{ multiCount }}</div>
+                  <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px">Total ukuran <span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ multiSize }}</span></div>
+                  <div style="height:1px;background:var(--border);margin:16px 0"></div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <button type="button" style="height:36px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Unduh sebagai arsip zip</button>
+                    <button type="button" style="height:36px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Pindahkan ke folder lain</button>
+                  </div>
+                  <div style="height:1px;background:var(--border);margin:16px 0"></div>
+                  <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:8px">Rincian pilihan</div>
+                  <div style="display:flex;flex-direction:column;gap:6px">
+                    <sc-for list="{{ multiBreak }}" as="b" hint-placeholder-count="3">
+                      <div style="display:flex;justify-content:space-between;gap:12px;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">
+                        <span>{{ b.label }}</span>
+                        <span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ b.value }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ detailOne }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="border:1px solid var(--border);border-radius:var(--radius-sm);background:{{ oneThumb }};background-size:8px 8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative">
+                    <span style="display:flex">{{ oneIconBig }}</span>
+                    <span style="position:absolute;bottom:6px;right:8px;font:400 11px/16px var(--font-mono);color:var(--ink-tertiary)">pratinjau</span>
+                  </div>
+                  <div style="font:500 15px/22px var(--font-ui);color:var(--ink);margin-top:12px;word-break:break-word">{{ oneName }}</div>
+                  <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+                    <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer">Unduh</button>
+                    <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Pratinjau</button>
+                    <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Bagikan</button>
+                  </div>
+
+                  <div style="height:1px;background:var(--border);margin:16px 0"></div>
+                  <div style="display:grid;grid-template-columns:88px minmax(0,1fr);gap:7px 12px;font:400 13px/18px var(--font-ui)">
+                    <span style="color:var(--ink-secondary)">Tipe</span><span style="color:var(--ink)">{{ oneType }}</span>
+                    <span style="color:var(--ink-secondary)">Ukuran</span><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ oneSize }}</span>
+                    <span style="color:var(--ink-secondary)">Diubah</span><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ oneTime }}</span>
+                    <span style="color:var(--ink-secondary)">Oleh</span><span style="color:var(--ink)">{{ oneBy }}</span>
+                    <span style="color:var(--ink-secondary)">Path</span><span style="font-family:var(--font-mono);color:var(--ink-secondary);word-break:break-all">{{ onePath }}</span>
+                  </div>
+
+                  <div style="height:1px;background:var(--border);margin:16px 0"></div>
+                  <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:8px">Akses efektif</div>
+                  <div style="display:flex;flex-direction:column;gap:6px">
+                    <sc-for list="{{ oneAccess }}" as="a" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                        <span style="font:400 13px/18px var(--font-mono);color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ a.group }}</span>
+                        <span style="flex:none;height:20px;padding:0 7px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:{{ a.bg }};border:1px solid {{ a.border }};font:500 12px/16px var(--font-ui);color:{{ a.ink }}">{{ a.role }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <div style="height:1px;background:var(--border);margin:16px 0"></div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
+                    <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Riwayat versi</span>
+                    <a href="#versi" style="font:400 13px/18px var(--font-ui)">Lihat semua</a>
+                  </div>
+                  <div style="border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden">
+                    <sc-for list="{{ oneVersions }}" as="v" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--border);background:{{ v.bg }}">
+                        <span style="flex:1;min-width:0">
+                          <span style="display:block;font:400 13px/18px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ v.time }}</span>
+                          <span style="display:block;font:400 12px/16px var(--font-ui);color:var(--ink-secondary)">{{ v.by }}</span>
+                        </span>
+                        <span style="flex:none;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ v.size }}</span>
+                        <sc-if value="{{ v.current }}" hint-placeholder-val="{{ false }}">
+                          <span style="flex:none;height:20px;padding:0 6px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--success-subtle);border:1px solid var(--success-border);font:500 12px/16px var(--font-ui);color:var(--success-ink)">Saat ini</span>
+                        </sc-if>
+                        <sc-if value="{{ v.restorable }}" hint-placeholder-val="{{ false }}">
+                          <button type="button" style="flex:none;height:24px;padding:0 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 12px/16px var(--font-ui);cursor:pointer">Pulihkan</button>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </aside>
+        </sc-if>
+      </div>
+    </main>
+  </div>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="menu" style="position:fixed;top:{{ menuY }}px;left:{{ menuX }}px;width:224px;padding:4px;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);z-index:60">
+      <div style="padding:6px 10px 4px;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ menuName }}</div>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">Buka pratinjau</button>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">Unduh</button>
+      <div style="height:1px;background:var(--border);margin:4px 0"></div>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" disabled="{{ readOnly }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:{{ menuMutableInk }};font:400 14px/20px var(--font-ui);text-align:left;cursor:{{ menuMutableCursor }}" style-hover="background:var(--surface-hover)">Ganti nama</button>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" disabled="{{ readOnly }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:{{ menuMutableInk }};font:400 14px/20px var(--font-ui);text-align:left;cursor:{{ menuMutableCursor }}" style-hover="background:var(--surface-hover)">Pindahkan ke…</button>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">Riwayat versi<span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">{{ menuVersions }}</span></button>
+      <div style="height:1px;background:var(--border);margin:4px 0"></div>
+      <button type="button" role="menuitem" onClick="{{ closeMenu }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover)">Buat link berbagi</button>
+      <div style="height:1px;background:var(--border);margin:4px 0"></div>
+      <button type="button" role="menuitem" onClick="{{ trashFromMenu }}" disabled="{{ readOnly }}" style="width:100%;display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:{{ menuDangerInk }};font:400 14px/20px var(--font-ui);text-align:left;cursor:{{ menuMutableCursor }}" style-hover="background:var(--danger-subtle)">Pindahkan ke sampah</button>
+      <sc-if value="{{ readOnly }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:6px 10px 4px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Anda hanya punya akses baca di folder ini.</div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ uploadOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="region" aria-label="Panel unggah" style="position:fixed;right:{{ floatRight }}px;bottom:16px;width:min(380px, calc(100vw - {{ floatGutter }}px));background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);z-index:50;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 8px 10px 14px;border-bottom:1px solid {{ upHeadBorder }};background:{{ upHeadBg }}">
+        <span style="display:flex;flex:none">{{ upHeadIcon }}</span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font:500 14px/20px var(--font-ui);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ upTitle }}</span>
+          <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ upSub }}</span>
+        </span>
+        <button type="button" onClick="{{ toggleUpCollapse }}" aria-label="{{ upCollapseLabel }}" style="flex:none;width:26px;height:26px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <span style="display:flex">{{ upChevron }}</span>
+        </button>
+        <button type="button" onClick="{{ closeUpload }}" aria-label="Tutup panel unggah" style="flex:none;width:26px;height:26px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+      <sc-if value="{{ upExpanded }}" hint-placeholder-val="{{ false }}">
+        <div style="max-height:262px;overflow-y:auto">
+          <sc-for list="{{ upFiles }}" as="f" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border)">
+              <span style="flex:none;display:flex">{{ f.icon }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.disp }}</span>
+                  <span style="flex:none;font:400 12px/16px var(--font-mono);color:{{ f.stateInk }};font-variant-numeric:tabular-nums">{{ f.state }}</span>
+                </span>
+                <span style="display:block;height:4px;border-radius:2px;background:var(--surface-hover);margin-top:5px;overflow:hidden">
+                  <span style="display:block;width:{{ f.pct }}%;height:100%;background:{{ f.bar }}"></span>
+                </span>
+              </span>
+              <button type="button" aria-label="{{ f.ctlLabel }}" style="flex:none;width:26px;height:26px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">{{ f.ctlIcon }}</button>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ upRunning }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <button type="button" style="height:28px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Jeda semua</button>
+            <button type="button" style="height:28px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink-secondary);font:500 13px/18px var(--font-ui);cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">Batalkan sisanya</button>
+            <span style="margin-left:auto;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">28 menunggu</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ upConflict }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--warning-subtle);border-top:1px solid var(--warning-border)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+            <span style="flex:1;font:400 13px/18px var(--font-ui);color:var(--warning-ink)">2 file bernama sama sudah ada di folder ini.</span>
+            <button type="button" style="flex:none;height:26px;padding:0 10px;border:1px solid var(--warning-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--warning-ink);font:500 12px/16px var(--font-ui);cursor:pointer">Tinjau</button>
+          </div>
+        </sc-if>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:fixed;right:{{ floatRight }}px;bottom:{{ toastBottom }}px;width:min(352px, calc(100vw - {{ floatGutter }}px));display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--surface-raised);border:1px solid var(--border);border-left:3px solid {{ toastEdge }};border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);z-index:55">
+      <span style="flex:none;display:flex;margin-top:1px">{{ toastIcon }}</span>
+      <span style="flex:1;min-width:0">
+        <span style="display:block;font:500 14px/20px var(--font-ui);color:var(--ink)">{{ toastTitle }}</span>
+        <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">{{ toastBody }}</span>
+      </span>
+      <sc-if value="{{ toastUndo }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ undo }}" style="flex:none;height:28px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Urungkan</button>
+      </sc-if>
+      <button type="button" onClick="{{ closeToast }}" aria-label="Tutup pemberitahuan" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 },
+  &quot;demoState&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Normal&quot;, &quot;Memuat&quot;, &quot;Folder kosong&quot;, &quot;Sedang drag&quot;, &quot;Gagal memuat&quot;, &quot;Tanpa akses&quot;, &quot;Kuota penuh&quot;], &quot;default&quot;: &quot;Normal&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;State halaman&quot; },
+  &quot;akses&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Kontributor&quot;, &quot;Pelihat&quot;], &quot;default&quot;: &quot;Kontributor&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Peran pengguna&quot; },
+  &quot;density&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Padat&quot;, &quot;Normal&quot;, &quot;Sentuh&quot;], &quot;default&quot;: &quot;Normal&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Kepadatan&quot; },
+  &quot;panelUnggah&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Berjalan&quot;, &quot;Diciutkan&quot;, &quot;Selesai&quot;, &quot;Tersembunyi&quot;], &quot;default&quot;: &quot;Berjalan&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Panel unggah&quot; },
+  &quot;koneksi&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;State halaman&quot; }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  state = {
+    space: 'Produksi', view: 'ruang', path: [], q: '',
+    sort: { key: 'name', dir: 1 },
+    sel: [], anchor: -1, active: 0, hover: -1,
+    start: 0, viewH: 640, w: 1440, tw: 1080,
+    rail: true, detail: null, dense: null, mode: 'list',
+    menu: null, uploadMenu: false, dragging: false,
+    upCollapsed: false, upClosed: false,
+    toast: null
+  };
+
+  all = this.build();
+
+  /* ---------- data ---------- */
+  build() {
+    let s = 20260903;
+    const rnd = () => (s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    const pick = a => a[Math.floor(rnd() * a.length)];
+    const users = ['Budi S.', 'Ani W.', 'Rudi H.', 'Sari P.', 'Dedi K.', 'Tono M.', 'Lina F.', 'Agus P.'];
+    const pad = n => String(n).padStart(2, '0');
+    const folders = ['SOP Produksi', 'Laporan QC Harian', 'Drawing Teknik', 'Foto Dokumentasi Mesin',
+      'Form Produksi', 'Manual Peralatan', 'Data Ekspor', 'Kalibrasi Alat Ukur',
+      'Checklist Maintenance', 'Notulen Rapat', 'Sertifikat Material', 'Arsip 2025'];
+
+    const items = folders.map((n, i) => ({
+      id: 'd' + i, dir: true, name: n, ext: '', cat: 'folder',
+      bytes: 0, kids: n === 'Arsip 2025' ? 0 : 6 + Math.floor(rnd() * 40),
+      t: Date.UTC(2026, 2, 12 - (i % 9), 1 + (i % 9), 14 + (i % 40)),
+      by: users[i % users.length], locked: false, shared: i === 1
+    }));
+
+    const lines = ['A1', 'A2', 'B1', 'B3', 'C2'];
+    const parts = ['Rangka-Konveyor', 'Bracket-Motor', 'Poros-Roll', 'Housing-Gearbox', 'Plat-Guide', 'Cover-Panel'];
+    const mesin = ['Injeksi-A2', 'Press-B1', 'Konveyor-C2', 'Kompresor-01', 'Boiler-02', 'Forklift-04'];
+    const proses = ['Setting-Mesin', 'Ganti-Cetakan', 'Pembersihan-Line', 'Serah-Terima-Shift', 'Penanganan-Reject'];
+
+    const kinds = [
+      { ext: 'xlsx', cat: 'sheet', min: 60e3, max: 900e3, name: i => `Laporan-QC-Shift-${1 + i % 3}-2026-${pad(1 + i % 3)}-${pad(1 + i % 28)}.xlsx` },
+      { ext: 'jpg', cat: 'image', min: 900e3, max: 4.4e6, name: i => `Foto-${pick(mesin)}-${pad(1 + i % 28)}-${pad(i % 60)}.jpg` },
+      { ext: 'pdf', cat: 'pdf', min: 180e3, max: 8.2e6, name: i => `SOP-${pick(proses)}-Rev${1 + i % 6}.pdf` },
+      { ext: 'dwg', cat: 'cad', min: 2.1e6, max: 26e6, name: i => `Drawing-${pick(parts)}-Rev${1 + i % 8}.dwg` },
+      { ext: 'xlsx', cat: 'sheet', min: 40e3, max: 320e3, name: i => `Form-Produksi-Line-${pick(lines)}-${pad(1 + i % 28)}-03.xlsx` },
+      { ext: 'docx', cat: 'doc', min: 30e3, max: 480e3, name: i => `Notulen-Rapat-Produksi-2026-${pad(1 + i % 3)}-${pad(1 + i % 28)}.docx` },
+      { ext: 'csv', cat: 'sheet', min: 12e3, max: 2.4e6, name: i => `Data-Ekspor-Mesin-${pad(1 + i % 12)}-2026${pad(1 + i % 3)}.csv` },
+      { ext: 'pdf', cat: 'pdf', min: 600e3, max: 12e6, name: i => `Manual-${pick(mesin)}-Bahasa-Indonesia.pdf` },
+      { ext: 'zip', cat: 'zip', min: 4e6, max: 180e6, name: i => `Arsip-Laporan-QC-2025-Q${1 + i % 4}.zip` },
+      { ext: 'mp4', cat: 'video', min: 8e6, max: 240e6, name: i => `Rekaman-Trial-${pick(mesin)}-${pad(1 + i % 28)}.mp4` },
+      { ext: 'pptx', cat: 'slide', min: 900e3, max: 14e6, name: i => `Paparan-Hasil-QC-Minggu-${1 + i % 52}.pptx` },
+      { ext: 'jpg', cat: 'image', min: 700e3, max: 3.8e6, name: i => `Dokumentasi-Reject-Line-${pick(lines)}-${pad(1 + i % 28)}-${pad(i % 99)}.jpg` }
+    ];
+
+    for (let i = 0; i < 4988; i++) {
+      const k = kinds[i % kinds.length];
+      const bytes = Math.round(k.min + rnd() * (k.max - k.min));
+      items.push({
+        id: 'f' + i, dir: false, name: k.name(i), ext: k.ext, cat: k.cat, bytes,
+        t: Date.UTC(2026, 2, 1 + (i % 12), (i * 7) % 24, (i * 13) % 60),
+        by: users[i % users.length],
+        locked: i % 311 === 5, shared: i % 173 === 9
+      });
+    }
+    return items;
+  }
+
+  fmtSize(b) {
+    if (!b) return '—';
+    const u = ['B', 'KB', 'MB', 'GB'];
+    let i = 0, v = b;
+    while (v >= 1024 && i < 3) { v /= 1024; i++; }
+    const s = i === 0 ? String(Math.round(v)) : (v >= 100 ? String(Math.round(v)) : v.toFixed(1).replace('.', ','));
+    return s + ' ' + u[i];
+  }
+
+  fmtTime(t) {
+    const m = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    const d = new Date(t);
+    const p = n => String(n).padStart(2, '0');
+    return p(d.getUTCDate()) + ' ' + m[d.getUTCMonth()] + ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes());
+  }
+
+  fmtNum(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
+  mid(name, budget) {
+    if (name.length <= budget) return name;
+    const keep = Math.max(8, budget - 14);
+    return name.slice(0, keep) + '…' + name.slice(-11);
+  }
+
+  /* ---------- lifecycle ---------- */
+  componentDidMount() {
+    try {
+      const d = localStorage.getItem('nas.dense');
+      const r = localStorage.getItem('nas.rail');
+      const p = localStorage.getItem('nas.detail');
+      const st = {};
+      if (d) st.dense = d;
+      if (r !== null) st.rail = r === '1';
+      if (p !== null) st.detail = p === '1';
+      if (Object.keys(st).length) this.setState(st);
+    } catch (e) { /* penyimpanan lokal tidak tersedia */ }
+
+    this.ro = new ResizeObserver(es => {
+      for (const e of es) {
+        if (e.target === this.root) {
+          const w = Math.round(e.contentRect.width);
+          if (w !== this.state.w) this.setState({ w });
+        } else if (e.target === this.scroller) {
+          const h = Math.round(e.contentRect.height);
+          const tw = Math.round(e.contentRect.width);
+          const next = {};
+          if (Math.abs(h - this.state.viewH) > 8) next.viewH = h;
+          if (Math.abs(tw - this.state.tw) > 8) next.tw = tw;
+          if (Object.keys(next).length) this.setState(next);
+        }
+      }
+    });
+    if (this.root) this.ro.observe(this.root);
+    if (this.scroller) this.ro.observe(this.scroller);
+
+    this.onDocDown = e => {
+      if (this.state.menu) this.setState({ menu: null });
+      if (this.state.uploadMenu && !(e.target.closest && e.target.closest('[role="menu"]'))) this.setState({ uploadMenu: false });
+    };
+    this.onEsc = e => {
+      if (e.key === 'Escape') this.setState({ menu: null, uploadMenu: false, toast: null });
+    };
+    document.addEventListener('mousedown', this.onDocDown);
+    document.addEventListener('keydown', this.onEsc);
+  }
+
+  componentWillUnmount() {
+    if (this.ro) this.ro.disconnect();
+    document.removeEventListener('mousedown', this.onDocDown);
+    document.removeEventListener('keydown', this.onEsc);
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+  }
+
+  save(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* diabaikan */ } }
+
+  /* ---------- derived ---------- */
+  get mode3() { const w = this.state.w; return w >= 1440 ? 'wide' : w >= 1024 ? 'std' : 'tablet'; }
+  get dense() {
+    if (this.state.dense) return this.state.dense;
+    if (this.mode3 === 'tablet') return 'Sentuh';
+    return this.props.density || 'Normal';
+  }
+  get rowH() { return { Padat: 36, Normal: 44, Sentuh: 56 }[this.dense] || 44; }
+  get readOnly() { return (this.props.akses || 'Kontributor') === 'Pelihat'; }
+  get demo() { return this.props.demoState || 'Normal'; }
+  get detailOpen() {
+    if (this.state.detail !== null) return this.state.detail;
+    return this.mode3 === 'wide';
+  }
+
+  rowsRaw() {
+    const st = this.state;
+    if (st.view === 'sampah' || st.view === 'dibagikan') return [];
+    if (this.demo === 'Folder kosong') return [];
+    let base;
+    if (st.path.length === 0) {
+      base = st.view === 'pribadi' ? this.all.filter((r, i) => i % 37 === 3) : this.all;
+    } else {
+      const name = st.path[st.path.length - 1];
+      if (name === 'Arsip 2025') return [];
+      let h = 0;
+      for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffff;
+      const cat = name.indexOf('Foto') === 0 ? 'image' : name.indexOf('Drawing') === 0 ? 'cad' : null;
+      const pool = cat ? this.all.filter(r => r.cat === cat) : this.all.filter(r => !r.dir);
+      const n = 8 + (h % 34);
+      const off = h % Math.max(1, pool.length - n);
+      base = pool.slice(off, off + n);
+    }
+    const q = st.q.trim().toLowerCase();
+    if (q) base = base.filter(r => r.name.toLowerCase().indexOf(q) >= 0);
+    const { key, dir } = st.sort;
+    const cmp = (a, b) => {
+      if (a.dir !== b.dir) return a.dir ? -1 : 1;
+      let v = 0;
+      if (key === 'name') v = a.name.localeCompare(b.name, 'id');
+      else if (key === 'size') v = (a.bytes || 0) - (b.bytes || 0);
+      else if (key === 'time') v = a.t - b.t;
+      else v = a.by.localeCompare(b.by, 'id');
+      return v * dir;
+    };
+    return base.slice().sort(cmp);
+  }
+
+  catStyle(cat, ext) {
+    const map = {
+      pdf: ['var(--cat-pdf-bg)', 'var(--danger-border)', 'var(--cat-pdf-ink)'], sheet: ['var(--cat-sheet-bg)', 'var(--success-border)', 'var(--cat-sheet-ink)'],
+      doc: ['var(--cat-doc-bg)', 'var(--primary-border)', 'var(--cat-doc-ink)'], slide: ['var(--cat-slide-bg)', 'var(--warning-border)', 'var(--cat-slide-ink)'],
+      image: ['var(--cat-image-bg)', 'var(--cat-image-bd)', 'var(--cat-image-ink)'], video: ['var(--cat-video-bg)', 'var(--cat-video-bd)', 'var(--cat-video-ink)'],
+      zip: ['var(--cat-zip-bg)', 'var(--cat-zip-bd)', 'var(--cat-zip-ink)'], cad: ['var(--cat-cad-bg)', 'var(--cat-cad-bd)', 'var(--cat-cad-ink)']
+    };
+    return map[cat] || ['var(--cat-any-bg)', 'var(--cat-any-bd)', 'var(--cat-any-ink)'];
+  }
+
+  mkSvg(nodes, o) {
+    o = o || {};
+    const s = o.size || 16;
+    const p = {
+      width: s, height: s, viewBox: '0 0 24 24', fill: o.fill || 'none',
+      strokeWidth: o.sw == null ? 1.9 : o.sw, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true'
+    };
+    if (o.stroke !== 'none') p.stroke = o.stroke || 'currentColor';
+    return React.createElement('svg', p, nodes.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+  }
+
+  glyph(name, o) {
+    const G = {
+      folder: [['path', { d: 'M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z' }]],
+      user: [['circle', { cx: 12, cy: 8.5, r: 3.5 }], ['path', { d: 'M5.5 19.5a6.5 6.5 0 0 1 13 0' }]],
+      link: [['path', { d: 'M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3' }], ['path', { d: 'M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3' }]],
+      trash: [['path', { d: 'M4.5 7h15' }], ['path', { d: 'M9.5 7V4.5h5V7' }], ['path', { d: 'M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z' }]],
+      search: [['circle', { cx: 10.5, cy: 10.5, r: 6.5 }], ['path', { d: 'M15.5 15.5 21 21' }]],
+      check: [['path', { d: 'M5 12.5 9.5 17 19 7.5' }]],
+      upload: [['path', { d: 'M12 15V4' }], ['path', { d: 'M7.5 8.5 12 4l4.5 4.5' }], ['path', { d: 'M4 17v3h16v-3' }]],
+      ok: [['circle', { cx: 12, cy: 12, r: 8.5 }], ['path', { d: 'M8 12.5l2.8 2.8L16.5 9.5' }]],
+      warn: [['path', { d: 'M12 4.5 21 19.5H3z' }], ['path', { d: 'M12 10v4.5' }]],
+      chevUp: [['path', { d: 'M5.5 14.5 12 8l6.5 6.5' }]],
+      chevDown: [['path', { d: 'M5.5 9.5 12 16l6.5-6.5' }]],
+      x: [['path', { d: 'M6 6l12 12M18 6L6 18' }]],
+      pause: [['rect', { x: 7, y: 5, width: 3.6, height: 14, rx: 1 }], ['rect', { x: 13.4, y: 5, width: 3.6, height: 14, rx: 1 }]],
+      caretUp: [['path', { d: 'M12 8 8 13h8z' }]],
+      caretDown: [['path', { d: 'M12 16 8 11h8z' }]]
+    };
+    return this.mkSvg(G[name] || [], o);
+  }
+
+  iconEl(r, size) {
+    if (r.dir) return this.glyph('folder', { size: size || 20, fill: 'var(--ink-secondary)', stroke: 'none', sw: 0 });
+    const c = this.catStyle(r.cat);
+    const w = size ? size - 2 : 20, h = size ? size + 2 : 24;
+    return React.createElement('span', {
+      style: {
+        width: w + 'px', height: h + 'px', borderRadius: '2px', background: c[0],
+        border: '1px solid ' + c[1], display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+        paddingBottom: '2px', flex: 'none', clipPath: 'polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)'
+      }
+    }, React.createElement('span', {
+      style: { font: '500 ' + (size ? 8 : 7) + 'px/1 var(--font-mono)', color: c[2] }
+    }, (r.ext || '?').slice(0, 3).toUpperCase()));
+  }
+
+  caret(key) {
+    if (this.state.sort.key !== key) return null;
+    return this.glyph(this.state.sort.dir === 1 ? 'caretUp' : 'caretDown', { size: 13, fill: 'var(--ink-secondary)', stroke: 'none', sw: 0 });
+  }
+
+  /* ---------- interaction ---------- */
+  setSort(key) {
+    this.setState(st => ({ sort: { key, dir: st.sort.key === key ? -st.sort.dir : 1 }, start: 0 }));
+    if (this.scroller) this.scroller.scrollTop = 0;
+  }
+
+  clickRow(i, r, e) {
+    const st = this.state;
+    if (e.shiftKey && st.anchor >= 0) {
+      const rows = this.rowsRaw();
+      const a = Math.min(st.anchor, i), b = Math.max(st.anchor, i);
+      this.setState({ sel: rows.slice(a, b + 1).map(x => x.id), active: i });
+      return;
+    }
+    if (e.metaKey || e.ctrlKey) {
+      const has = st.sel.indexOf(r.id) >= 0;
+      this.setState({ sel: has ? st.sel.filter(x => x !== r.id) : st.sel.concat([r.id]), anchor: i, active: i });
+      return;
+    }
+    if (r.dir) { this.open(r); return; }
+    this.setState({ sel: [r.id], anchor: i, active: i });
+  }
+
+  open(r) {
+    if (r.dir) {
+      this.setState(st => ({ path: st.path.concat([r.name]), sel: [], anchor: -1, active: 0, start: 0, q: '' }));
+      if (this.scroller) this.scroller.scrollTop = 0;
+    } else {
+      this.toast('ok', 'Pratinjau ' + this.mid(r.name, 34), 'Gunakan panah kiri dan kanan untuk berpindah file.', false);
+    }
+  }
+
+  toast(kind, title, body, undo) {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.setState({ toast: { kind, title, body, undo } });
+    if (kind === 'ok') this.toastTimer = setTimeout(() => this.setState({ toast: null }), 4000);
+  }
+
+  onKeyDown = e => {
+    const rows = this.rowsRaw();
+    if (!rows.length) return;
+    const st = this.state;
+    let i = st.active;
+    if (e.key === 'ArrowDown') i = Math.min(rows.length - 1, i + 1);
+    else if (e.key === 'ArrowUp') i = Math.max(0, i - 1);
+    else if (e.key === 'Home') i = 0;
+    else if (e.key === 'End') i = rows.length - 1;
+    else if (e.key === 'PageDown') i = Math.min(rows.length - 1, i + Math.floor(st.viewH / this.rowH));
+    else if (e.key === 'PageUp') i = Math.max(0, i - Math.floor(st.viewH / this.rowH));
+    else if (e.key === 'Enter') { e.preventDefault(); this.open(rows[i]); return; }
+    else if (e.key === ' ') {
+      e.preventDefault();
+      const id = rows[i].id, has = st.sel.indexOf(id) >= 0;
+      this.setState({ sel: has ? st.sel.filter(x => x !== id) : st.sel.concat([id]), anchor: i });
+      return;
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      e.preventDefault();
+      if (!this.readOnly) this.trash();
+      return;
+    } else return;
+    e.preventDefault();
+    const sel = e.shiftKey && st.anchor >= 0
+      ? rows.slice(Math.min(st.anchor, i), Math.max(st.anchor, i) + 1).map(x => x.id)
+      : [rows[i].id];
+    this.setState({ active: i, sel, anchor: e.shiftKey && st.anchor >= 0 ? st.anchor : i });
+    const sc = this.scroller;
+    if (sc) {
+      const h = this.rowH, top = i * h;
+      if (top < sc.scrollTop) sc.scrollTop = top;
+      else if (top + h > sc.scrollTop + sc.clientHeight) sc.scrollTop = top + h - sc.clientHeight;
+    }
+  };
+
+  onScroll = e => {
+    const start = Math.max(0, Math.floor(e.target.scrollTop / this.rowH) - 6);
+    if (start !== this.state.start) this.setState({ start });
+  };
+
+  trash() {
+    const n = this.state.sel.length || 1;
+    this.setState({ sel: [] });
+    this.toast('ok', n + ' item dipindahkan ke sampah', 'Bisa dipulihkan dari Sampah dalam 30 hari.', true);
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const st = this.state, m3 = this.mode3, rowH = this.rowH, rows = this.rowsRaw();
+    const dense = this.dense;
+    const touch = m3 === 'tablet';
+    const tw = st.tw || 1080;
+    const showBy = tw >= 820, showTime = tw >= 560, showSize = tw >= 430, showAct = tw >= 640;
+    const lead = touch ? '44px 34px' : '36px 30px';
+    const cols = [
+      lead,
+      'minmax(0,1fr)',
+      showSize ? (touch ? '92px' : '96px') : '',
+      showTime ? (touch ? '116px' : '124px') : '',
+      showBy ? (touch ? '96px' : '108px') : '',
+      showAct ? (touch ? '80px' : '84px') : ''
+    ].filter(Boolean).join(' ');
+    const budget = m3 === 'wide' ? (this.detailOpen ? 46 : 62) : m3 === 'std' ? 40 : 34;
+    const ctlH = m3 === 'tablet' ? 44 : 32;
+    const selSet = st.sel;
+    const has = n => selSet.indexOf(n) >= 0;
+
+    const count = Math.ceil(st.viewH / rowH) + 12;
+    const start = Math.min(st.start, Math.max(0, rows.length - 1));
+    const end = Math.min(rows.length, start + count);
+    const visible = rows.slice(start, end).map((r, k) => {
+      const i = start + k;
+      const on = has(r.id);
+      const [bg, bd, ink] = this.catStyle(r.cat);
+      return {
+        id: r.id, name: r.name, disp: this.mid(r.name, budget),
+        size: r.dir ? (r.kids ? r.kids + ' item' : '—') : this.fmtSize(r.bytes),
+        time: this.fmtTime(r.t), by: r.by, locked: r.locked, lockBy: 'Ani W.', shared: r.shared,
+        icon: this.iconEl(r, m3 === 'tablet' ? 22 : null),
+        nameFont: (r.dir ? '500 ' : '400 ') + (m3 === 'tablet' ? '15px/22px' : '14px/20px') + ' var(--font-ui)',
+        nameInk: 'var(--ink)',
+        metaInk: r.dir ? 'var(--ink-tertiary)' : 'var(--ink-secondary)',
+        bg: on ? 'var(--surface-selected)' : (st.hover === i ? 'var(--surface-hover)' : 'var(--surface)'),
+        edge: on ? 'var(--primary)' : 'transparent',
+        boxBorder: on ? 'var(--primary)' : 'var(--border-strong)',
+        boxBg: on ? 'var(--primary)' : 'var(--surface)',
+        check: on ? this.glyph('check', { size: 11, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+        actVis: (st.hover === i || on) ? 'visible' : 'hidden',
+        onClick: e => this.clickRow(i, r, e),
+        onOpen: () => this.open(r),
+        onCheck: e => { e.stopPropagation(); this.setState({ sel: on ? selSet.filter(x => x !== r.id) : selSet.concat([r.id]), anchor: i, active: i }); },
+        onMenu: e => { e.preventDefault(); this.setState({ menu: { r, x: Math.min(e.clientX, st.w - 240), y: Math.min(e.clientY, 620) }, sel: on ? selSet : [r.id], active: i }); },
+        onMenuBtn: e => {
+          e.stopPropagation();
+          const b = e.currentTarget.getBoundingClientRect();
+          this.setState({ menu: { r, x: b.right - 224, y: b.bottom + 4 }, sel: on ? selSet : [r.id], active: i });
+        },
+        onEnter: () => { if (st.hover !== i) this.setState({ hover: i }); },
+        onLeave: () => { if (st.hover === i) this.setState({ hover: -1 }); }
+      };
+    });
+
+    const selRows = rows.filter(r => has(r.id));
+    const one = selRows.length === 1 ? selRows[0] : null;
+    const totalBytes = rows.reduce((a, r) => a + (r.bytes || 0), 0);
+    const dirs = rows.filter(r => r.dir).length;
+
+    const spaces = ['Produksi', 'QC', 'Gudang', 'Maintenance'].map((n, i) => {
+      const on = st.space === n && st.view === 'ruang';
+      return {
+        name: n, count: this.fmtNum([5000, 1284, 642, 318][i]),
+        open: () => this.setState({ space: n, view: 'ruang', path: [], sel: [], q: '', start: 0, active: 0 }),
+        bg: on ? 'var(--surface-selected)' : 'transparent',
+        ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+        countInk: on ? 'var(--primary-ink)' : 'var(--ink-tertiary)',
+        edge: on ? 'var(--primary)' : 'transparent',
+        font: (on ? '500 ' : '400 ') + '14px/20px var(--font-ui)'
+      };
+    });
+
+    const shelfIcon = {
+      pribadi: this.glyph('user', { size: 18, sw: 1.8 }),
+      dibagikan: this.glyph('link', { size: 18, sw: 1.8 }),
+      sampah: this.glyph('trash', { size: 18, sw: 1.8 })
+    };
+    const shelves = [['pribadi', 'File pribadi'], ['dibagikan', 'File dibagikan'], ['sampah', 'Sampah']].map(([k, n]) => {
+      const on = st.view === k;
+      return {
+        name: n, icon: shelfIcon[k],
+        open: () => this.setState({ view: k, path: [], sel: [], q: '', start: 0, active: 0 }),
+        bg: on ? 'var(--surface-selected)' : 'transparent',
+        ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+        countInk: on ? 'var(--primary-ink)' : 'var(--ink-tertiary)',
+        edge: on ? 'var(--primary)' : 'transparent',
+        font: (on ? '500 ' : '400 ') + '14px/20px var(--font-ui)'
+      };
+    });
+
+    const viewName = { pribadi: 'File pribadi', dibagikan: 'File dibagikan', sampah: 'Sampah' }[st.view];
+    const rootName = viewName || st.space;
+    const trail = [rootName].concat(st.path);
+    const crumbs = trail.map((n, i) => {
+      const last = i === trail.length - 1;
+      return {
+        name: n, sep: !last, current: last ? 'page' : 'false',
+        font: (last ? '600 ' : '400 ') + '14px/20px var(--font-ui)',
+        ink: last ? 'var(--ink)' : 'var(--ink-secondary)',
+        cursor: last ? 'default' : 'pointer',
+        maxW: last ? 320 : 160,
+        go: () => { if (!last) this.setState({ path: st.path.slice(0, i), sel: [], start: 0, active: 0 }); }
+      };
+    });
+
+    const q = st.q;
+    const dg = this.demo === 'Sedang drag' || st.dragging;
+    const loading = this.demo === 'Memuat';
+    const error = this.demo === 'Gagal memuat';
+    const denied = this.demo === 'Tanpa akses';
+    const emptyList = !loading && !error && !denied && rows.length === 0;
+    const isList = st.mode === 'list';
+
+    let emptyTitle = 'Folder ini masih kosong', emptyBody = 'Tarik file ke sini atau klik Unggah.', emptyAction = !this.readOnly, emptyActionLabel = 'Unggah file';
+    const bigIcon = n => this.glyph(n, { size: 30, stroke: 'var(--ink-tertiary)', sw: 1.4 });
+    let emptyIcon = bigIcon('folder');
+    if (q) {
+      emptyTitle = 'Tidak ada file bernama “' + q + '”';
+      emptyBody = 'Coba kata kunci lain, atau cari di seluruh ruang yang bisa Anda akses.';
+      emptyActionLabel = 'Cari di semua ruang'; emptyAction = true;
+      emptyIcon = bigIcon('search');
+    } else if (st.view === 'sampah') {
+      emptyTitle = 'Sampah kosong';
+      emptyBody = 'File yang Anda hapus muncul di sini dan tersimpan 30 hari sebelum terhapus permanen.';
+      emptyAction = false;
+      emptyIcon = bigIcon('trash');
+    } else if (st.view === 'dibagikan') {
+      emptyTitle = 'Belum ada link berbagi';
+      emptyBody = 'Pilih file lalu klik Bagikan untuk membuat link yang bisa dibuka tanpa login.';
+      emptyAction = false;
+      emptyIcon = bigIcon('link');
+    } else if (this.readOnly) {
+      emptyBody = 'Folder ini masih kosong dan Anda hanya punya akses baca. Minta akses unggah ke Admin IT.';
+      emptyAction = false;
+    }
+
+    const up = this.props.panelUnggah || 'Berjalan';
+    const upOpen = up !== 'Tersembunyi' && !st.upClosed;
+    const upDone = up === 'Selesai';
+    const upCollapsed = up === 'Diciutkan' || st.upCollapsed;
+    const upFilesSrc = [
+      ['Foto-Injeksi-A2-12-04.jpg', 'image', 100, 'selesai'],
+      ['Laporan-QC-Shift-2-2026-03-12.xlsx', 'sheet', 100, 'selesai'],
+      ['Rekaman-Trial-Press-B1-12.mp4', 'video', 42, '1,4 mnt'],
+      ['Drawing-Bracket-Motor-Rev3.dwg', 'cad', 8, 'menunggu'],
+      ['Manual-Kompresor-01.pdf', 'pdf', 0, 'menunggu']
+    ];
+    const upFiles = upFilesSrc.map(([n, cat, pct, state]) => {
+      const done = upDone || pct === 100;
+      return {
+        disp: this.mid(n, 30), pct: upDone ? 100 : pct,
+        state: done ? 'selesai' : state,
+        stateInk: done ? 'var(--success)' : 'var(--ink-secondary)',
+        bar: done ? 'var(--success)' : 'var(--primary)',
+        icon: this.iconEl({ dir: false, cat, ext: n.split('.').pop() }, 18),
+        ctlLabel: done ? 'Hapus dari daftar' : 'Jeda unggahan ini',
+        ctlIcon: done
+          ? this.glyph('x', { size: 14, stroke: 'var(--ink-tertiary)', sw: 2 })
+          : this.glyph('pause', { size: 14, fill: 'var(--ink-secondary)', stroke: 'none', sw: 0 })
+      };
+    });
+
+    const toast = st.toast;
+    const okIcon = this.glyph('ok', { size: 18, stroke: 'var(--success)', sw: 2 });
+    const errIcon = this.glyph('warn', { size: 18, stroke: 'var(--danger)', sw: 2 });
+
+    const quota = { Produksi: [39, '312 GB dari 800 GB'], QC: [87, '348 GB dari 400 GB'], Gudang: [98, '196 GB dari 200 GB'], Maintenance: [22, '44 GB dari 200 GB'] }[st.space] || [39, ''];
+    const qFull = this.demo === 'Kuota penuh';
+
+    return {
+      rootRef: el => { this.root = el; if (el && this.ro) this.ro.observe(el); },
+      scrollRef: el => { this.scroller = el; if (el && this.ro) this.ro.observe(el); },
+      offline: this.props.koneksi === false,
+      sidebarW: st.rail ? 240 : 56, railOpen: st.rail, navH: m3 === 'tablet' ? 44 : 34,
+      railTitle: st.rail ? 'Ciutkan sidebar' : 'Bentangkan sidebar',
+      toggleRail: () => { this.save('nas.rail', st.rail ? '0' : '1'); this.setState({ rail: !st.rail }); },
+      spaces, shelves, spaceName: rootName, roleLabel: this.readOnly ? 'Pelihat di ruang ini' : 'Kontributor di ruang ini',
+      quotaPct: quota[0], quotaText: quota[1],
+      quotaColor: quota[0] >= 95 ? 'var(--danger)' : quota[0] >= 80 ? 'var(--warning)' : 'var(--primary)',
+      crumbs, ctlH, showDensity: m3 !== 'tablet',
+      searchW: m3 === 'wide' ? 260 : m3 === 'std' ? 200 : 156,
+      searchHint: 'Cari di ' + rootName, q,
+      onSearch: e => this.setState({ q: e.target.value, sel: [], start: 0, active: 0 }),
+      headerBg: st.sel.length ? 'var(--surface-selected)' : 'var(--surface)',
+      hasSel: st.sel.length > 0, noSel: st.sel.length === 0,
+      selLabel: st.sel.length + ' item dipilih',
+      clearSel: () => this.setState({ sel: [] }),
+      trashSel: () => this.trash(),
+      cols, rowH, showTime, showSize, showAct, boxS: m3 === 'tablet' ? 20 : 16, actS: m3 === 'tablet' ? 34 : 26, showBy,
+      isList, showRows: isList && !loading && !error && !denied && rows.length > 0,
+      showGrid: !isList && !loading && !error && !denied && rows.length > 0,
+      isLoading: loading, isError: error, isDenied: denied, isEmpty: emptyList,
+      emptyTitle, emptyBody, emptyIcon, emptyAction, emptyActionLabel,
+      skeletons: [188, 232, 164, 210, 176, 244, 198, 158, 226, 182, 206, 170].map(w => ({ w })),
+      visible, padTop: start * rowH, padBottom: Math.max(0, (rows.length - end) * rowH),
+      tiles: rows.slice(0, 120).map((r, i) => {
+        const on = has(r.id);
+        const [bg, bd, ink] = this.catStyle(r.cat);
+        return {
+          disp: this.mid(r.name, 22), ext: (r.ext || '?').toUpperCase(), size: r.dir ? (r.kids + ' item') : this.fmtSize(r.bytes),
+          isDir: r.dir, isFile: !r.dir,
+          glyph: r.dir ? this.glyph('folder', { size: 40, fill: 'var(--ink-tertiary)', stroke: 'none', sw: 0 }) : null,
+          thumb: r.dir ? 'var(--surface-sunken)' : 'repeating-linear-gradient(45deg,' + bg + ',' + bg + ' 3px,' + bd + ' 3px,' + bd + ' 4px)',
+          bg: on ? 'var(--surface-selected)' : 'var(--surface)', border: on ? 'var(--primary)' : 'var(--border)',
+          boxBorder: on ? 'var(--primary)' : 'var(--border-strong)', boxBg: on ? 'var(--primary)' : 'var(--surface)',
+          check: on ? this.glyph('check', { size: 12, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+          onClick: e => this.clickRow(i, r, e), onOpen: () => this.open(r)
+        };
+      }),
+      hName: (st.sort.key === 'name' ? '600 ' : '500 ') + '13px/18px var(--font-ui)', hNameInk: st.sort.key === 'name' ? 'var(--ink)' : 'var(--ink-secondary)',
+      hSize: (st.sort.key === 'size' ? '600 ' : '500 ') + '13px/18px var(--font-ui)', hSizeInk: st.sort.key === 'size' ? 'var(--ink)' : 'var(--ink-secondary)',
+      hTime: (st.sort.key === 'time' ? '600 ' : '500 ') + '13px/18px var(--font-ui)', hTimeInk: st.sort.key === 'time' ? 'var(--ink)' : 'var(--ink-secondary)',
+      hBy: (st.sort.key === 'by' ? '600 ' : '500 ') + '13px/18px var(--font-ui)', hByInk: st.sort.key === 'by' ? 'var(--ink)' : 'var(--ink-secondary)',
+      caretName: this.caret('name'), caretSize: this.caret('size'), caretTime: this.caret('time'), caretBy: this.caret('by'),
+      sortName: () => this.setSort('name'), sortSize: () => this.setSort('size'), sortTime: () => this.setSort('time'), sortBy: () => this.setSort('by'),
+      allBorder: st.sel.length ? 'var(--primary)' : 'var(--border-strong)',
+      allBg: st.sel.length ? 'var(--primary)' : 'var(--surface)',
+      allMark: st.sel.length ? 'var(--ink-inverse)' : 'transparent',
+      toggleAll: () => this.setState({ sel: st.sel.length ? [] : rows.slice(0, 200).map(r => r.id) }),
+      onScroll: this.onScroll, onKeyDown: this.onKeyDown,
+      onDragOver: e => { e.preventDefault(); if (!st.dragging) this.setState({ dragging: true }); },
+      onDragLeave: e => { if (e.currentTarget === e.target) this.setState({ dragging: false }); },
+      onDrop: e => { e.preventDefault(); this.setState({ dragging: false }); this.toast('ok', '3 file mulai diunggah', 'Panel unggah di kanan bawah menampilkan progresnya.', false); },
+      dragging: dg, dropPath: '/' + trail.join('/'),
+      setPadat: () => { this.save('nas.dense', 'Padat'); this.setState({ dense: 'Padat' }); },
+      setNormal: () => { this.save('nas.dense', 'Normal'); this.setState({ dense: 'Normal' }); },
+      setSentuh: () => { this.save('nas.dense', 'Sentuh'); this.setState({ dense: 'Sentuh' }); },
+      isPadat: dense === 'Padat', isNormal: dense === 'Normal', isSentuh: dense === 'Sentuh',
+      padatBg: dense === 'Padat' ? 'var(--surface-selected)' : 'var(--surface)',
+      padatInk: dense === 'Padat' ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      normalBg: dense === 'Normal' ? 'var(--surface-selected)' : 'var(--surface)',
+      normalInk: dense === 'Normal' ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      sentuhBg: dense === 'Sentuh' ? 'var(--surface-selected)' : 'var(--surface)',
+      sentuhInk: dense === 'Sentuh' ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      setList: () => this.setState({ mode: 'list' }), setGrid: () => this.setState({ mode: 'grid' }),
+      listBg: isList ? 'var(--surface-selected)' : 'var(--surface)', listInk: isList ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      gridBg: !isList ? 'var(--surface-selected)' : 'var(--surface)', gridInk: !isList ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      detailOpen: this.detailOpen, showDetail: this.detailOpen,
+      detailOverlay: this.detailOpen && st.w < 1280,
+      detailPos: st.w < 1280 ? 'absolute' : 'static',
+      detailW: st.w < 1280 ? 'min(320px, 86%)' : '320px',
+      detailShadow: st.w < 1280 ? 'var(--shadow-modal)' : 'none',
+      floatRight: (this.detailOpen && st.w >= 1280) ? 336 : 16,
+      floatGutter: (this.detailOpen && st.w >= 1280) ? 672 : 32,
+      detailZ: st.w < 1280 ? 60 : 1,
+      detailScrimZ: st.w < 1280 ? 59 : 1,
+      detailBg: this.detailOpen ? 'var(--surface-selected)' : 'var(--surface)',
+      detailInk: this.detailOpen ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+      toggleDetail: () => { const v = !this.detailOpen; this.save('nas.detail', v ? '1' : '0'); this.setState({ detail: v }); },
+      readOnly: this.readOnly,
+      uploadTitle: this.readOnly ? 'Anda hanya punya akses baca di folder ini' : 'Unggah ke ' + trail.join('/'),
+      uploadBg: this.readOnly ? 'var(--surface-hover)' : 'var(--primary)',
+      uploadInk: this.readOnly ? 'var(--ink-tertiary)' : 'var(--ink-inverse)',
+      uploadBorder: this.readOnly ? 'var(--border)' : 'var(--primary)',
+      uploadCursor: this.readOnly ? 'not-allowed' : 'pointer',
+      uploadMenu: st.uploadMenu,
+      toggleUploadMenu: e => { e.stopPropagation(); this.setState({ uploadMenu: !st.uploadMenu }); },
+      doUpload: () => { this.setState({ uploadMenu: false, upClosed: false }); this.toast('ok', '5 file mulai diunggah', 'Panel unggah bertahan walau Anda pindah folder.', false); },
+      newFolder: () => { this.setState({ uploadMenu: false }); this.toast('ok', 'Folder baru dibuat', 'Beri nama folder lalu tekan Enter.', false); },
+      detailNone: selRows.length === 0, detailMulti: selRows.length > 1, detailOne: selRows.length === 1,
+      multiCount: selRows.length + ' item dipilih',
+      multiSize: this.fmtSize(selRows.reduce((a, r) => a + (r.bytes || 0), 0)),
+      multiBreak: [
+        { label: 'Folder', value: this.fmtNum(selRows.filter(r => r.dir).length) },
+        { label: 'File', value: this.fmtNum(selRows.filter(r => !r.dir).length) },
+        { label: 'Terkunci', value: this.fmtNum(selRows.filter(r => r.locked).length) }
+      ],
+      oneName: one ? one.name : '',
+      oneType: one ? ({ pdf: 'Dokumen PDF', sheet: 'Lembar kerja', doc: 'Dokumen teks', slide: 'Presentasi', image: 'Gambar', video: 'Video', zip: 'Arsip terkompresi', cad: 'Gambar teknik CAD', folder: 'Folder' }[one.cat] || 'Tipe tidak dikenal') : '',
+      oneSize: one ? this.fmtSize(one.bytes) : '', oneTime: one ? this.fmtTime(one.t) : '', oneBy: one ? one.by : '',
+      onePath: one ? '/' + trail.join('/') + '/' + one.name : '',
+      oneThumb: one ? (() => { const [bg, bd] = this.catStyle(one.cat); return 'repeating-linear-gradient(45deg,' + bg + ',' + bg + ' 3px,' + bd + ' 3px,' + bd + ' 4px)'; })() : 'var(--surface-hover)',
+      oneIconBig: one ? this.iconEl(one, 44) : null,
+      oneAccess: [
+        { group: 'produksi-staff', role: 'Kontributor', bg: 'var(--surface-sunken)', border: 'var(--border-strong)', ink: 'var(--ink-secondary)' },
+        { group: 'produksi-mgr', role: 'Pengelola', bg: 'var(--primary-subtle)', border: 'var(--primary-border)', ink: 'var(--primary-ink)' },
+        { group: 'qc-staff', role: 'Pelihat', bg: 'var(--surface-sunken)', border: 'var(--border-strong)', ink: 'var(--ink-secondary)' }
+      ],
+      oneVersions: one ? [
+        { time: this.fmtTime(one.t), by: one.by, size: this.fmtSize(one.bytes), current: true, restorable: false, bg: 'var(--info-subtle)' },
+        { time: this.fmtTime(one.t - 864e5), by: 'Budi S.', size: this.fmtSize(Math.round(one.bytes * 0.94)), current: false, restorable: true, bg: 'var(--surface)' },
+        { time: this.fmtTime(one.t - 3 * 864e5), by: 'Sari P.', size: this.fmtSize(Math.round(one.bytes * 0.81)), current: false, restorable: true, bg: 'var(--surface)' }
+      ] : [],
+      statCount: this.fmtNum(rows.length) + ' item',
+      statSize: this.fmtSize(totalBytes) + ' total',
+      statHidden: dirs ? this.fmtNum(dirs) + ' folder, 3 file sementara Office disembunyikan' : '3 file sementara Office disembunyikan',
+      statHint: 'Kepadatan ' + dense.toLowerCase() + ', baris ' + rowH + 'px',
+      menuOpen: !!st.menu, menuX: st.menu ? st.menu.x : 0, menuY: st.menu ? st.menu.y : 0,
+      menuName: st.menu ? this.mid(st.menu.r.name, 30) : '', menuVersions: '3',
+      menuMutableInk: this.readOnly ? 'var(--ink-tertiary)' : 'var(--ink)',
+      menuDangerInk: this.readOnly ? 'var(--ink-tertiary)' : 'var(--danger)',
+      menuMutableCursor: this.readOnly ? 'not-allowed' : 'pointer',
+      closeMenu: () => this.setState({ menu: null }),
+      trashFromMenu: () => { this.setState({ menu: null }); if (!this.readOnly) this.trash(); },
+      uploadOpen: upOpen, upExpanded: !upCollapsed, upRunning: !upDone,
+      upTitle: upDone ? '5 file selesai diunggah' : 'Mengunggah 12 dari 40 file',
+      upSub: upDone ? 'Panel menutup sendiri dalam 5 detik' : '4,2 MB/s, sisa 1,4 menit',
+      upHeadBg: upDone ? 'var(--success-subtle)' : 'var(--surface-sunken)',
+      upHeadBorder: upDone ? 'var(--success-border)' : 'var(--border)',
+      upHeadIcon: upDone
+        ? this.glyph('ok', { size: 18, stroke: 'var(--success)', sw: 2 })
+        : this.glyph('upload', { size: 18, stroke: 'var(--primary)', sw: 1.9 }),
+      upChevron: this.glyph(upCollapsed ? 'chevUp' : 'chevDown', { size: 15, stroke: 'var(--ink-secondary)', sw: 2 }),
+      upCollapseLabel: upCollapsed ? 'Bentangkan panel unggah' : 'Ciutkan panel unggah',
+      toggleUpCollapse: () => this.setState({ upCollapsed: !upCollapsed }),
+      closeUpload: () => this.setState({ upClosed: true }),
+      upFiles, upConflict: !upDone,
+      toastOpen: !!toast, toastTitle: toast ? toast.title : '', toastBody: toast ? toast.body : '',
+      toastUndo: !!(toast && toast.undo), toastEdge: toast && toast.kind === 'err' ? 'var(--danger)' : 'var(--success)',
+      toastIcon: toast && toast.kind === 'err' ? errIcon : okIcon,
+      toastBottom: upOpen ? (upCollapsed ? 78 : 392) : 16,
+      closeToast: () => this.setState({ toast: null }),
+      undo: () => this.toast('ok', 'Pemindahan dibatalkan', 'Item dikembalikan ke folder asalnya.', false),
+      quotaFull: qFull
+    };
+  }
+}
+</script>
+</body>
+</html>

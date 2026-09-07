@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:var(--cat-doc-bd);
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:var(--cat-sheet-bd);
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:var(--cat-slide-bd);
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:var(--cat-pdf-bg);
+  --danger-border:var(--cat-pdf-bd);
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:var(--cat-pdf-bg);
+  --cat-pdf-bd:var(--cat-pdf-bd);
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:var(--cat-sheet-bd);
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:var(--cat-doc-bd);
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:var(--cat-slide-bd);
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding-bottom:96px">
+
+  <div style="background:var(--surface);border-bottom:1px solid var(--border-strong)">
+    <div style="max-width:1180px;margin:0 auto;padding:22px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap">
+      <div>
+        <h1 style="margin:0;font:600 20px/28px var(--font-ui);color:var(--ink)">Sistem desain — RAF NAS</h1>
+        <p style="margin:3px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:60ch;text-wrap:pretty">Token, tipografi, dan komponen inti. Setiap halaman dirakit dari lembar ini, bukan didesain ulang.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;gap:7px;cursor:pointer;font:500 13px/18px var(--font-ui)" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}Mode {{ temaNama }}</button>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(84px,auto));border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-sunken)">
+        <div style="padding:6px 12px;border-right:1px solid var(--border)">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Revisi</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">1.0</div>
+        </div>
+        <div style="padding:6px 12px;border-right:1px solid var(--border)">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Tanggal</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">2026-09-03</div>
+        </div>
+        <div style="padding:6px 12px;border-right:1px solid var(--border)">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Target layar</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">1366×768</div>
+        </div>
+        <div style="padding:6px 12px">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Bahasa</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">ID</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-resp="stack" style="max-width:1180px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:172px minmax(0,1fr);gap:48px;align-items:start">
+
+    <nav aria-label="Daftar isi" style="position:sticky;top:24px;padding-top:36px;display:flex;flex-direction:column;gap:2px">
+      <a href="#warna" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">01</span>Warna</a>
+      <a href="#tipografi" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">02</span>Tipografi</a>
+      <a href="#ruang" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">03</span>Ruang &amp; kepadatan</a>
+      <a href="#tombol" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">04</span>Tombol</a>
+      <a href="#input" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">05</span>Input</a>
+      <a href="#ikon" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">06</span>Ikon &amp; badge</a>
+      <a href="#baris" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">07</span>Baris file</a>
+      <a href="#navigasi" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">08</span>Navigasi</a>
+      <a href="#overlay" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">09</span>Overlay</a>
+      <a href="#state" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">10</span>State</a>
+      <a href="#akses" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">11</span>Aksesibilitas</a>
+      <a href="#bahasa" style="display:flex;gap:10px;padding:5px 8px;border-radius:var(--radius-sm);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-decoration:none" style-hover="background:var(--surface-hover);color:var(--ink)"><span style="font-family:var(--font-mono);color:var(--ink-tertiary)">12</span>Bahasa</a>
+      <div style="height:1px;background:var(--border);margin:10px 8px"></div>
+      <div style="padding:0 8px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Kepadatan aktif: <span style="font-family:var(--font-mono);color:var(--ink-secondary)">{{ density }}</span></div>
+    </nav>
+
+    <main style="min-width:0">
+
+      <section id="warna" style="padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">01</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Warna</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Netral dingin supaya terbaca sebagai teknis dan tidak menguning di monitor pabrik. Amber hanya untuk peringatan — kuota hampir penuh, file terkunci, link akan kedaluwarsa — dan tidak pernah untuk aksi primer.</p>
+        <p style="margin:-8px 0 20px;font:400 14px/20px var(--font-ui);color:var(--ink-tertiary);max-width:64ch;text-wrap:pretty">Nilai di bawah adalah mode terang. Mode gelap memakai nama token yang sama dengan nilai berbeda, jadi tidak ada komponen yang perlu diubah — hanya blok token di <code style="font-family:var(--font-mono)">:root[data-theme="dark"]</code>.</p>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:32px;background:var(--surface-sunken);border-bottom:1px solid var(--border)">
+            <span></span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Token</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Nilai</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Pemakaian</span>
+          </div>
+
+          <div style="padding:8px 16px 2px;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary)">Permukaan</div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#FFFFFF;border:1px solid var(--border-strong)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--surface</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#FFFFFF</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Konten utama, tabel file</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#F6F7F9;border:1px solid var(--border)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--surface-sunken</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#F6F7F9</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Sidebar, header tabel, latar login</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#F0F2F5;border:1px solid var(--border)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--surface-hover</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#F0F2F5</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Baris disorot, tombol ghost aktif</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#E7EFF7;border:1px solid var(--primary-border)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--surface-selected</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#E7EFF7</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Baris terpilih, ruang aktif</span>
+          </div>
+
+          <div style="padding:10px 16px 2px;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary)">Garis</div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#DFE3E9"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--border</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#DFE3E9</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Pemisah baris, border input</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#C3CAD4"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--border-strong</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#C3CAD4</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Pemisah struktural, tombol sekunder</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#1D5B8F"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--border-focus</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#1D5B8F</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Outline fokus keyboard, 2px offset 2px</span>
+          </div>
+
+          <div style="padding:10px 16px 2px;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary)">Teks</div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#131820"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--ink</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#131820</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Nama file, judul, angka penting</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#59616F"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--ink-secondary</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#59616F</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Metadata, header kolom, deskripsi</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:#6A727F"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--ink-tertiary</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#6A727F</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Metadata sekunder, placeholder, teks nonaktif</span>
+          </div>
+
+          <div style="padding:10px 16px 2px;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary)">Primer</div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:var(--primary)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--primary</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">{{ accentHex }}</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Aksi primer, tautan, indikator terpilih</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:var(--primary-hover)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--primary-hover</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">{{ accentHoverHex }}</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Hover tombol primer</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="height:24px;border-radius:3px;background:var(--primary-subtle);border:1px solid var(--primary-border)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--primary-subtle</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#E7EFF7</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Latar badge dan chip informasi</span>
+          </div>
+
+          <div style="padding:10px 16px 2px;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary)">Semantik</div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="display:grid;grid-template-columns:1fr 1fr;height:24px;border-radius:3px;overflow:hidden"><i style="background:#0A7040"></i><i style="background:var(--cat-sheet-bg)"></i></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--success</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#0A7040</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Unggahan selesai, versi tersimpan</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="display:grid;grid-template-columns:1fr 1fr;height:24px;border-radius:3px;overflow:hidden"><i style="background:#A65B00"></i><i style="background:var(--cat-slide-bg)"></i></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--warning</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#A65B00</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Kuota 80%, file terkunci, link segera habis</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px;border-bottom:1px solid var(--border)">
+            <span style="display:grid;grid-template-columns:1fr 1fr;height:24px;border-radius:3px;overflow:hidden"><i style="background:#B3261E"></i><i style="background:var(--cat-pdf-bg)"></i></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--danger</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#B3261E</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Hapus permanen, kuota 95%, error</span>
+          </div>
+          <div style="display:grid;grid-template-columns:52px 176px 92px minmax(0,1fr);align-items:center;gap:16px;padding:0 16px;height:38px">
+            <span style="height:24px;border-radius:3px;background:#EDF3F8;border:1px solid var(--info-border)"></span>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--info-subtle</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">#EDF3F8</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Banner netral, latar pratinjau</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="tipografi" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">02</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Tipografi</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">IBM Plex Sans untuk seluruh antarmuka; IBM Plex Mono hanya untuk data berlebar tetap: ukuran, path, timestamp, checksum, alamat IP. Skala berhenti di 20px — tidak ada teks display di produk ini.</p>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:0 16px;height:32px;background:var(--surface-sunken);border-bottom:1px solid var(--border)">
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Token</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Ukuran</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Spesimen dan pemakaian</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-xs</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">12 / 16</code>
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink)">Badge, caption, hitungan versi</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-sm</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">13 / 18</code>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Metadata baris, header kolom tabel</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--info-subtle)">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-base</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">14 / 20</code>
+            <span style="font:400 14px/20px var(--font-ui);color:var(--ink)">Ukuran kerja — baris tabel dan isi form</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-md</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">15 / 22</code>
+            <span style="font:400 15px/22px var(--font-ui);color:var(--ink)">Teks bacaan, penjelasan konfirmasi</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-lg</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">17 / 24</code>
+            <span style="font:600 17px/24px var(--font-ui);color:var(--ink)">Judul panel dan modal</span>
+          </div>
+          <div style="display:grid;grid-template-columns:132px 108px minmax(0,1fr);align-items:center;gap:20px;padding:10px 16px">
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink)">--text-xl</code>
+            <code style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary)">20 / 28</code>
+            <span style="font:600 20px/28px var(--font-ui);color:var(--ink)">Judul halaman</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:8px">Angka tabular wajib di tabel</div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:2px 24px">
+              <span style="font:400 14px/22px var(--font-ui);color:var(--ink-secondary)">Laporan-QC-Shift-1.xlsx</span>
+              <span style="font:400 14px/22px var(--font-mono);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums">248 KB</span>
+              <span style="font:400 14px/22px var(--font-ui);color:var(--ink-secondary)">Manual-Mesin-Injeksi.pdf</span>
+              <span style="font:400 14px/22px var(--font-mono);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums">1,2 MB</span>
+              <span style="font:400 14px/22px var(--font-ui);color:var(--ink-secondary)">Drawing-Rangka-Rev4.dwg</span>
+              <span style="font:400 14px/22px var(--font-mono);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums">14,8 MB</span>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:8px">Nama panjang dipotong di tengah</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink);padding-bottom:8px;border-bottom:1px solid var(--border)">Laporan-QC-Shift-Mala…-2026-03.xlsx</div>
+            <div style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary);padding-top:8px;text-wrap:pretty">Ekstensi harus tetap terlihat — potong di akhir membuat pengguna tidak bisa membedakan tipe file.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ruang" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">03</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Ruang, radius, dan kepadatan</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Skala kelipatan 4. Radius kecil dan konsisten — sudut membulat besar membaca sebagai aplikasi konsumen. Bayangan hanya untuk elemen yang benar-benar melayang.</p>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:10px">Skala spasi</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">4</code><span style="height:10px;width:4px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">8</code><span style="height:10px;width:8px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">12</code><span style="height:10px;width:12px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">16</code><span style="height:10px;width:16px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">20</code><span style="height:10px;width:20px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">24</code><span style="height:10px;width:24px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">32</code><span style="height:10px;width:32px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">40</code><span style="height:10px;width:40px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+              <div style="display:flex;align-items:center;gap:12px"><code style="width:34px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">48</code><span style="height:10px;width:48px;background:var(--primary-subtle);border-left:2px solid var(--primary)"></span></div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+              <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:10px">Radius</div>
+              <div style="display:flex;gap:10px">
+                <div style="flex:1;text-align:center">
+                  <div style="height:44px;border:1px solid var(--border-strong);border-radius:4px;background:var(--surface-sunken)"></div>
+                  <code style="display:block;margin-top:6px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">4px · tombol</code>
+                </div>
+                <div style="flex:1;text-align:center">
+                  <div style="height:44px;border:1px solid var(--border-strong);border-radius:6px;background:var(--surface-sunken)"></div>
+                  <code style="display:block;margin-top:6px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">6px · panel</code>
+                </div>
+                <div style="flex:1;text-align:center">
+                  <div style="height:44px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface-sunken)"></div>
+                  <code style="display:block;margin-top:6px;font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">8px · modal</code>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--surface-sunken);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px">
+              <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:10px">Bayangan — hanya untuk yang melayang</div>
+              <div style="display:flex;gap:12px">
+                <div style="flex:1;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;box-shadow:var(--shadow-overlay)">
+                  <code style="font:400 12px/16px var(--font-mono);color:var(--ink)">--shadow-overlay</code>
+                  <div style="font:400 12px/16px var(--font-ui);color:var(--ink-secondary);margin-top:2px">Dropdown, panel upload, toast</div>
+                </div>
+                <div style="flex:1;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);padding:10px 12px;box-shadow:var(--shadow-modal)">
+                  <code style="font:400 12px/16px var(--font-mono);color:var(--ink)">--shadow-modal</code>
+                  <div style="font:400 12px/16px var(--font-ui);color:var(--ink-secondary);margin-top:2px">Modal saja</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);margin-top:16px;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface-sunken)">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Kepadatan baris — pilihan tersimpan per pengguna</div>
+            <div role="group" aria-label="Kepadatan" style="display:flex;border:1px solid var(--border-strong);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface)">
+              <button type="button" onClick="{{ setPadat }}" aria-pressed="{{ isPadat }}" style="height:28px;padding:0 12px;border:0;border-right:1px solid var(--border-strong);font:500 13px/18px var(--font-ui);cursor:pointer;background:{{ padatBg }};color:{{ padatInk }}">Padat</button>
+              <button type="button" onClick="{{ setNormal }}" aria-pressed="{{ isNormal }}" style="height:28px;padding:0 12px;border:0;border-right:1px solid var(--border-strong);font:500 13px/18px var(--font-ui);cursor:pointer;background:{{ normalBg }};color:{{ normalInk }}">Normal</button>
+              <button type="button" onClick="{{ setSentuh }}" aria-pressed="{{ isSentuh }}" style="height:28px;padding:0 12px;border:0;font:500 13px/18px var(--font-ui);cursor:pointer;background:{{ sentuhBg }};color:{{ sentuhInk }}">Sentuh</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+            <div style="border-right:1px solid var(--border);padding:12px 16px">
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">--row-compact · 36px</code>
+              <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden">
+                <div style="height:36px;display:flex;align-items:center;padding:0 10px;border-bottom:1px solid var(--border);font:400 14px/20px var(--font-ui);color:var(--ink)">SOP-Perawatan.pdf</div>
+                <div style="height:36px;display:flex;align-items:center;padding:0 10px;font:400 14px/20px var(--font-ui);color:var(--ink)">Form-Produksi.xlsx</div>
+              </div>
+              <div style="margin-top:6px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Layar 1366 dan folder besar</div>
+            </div>
+            <div style="border-right:1px solid var(--border);padding:12px 16px">
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">--row-default · 44px</code>
+              <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden">
+                <div style="height:44px;display:flex;align-items:center;padding:0 10px;border-bottom:1px solid var(--border);font:400 14px/20px var(--font-ui);color:var(--ink)">SOP-Perawatan.pdf</div>
+                <div style="height:44px;display:flex;align-items:center;padding:0 10px;font:400 14px/20px var(--font-ui);color:var(--ink)">Form-Produksi.xlsx</div>
+              </div>
+              <div style="margin-top:6px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Default desktop</div>
+            </div>
+            <div style="padding:12px 16px">
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">--row-touch · 56px</code>
+              <div style="margin-top:8px;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden">
+                <div style="height:56px;display:flex;align-items:center;padding:0 10px;border-bottom:1px solid var(--border);font:400 14px/20px var(--font-ui);color:var(--ink)">SOP-Perawatan.pdf</div>
+                <div style="height:56px;display:flex;align-items:center;padding:0 10px;font:400 14px/20px var(--font-ui);color:var(--ink)">Form-Produksi.xlsx</div>
+              </div>
+              <div style="margin-top:6px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Tablet dan HP, tangan bersarung</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tombol" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">04</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Tombol</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Empat varian. Ikon boleh, tapi aksi utama selalu berpasangan dengan teks. State nonaktif diberi permukaan abu penuh supaya terbaca sebagai nonaktif, bukan sekadar pudar.</p>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+          <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));align-items:center;gap:16px;padding:0 16px;height:32px;background:var(--surface-sunken);border-bottom:1px solid var(--border)">
+            <span></span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Primer</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Sekunder</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Ghost</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Danger</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">normal</code>
+            <div><button type="button" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer" style-hover="background:var(--primary-hover);border-color:var(--primary-hover)">Simpan perubahan</button></div>
+            <div><button type="button" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer" style-hover="background:var(--surface-hover)">Batalkan</button></div>
+            <div><button type="button" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid transparent;border-radius:var(--radius-sm);background:transparent;color:var(--ink-secondary);font:500 14px/20px var(--font-ui);cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">Lewati</button></div>
+            <div><button type="button" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--danger-solid);border-radius:var(--radius-sm);background:var(--danger-solid);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer" style-hover="background:var(--danger-solid-hover);border-color:var(--danger-solid-hover)">Hapus permanen</button></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">hover</code>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--primary-hover);border-radius:var(--radius-sm);background:var(--primary-hover);color:var(--ink-inverse);font:500 14px/20px var(--font-ui)">Simpan perubahan</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink);font:500 14px/20px var(--font-ui)">Batalkan</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink);font:500 14px/20px var(--font-ui)">Lewati</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--danger-solid-hover);border-radius:var(--radius-sm);background:var(--danger-solid-hover);color:var(--ink-inverse);font:500 14px/20px var(--font-ui)">Hapus permanen</span></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">fokus</code>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);outline:2px solid var(--border-focus);outline-offset:2px">Simpan perubahan</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);outline:2px solid var(--border-focus);outline-offset:2px">Batalkan</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:var(--radius-sm);background:transparent;color:var(--ink-secondary);font:500 14px/20px var(--font-ui);outline:2px solid var(--border-focus);outline-offset:2px">Lewati</span></div>
+            <div><span style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--danger-solid);border-radius:var(--radius-sm);background:var(--danger-solid);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);outline:2px solid var(--border-focus);outline-offset:2px">Hapus permanen</span></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:96px repeat(4,minmax(0,1fr));align-items:center;gap:16px;padding:12px 16px;border-bottom:1px solid var(--border)">
+            <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">nonaktif</code>
+            <div><button type="button" disabled="disabled" style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink-tertiary);font:500 14px/20px var(--font-ui);cursor:not-allowed">Simpan perubahan</button></div>
+            <div><button type="button" disabled="disabled" style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink-tertiary);font:500 14px/20px var(--font-ui);cursor:not-allowed">Batalkan</button></div>
+            <div><button type="button" disabled="disabled" style="display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:var(--radius-sm);background:transparent;color:var(--ink-tertiary);font:500 14px/20px var(--font-ui);cursor:not-allowed">Lewati</button></div>
+            <div><button type="button" disabled="disabled" style="display:inline-flex;align-items:center;height:36px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink-tertiary);font:500 14px/20px var(--font-ui);cursor:not-allowed">Hapus permanen</button></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:16px;padding:12px 16px">
+            <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">ukuran</code>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+              <button type="button" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                Unggah
+              </button>
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">32 · padat</code>
+              <button type="button" style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                Unggah
+              </button>
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">36 · default</code>
+              <button type="button" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 15px/22px var(--font-ui);cursor:pointer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                Unggah
+              </button>
+              <code style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">44 · sentuh</code>
+            </div>
+          </div>
+        </div>
+
+        <sc-if value="{{ annotations }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:10px;margin-top:12px;padding:10px 14px;background:var(--warning-subtle);border:1px solid var(--warning-border);border-radius:var(--radius-sm)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4.5" /></svg>
+            <div style="font:400 13px/18px var(--font-ui);color:var(--warning-ink);text-wrap:pretty">Catatan: tombol nonaktif tetap ditampilkan, tidak disembunyikan. Selalu pasang tooltip yang menjelaskan alasannya, misalnya “Anda hanya punya akses baca di folder ini”.</div>
+          </div>
+        </sc-if>
+      </section>
+
+      <section id="input" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">05</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Input dan kontrol</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Tinggi input mengikuti tinggi tombol pada kepadatan yang sama. Pesan error inline di bawah field, tidak pernah sebagai toast.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;display:flex;flex-direction:column;gap:14px">
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Nama folder</label>
+              <input type="text" value="Laporan QC Maret" style="width:100%;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-ui)" />
+            </div>
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Fokus</label>
+              <div style="width:100%;height:36px;padding:0 10px;display:flex;align-items:center;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-ui);outline:2px solid var(--border-focus);outline-offset:2px">Laporan QC Maret<span style="width:1px;height:18px;background:var(--ink);margin-left:1px"></span></div>
+            </div>
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Error</label>
+              <div style="width:100%;height:36px;padding:0 10px;display:flex;align-items:center;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-ui)">Laporan/QC</div>
+              <div style="display:flex;gap:6px;margin-top:4px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                <span style="font:400 13px/18px var(--font-ui);color:var(--danger)">Nama folder tidak boleh memakai tanda garis miring.</span>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-tertiary);margin-bottom:4px">Nonaktif</label>
+              <input type="text" value="Ruang Engineering" disabled="disabled" style="width:100%;height:36px;padding:0 10px;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink-tertiary);font:400 14px/20px var(--font-ui);cursor:not-allowed" />
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;display:flex;flex-direction:column;gap:16px">
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Pencarian</label>
+              <div style="display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+                <span style="font:400 14px/20px var(--font-ui);color:var(--ink-tertiary)">Cari file di Ruang Produksi</span>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Pilihan</label>
+              <div style="display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+                <span style="font:400 14px/20px var(--font-ui);color:var(--ink)">Kontributor</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 9.5 12 16l6.5-6.5" /></svg>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+                <span style="flex:none;width:18px;height:18px;border-radius:3px;border:1px solid var(--primary);background:var(--primary);display:flex;align-items:center;justify-content:center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink-inverse)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5" /></svg>
+                </span>
+                Terpilih
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+                <span style="flex:none;width:18px;height:18px;border-radius:3px;border:1px solid var(--primary);background:var(--primary);display:flex;align-items:center;justify-content:center">
+                  <span style="width:9px;height:2px;background:var(--ink-inverse);border-radius:1px"></span>
+                </span>
+                Sebagian terpilih
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+                <span style="flex:none;width:18px;height:18px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span>
+                Belum dipilih
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;font:400 14px/20px var(--font-ui);color:var(--ink-tertiary);cursor:not-allowed">
+                <span style="flex:none;width:18px;height:18px;border-radius:3px;border:1px dashed var(--border-strong);background:var(--surface-hover)"></span>
+                Tidak bisa dipilih
+              </label>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding-top:2px">
+              <button type="button" role="switch" aria-checked="true" onClick="{{ toggleSwitch }}" style="flex:none;width:38px;height:22px;border-radius:11px;border:1px solid var(--primary);background:{{ switchBg }};padding:2px;display:flex;justify-content:{{ switchJustify }};cursor:pointer;transition:background 140ms">
+                <span style="width:16px;height:16px;border-radius:8px;background:var(--ink-inverse);box-shadow:0 1px 2px rgba(19,24,32,.3)"></span>
+              </button>
+              <span style="font:400 14px/20px var(--font-ui);color:var(--ink)">Tampilkan panel detail</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ikon" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">06</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Ikon tipe file dan badge</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Folder memakai glyph terisi netral karena folder adalah struktur, bukan kategori. File memakai chip ekstensi berwarna diredam — ekstensi terbaca langsung, warna membantu memindai tanpa jadi pelangi.</p>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px 16px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ink-secondary)" style="flex:none" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Folder</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-pdf-bg);border:1px solid var(--danger-border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-pdf-ink);letter-spacing:.2px">PDF</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">PDF</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-sheet-bg);border:1px solid var(--success-border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-sheet-ink);letter-spacing:.2px">XLS</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Spreadsheet</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-doc-bg);border:1px solid var(--cat-doc-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-doc-ink);letter-spacing:.2px">DOC</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Dokumen</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-slide-bg);border:1px solid var(--warning-border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-slide-ink);letter-spacing:.2px">PPT</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Presentasi</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-image-bg);border:1px solid var(--cat-image-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-image-ink);letter-spacing:.2px">JPG</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Gambar</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-video-bg);border:1px solid var(--cat-video-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-video-ink);letter-spacing:.2px">MP4</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Video</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-zip-bg);border:1px solid var(--cat-zip-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-zip-ink);letter-spacing:.2px">ZIP</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Arsip</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-cad-bg);border:1px solid var(--cat-cad-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-cad-ink);letter-spacing:.2px">DWG</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">CAD</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="flex:none;width:22px;height:26px;border-radius:2px;background:var(--cat-any-bg);border:1px solid var(--cat-any-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 8px/8px var(--font-mono);color:var(--cat-any-ink);letter-spacing:.2px">?</span></span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Tak dikenal</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:12px">Badge status — warna selalu berpasangan dengan ikon atau teks</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:var(--warning-subtle);border:1px solid var(--warning-border);font:500 12px/16px var(--font-ui);color:var(--warning-ink)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></svg>
+                Terkunci
+              </span>
+              <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:var(--primary-subtle);border:1px solid var(--primary-border);font:500 12px/16px var(--font-ui);color:var(--primary-ink)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3" /><path d="M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3" /></svg>
+                Dibagikan
+              </span>
+              <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:var(--success-subtle);border:1px solid var(--success-border);font:500 12px/16px var(--font-ui);color:var(--success-ink)">Baru</span>
+              <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:var(--surface-hover);border:1px solid var(--border-strong);font:500 12px/16px var(--font-ui);color:var(--ink-secondary)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8" /><path d="M12 7.5V12l3.5 2" /></svg>
+                Kedaluwarsa
+              </span>
+              <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:var(--danger-subtle);border:1px solid var(--danger-border);font:500 12px/16px var(--font-ui);color:var(--danger-ink)">Gagal unggah</span>
+            </div>
+            <div style="margin-top:14px;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:8px">Peran</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">Pelihat</span>
+              <span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">Kontributor</span>
+              <span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">Editor</span>
+              <span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--primary-subtle);border:1px solid var(--primary-border);font:400 12px/16px var(--font-mono);color:var(--primary-ink)">Pengelola</span>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:12px">Bar kuota — amber di 80%, merah di 95%</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)"><span>Ruang Produksi</span><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">312 GB / 800 GB</span></div>
+                <div style="height:6px;border-radius:3px;background:var(--surface-hover);margin-top:5px;overflow:hidden"><div style="width:39%;height:100%;background:var(--primary)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)"><span>Ruang QC</span><span style="font-family:var(--font-mono);color:var(--warning-ink);font-variant-numeric:tabular-nums">348 GB / 400 GB</span></div>
+                <div style="height:6px;border-radius:3px;background:var(--surface-hover);margin-top:5px;overflow:hidden"><div style="width:87%;height:100%;background:var(--warning)"></div></div>
+                <div style="display:flex;gap:5px;margin-top:5px">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                  <span style="font:400 12px/16px var(--font-ui);color:var(--warning-ink)">Sisa 52 GB. Hubungi Admin IT untuk menambah kuota.</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)"><span>Ruang Gudang</span><span style="font-family:var(--font-mono);color:var(--danger-ink);font-variant-numeric:tabular-nums">196 GB / 200 GB</span></div>
+                <div style="height:6px;border-radius:3px;background:var(--surface-hover);margin-top:5px;overflow:hidden"><div style="width:98%;height:100%;background:var(--danger)"></div></div>
+                <div style="display:flex;gap:5px;margin-top:5px">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                  <span style="font:400 12px/16px var(--font-ui);color:var(--danger-ink)">Kuota hampir penuh. Unggahan baru akan ditolak.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="baris" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">07</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Baris file</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Komponen paling penting di produk ini — pengguna menghabiskan 90% waktunya di sini. Folder selalu di atas file. Terpilih memakai <code style="font:400 13px/18px var(--font-mono)">--surface-selected</code> plus garis kiri 2px primer, jadi baris terpilih tetap terbaca walau layar dilihat dari samping.</p>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:32px;padding:0 12px 0 0;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span></span>
+            <span></span>
+            <span style="display:flex;align-items:center;gap:5px;font:500 13px/18px var(--font-ui);color:var(--ink)">Nama<svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink-secondary)" aria-hidden="true"><path d="M12 8 8 13h8z" /></svg></span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Ukuran</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);padding-left:16px">Diubah</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Oleh</span>
+            <span></span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:{{ rowH }}px;padding-right:12px;border-bottom:1px solid var(--border);border-left:2px solid transparent">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span></span>
+            <span style="display:flex;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ink-secondary)" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg></span>
+            <span style="font:500 14px/20px var(--font-ui);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">SOP Produksi</span>
+            <span style="font:400 14px/20px var(--font-mono);color:var(--ink-tertiary);text-align:right;font-variant-numeric:tabular-nums">24 item</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);padding-left:16px;font-variant-numeric:tabular-nums">12 Mar 08:14</span>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Budi S.</span>
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);text-align:right">normal</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:{{ rowH }}px;padding-right:12px;border-bottom:1px solid var(--border);border-left:2px solid transparent;background:var(--surface-hover)">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span></span>
+            <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--cat-sheet-bg);border:1px solid var(--success-border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 7px/7px var(--font-mono);color:var(--cat-sheet-ink)">XLS</span></span></span>
+            <span style="font:400 14px/20px var(--font-ui);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Form-QC-Harian-Shift-1.xlsx</span>
+            <span style="font:400 14px/20px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">248 KB</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);padding-left:16px;font-variant-numeric:tabular-nums">12 Mar 07:52</span>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Ani W.</span>
+            <span style="display:flex;justify-content:flex-end;gap:2px">
+              <span title="Unduh" style="width:26px;height:26px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg></span>
+              <span title="Bagikan" style="width:26px;height:26px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3" /><path d="M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3" /></svg></span>
+              <span title="Menu" style="width:26px;height:26px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border)"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--ink-secondary)" aria-hidden="true"><circle cx="12" cy="6" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="18" r="1.6" /></svg></span>
+            </span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:{{ rowH }}px;padding-right:12px;border-bottom:1px solid var(--border);border-left:2px solid var(--primary);background:var(--surface-selected)">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--primary);background:var(--primary);display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--ink-inverse)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 9.5 17 19 7.5" /></svg></span></span>
+            <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--cat-pdf-bg);border:1px solid var(--danger-border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 7px/7px var(--font-mono);color:var(--cat-pdf-ink)">PDF</span></span></span>
+            <span style="font:400 14px/20px var(--font-ui);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Manual-Mesin-Injeksi-A2.pdf</span>
+            <span style="font:400 14px/20px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">1,2 MB</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);padding-left:16px;font-variant-numeric:tabular-nums">11 Mar 16:03</span>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Budi S.</span>
+            <span style="font:400 12px/16px var(--font-mono);color:var(--primary-ink);text-align:right">terpilih</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:{{ rowH }}px;padding-right:12px;border-bottom:1px solid var(--border);border-left:2px solid transparent">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span></span>
+            <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--cat-cad-bg);border:1px solid var(--cat-cad-bd);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)"><span style="font:500 7px/7px var(--font-mono);color:var(--cat-cad-ink)">DWG</span></span></span>
+            <span style="display:flex;align-items:center;gap:8px;min-width:0">
+              <span style="font:400 14px/20px var(--font-ui);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Drawing-Rangka-Konveyor-Rev4.dwg</span>
+              <span title="Sedang dibuka oleh Ani W." style="flex:none;display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:var(--radius-sm);background:var(--warning-subtle);border:1px solid var(--warning-border);font:500 12px/16px var(--font-ui);color:var(--warning-ink)">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></svg>
+                Terkunci
+              </span>
+            </span>
+            <span style="font:400 14px/20px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">14,8 MB</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);padding-left:16px;font-variant-numeric:tabular-nums">11 Mar 09:40</span>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Ani W.</span>
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);text-align:right">terkunci</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 92px 104px 96px 76px;align-items:center;height:{{ rowH }}px;padding-right:12px;border-left:2px solid transparent">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border-radius:3px;border:1px solid var(--border-strong);background:var(--surface)"></span></span>
+            <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--surface-hover);border:1px solid var(--border)"></span></span>
+            <span style="display:flex;align-items:center;gap:10px"><span style="width:180px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span style="display:flex;justify-content:flex-end"><span style="width:52px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span style="padding-left:16px"><span style="display:block;width:72px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span><span style="display:block;width:48px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);text-align:right">memuat</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="navigasi" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">08</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Breadcrumb, toolbar, dan menu</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Toolbar seleksi menggantikan toolbar normal di tempat yang sama dan dengan tinggi yang sama — layout tidak boleh bergeser saat item dipilih.</p>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:10px">Breadcrumb — jalur panjang diciutkan di tengah</div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font:400 14px/20px var(--font-ui)">
+              <a href="#navigasi" style="color:var(--ink-secondary);padding:2px 4px;border-radius:3px">Produksi</a>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+              <button type="button" aria-label="Tampilkan folder yang diciutkan" style="height:22px;padding:0 7px;border:1px solid var(--border);border-radius:3px;background:var(--surface-sunken);color:var(--ink-secondary);font:500 13px/18px var(--font-ui);cursor:pointer">…</button>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+              <a href="#navigasi" style="color:var(--ink-secondary);padding:2px 4px;border-radius:3px">Laporan QC</a>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+              <span aria-current="page" style="font-weight:600;color:var(--ink);padding:2px 4px">2026-03</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px">
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+              <div style="padding:10px 16px 0;font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Toolbar normal</div>
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:48px;padding:8px 16px;margin-top:8px;border-top:1px solid var(--border);background:var(--surface)">
+                <div style="display:flex;align-items:center;gap:8px;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);flex:1;min-width:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary);overflow:hidden;white-space:nowrap">Cari file</span>
+                </div>
+                <button type="button" style="height:32px;width:32px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer" aria-label="Kepadatan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg></button>
+                <button type="button" style="height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:6px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+                  Unggah
+                </button>
+              </div>
+            </div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+              <div style="padding:10px 16px 0;font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Toolbar seleksi</div>
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:48px;padding:8px 16px;margin-top:8px;border-top:1px solid var(--border);background:var(--surface-selected)">
+                <span style="font:600 14px/20px var(--font-ui);color:var(--primary-ink);font-variant-numeric:tabular-nums">3 item dipilih</span>
+                <span style="width:1px;height:20px;background:var(--primary-border)"></span>
+                <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Unduh</button>
+                <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Pindahkan</button>
+                <button type="button" style="height:32px;padding:0 10px;border:1px solid var(--primary-border);border-radius:var(--radius-sm);background:var(--surface);color:var(--danger);font:500 13px/18px var(--font-ui);cursor:pointer">Hapus</button>
+                <button type="button" aria-label="Kosongkan pilihan" style="margin-left:auto;height:32px;width:32px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-ink)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:236px minmax(0,1fr);gap:16px;align-items:start">
+            <div style="background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay);padding:4px">
+              <div role="menu" style="display:flex;flex-direction:column">
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:var(--surface-hover);color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z" /><circle cx="12" cy="12" r="3" /></svg>
+                  Buka pratinjau
+                </button>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7.5 10.5 12 15l4.5-4.5" /><path d="M4.5 19h15" /></svg>
+                  Unduh
+                </button>
+                <div style="height:1px;background:var(--border);margin:4px 0"></div>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">Ganti nama</button>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">Pindahkan ke…</button>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;justify-content:space-between;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">Riwayat versi<span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">3</span></button>
+                <div style="height:1px;background:var(--border);margin:4px 0"></div>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">Buat link berbagi</button>
+                <div style="height:1px;background:var(--border);margin:4px 0"></div>
+                <button type="button" role="menuitem" style="display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--danger);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 7h15" /><path d="M9.5 7V4.5h5V7" /><path d="M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z" /></svg>
+                  Pindahkan ke sampah
+                </button>
+              </div>
+            </div>
+            <div style="font:400 15px/22px var(--font-ui);color:var(--ink-secondary);padding-top:2px;text-wrap:pretty">
+              <p style="margin:0 0 10px">Klik kanan pada baris dan tombol tiga titik memakai menu yang sama, dikelompokkan dengan pemisah: buka dan unduh, ubah, bagikan, lalu hapus. Aksi merusak selalu paling bawah dan satu-satunya yang berwarna danger.</p>
+              <p style="margin:0">Menu memakai <code style="font:400 13px/18px var(--font-mono)">--shadow-overlay</code> karena melayang di atas konten. Esc menutup, panah atas-bawah berpindah, Enter menjalankan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overlay" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">09</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Modal, toast, dan panel</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Tiga ukuran modal: sm 400px untuk konfirmasi, md 560px untuk form, lg 720px untuk permission dan share. Konfirmasi menjelaskan akibatnya, bukan bertanya kosong.</p>
+
+        <div style="display:grid;grid-template-columns:400px minmax(0,1fr);gap:16px;align-items:start">
+          <div style="background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-modal);overflow:hidden">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 0">
+              <h3 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Hapus 12 file ke sampah?</h3>
+              <button type="button" aria-label="Tutup" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+            </div>
+            <p style="margin:8px 16px 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">File bisa dipulihkan dari Sampah dalam 30 hari. Setelah itu terhapus permanen.</p>
+            <div style="display:flex;justify-content:flex-end;gap:8px;padding:16px;margin-top:16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+              <button type="button" style="height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Batalkan</button>
+              <button type="button" style="height:36px;padding:0 14px;border:1px solid var(--danger-solid);border-radius:var(--radius-sm);background:var(--danger-solid);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Hapus ke sampah</button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--surface-raised);border:1px solid var(--border);border-left:3px solid var(--success);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M8 12.5l2.8 2.8L16.5 9.5" /></svg>
+              <div style="flex:1;min-width:0">
+                <div style="font:500 14px/20px var(--font-ui);color:var(--ink)">12 file dipindahkan ke sampah</div>
+                <div style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Hilang otomatis setelah 4 detik.</div>
+              </div>
+              <button type="button" style="flex:none;height:28px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Urungkan</button>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--surface-raised);border:1px solid var(--border);border-left:3px solid var(--danger);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4.5" /></svg>
+              <div style="flex:1;min-width:0">
+                <div style="font:500 14px/20px var(--font-ui);color:var(--ink)">Gagal mengunggah 2 file</div>
+                <div style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Koneksi ke server terputus. Menetap sampai ditutup.</div>
+              </div>
+              <button type="button" style="flex:none;height:28px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Coba lagi</button>
+              <button type="button" aria-label="Tutup" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-overlay)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><path d="M12 15V4" /><path d="M7.5 8.5 12 4l4.5 4.5" /><path d="M4 17v3h16v-3" /></svg>
+              <div style="flex:1;min-width:0">
+                <div style="font:500 14px/20px var(--font-ui);color:var(--ink);font-variant-numeric:tabular-nums">Mengunggah 12 dari 40 file</div>
+                <div style="height:4px;border-radius:2px;background:var(--surface-hover);margin-top:6px;overflow:hidden"><div style="width:30%;height:100%;background:var(--primary)"></div></div>
+              </div>
+              <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">4,2 MB/s</span>
+              <button type="button" aria-label="Bentangkan panel unggah" style="flex:none;width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 14.5 12 8l6.5 6.5" /></svg></button>
+            </div>
+            <div style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Toast muncul di kanan bawah, selalu di atas panel unggah. Panel unggah yang diciutkan memakai bar ringkas seperti di atas dan bertahan saat pindah halaman.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="state" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">10</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">State kosong, error, dan banner</h2>
+        </div>
+        <p style="margin:6px 0 20px;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:64ch;text-wrap:pretty">Ikon garis sederhana, satu kalimat penjelas, satu aksi. Tanpa ilustrasi berwarna. Nada tulisan menjelaskan keadaan dan langkah berikutnya — tidak meminta maaf, tidak menyalahkan pengguna, tidak memakai istilah teknis.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px 24px;text-align:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg>
+            <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Folder ini masih kosong</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;text-wrap:pretty">Tarik file ke sini atau klik Unggah.</div>
+            <button type="button" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Unggah file</button>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px 24px;text-align:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" style="margin-bottom:12px" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+            <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Tidak ada file bernama “kalibrasi”</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;text-wrap:pretty">Coba kata kunci lain atau periksa ruang lain.</div>
+            <button type="button" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Cari di semua ruang</button>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px 24px;text-align:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></svg>
+            <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Anda tidak punya akses ke Ruang Engineering</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;text-wrap:pretty">Minta akses ke manager departemen Anda atau Admin IT.</div>
+            <button type="button" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Kembali ke Produksi</button>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px 24px;text-align:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v5" /></svg>
+            <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Gagal memuat daftar file</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;text-wrap:pretty">Periksa koneksi ke server lalu coba lagi.</div>
+            <button type="button" style="margin-top:14px;height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer;display:inline-flex;align-items:center;gap:8px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v3.5h-3.5" /></svg>
+              Coba lagi
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+          <div style="display:flex;align-items:center;gap:10px;height:36px;padding:0 16px;background:var(--warning-subtle);border:1px solid var(--warning-border);border-radius:var(--radius-sm)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+            <span style="font:400 14px/20px var(--font-ui);color:var(--warning-ink)">Kuota Ruang QC tersisa 52 GB. Unggahan besar bisa gagal.</span>
+            <a href="#state" style="margin-left:auto;font:500 14px/20px var(--font-ui);color:var(--warning-ink)">Lihat pemakaian</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;height:36px;padding:0 16px;background:var(--surface-hover);border:1px solid var(--border-strong);border-radius:var(--radius-sm)">
+            <span style="flex:none;width:8px;height:8px;border-radius:4px;background:var(--ink-tertiary)"></span>
+            <span style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary)">Koneksi ke server terputus. Perubahan akan dikirim ulang otomatis.</span>
+            <span style="margin-left:auto;font:400 13px/18px var(--font-mono);color:var(--ink-tertiary)">mencoba ulang 8s</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="akses" style="border-top:1px solid var(--border-strong);padding:36px 0 20px">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">11</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Aksesibilitas</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+            <div style="padding:10px 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Kontras terukur di atas <code style="font-family:var(--font-mono)">--surface</code></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px 16px;padding:12px 16px;font:400 13px/18px var(--font-ui)">
+              <code style="font-family:var(--font-mono);color:var(--ink)">--ink</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">17,8:1</span><span style="color:var(--success)">lulus AAA</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--ink-secondary</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">6,2:1</span><span style="color:var(--success)">lulus AA</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--primary</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">7,1:1</span><span style="color:var(--success)">lulus AAA</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--danger</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">6,5:1</span><span style="color:var(--success)">lulus AA</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--success</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">6,2:1</span><span style="color:var(--success)">lulus AA</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--warning</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">5,1:1</span><span style="color:var(--success)">lulus AA</span>
+              <span style="grid-column:1 / -1;height:1px;background:var(--border);margin:4px 0"></span>
+              <span style="grid-column:1 / -1;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Semua nilai di atas juga lulus di atas <code style="font-family:var(--font-mono)">--surface-sunken</code>; ambang terendah adalah <code style="font-family:var(--font-mono)">--ink-tertiary</code> pada 4,7:1 di atas baris terpilih. Di mode gelap seluruh pasangan berada di 5,0:1 atau lebih tinggi. Tombol danger berisi memakai <code style="font-family:var(--font-mono)">--danger-solid</code> supaya teks putih tetap lulus di kedua mode.</span>
+              <code style="font-family:var(--font-mono);color:var(--ink)">--ink-tertiary</code><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">5,5:1</span><span style="color:var(--success)">lulus AA</span>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+            <div style="padding:10px 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border);font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Keyboard di tabel file</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;padding:12px 16px;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">↑ ↓</kbd><span>Berpindah baris</span>
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">Enter</kbd><span>Buka folder atau pratinjau file</span>
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">Space</kbd><span>Pilih atau lepas pilihan</span>
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">Shift ↑↓</kbd><span>Pilih rentang</span>
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">Delete</kbd><span>Pindahkan ke sampah</span>
+              <kbd style="justify-self:start;font:400 12px/16px var(--font-mono);color:var(--ink);background:var(--surface-sunken);border:1px solid var(--border-strong);border-radius:3px;padding:1px 6px">Esc</kbd><span>Tutup menu, panel, atau modal</span>
+            </div>
+            <div style="padding:0 16px 14px;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Transisi 120–180ms dan hanya sebagai respons aksi pengguna. <code style="font-family:var(--font-mono)">prefers-reduced-motion</code> mematikan seluruh transisi.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bahasa" style="border-top:1px solid var(--border-strong);padding:36px 0 0">
+        <div style="display:flex;align-items:baseline;gap:12px">
+          <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">12</span>
+          <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Bahasa</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:10px">Istilah baku</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Ruang</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Folder</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">File</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Sampah</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Link berbagi</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Riwayat versi</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Pelihat</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Kontributor</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Editor</span>
+              <span style="height:24px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink)">Pengelola</span>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;font:400 14px/20px var(--font-ui)">
+              <div style="padding:10px 14px;background:var(--success-subtle);border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--success-ink);font-weight:500">Pakai</div>
+              <div style="padding:10px 14px;background:var(--danger-subtle);border-bottom:1px solid var(--border);color:var(--danger-ink);font-weight:500">Hindari</div>
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--ink)">Simpan perubahan</div>
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);color:var(--ink-tertiary)">Kirim</div>
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--ink)">Hapus 12 file ke sampah? Bisa dipulihkan dalam 30 hari.</div>
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);color:var(--ink-tertiary)">Anda yakin?</div>
+              <div style="padding:10px 14px;border-right:1px solid var(--border);color:var(--ink)">Gagal memuat daftar file. Periksa koneksi lalu coba lagi.</div>
+              <div style="padding:10px 14px;color:var(--ink-tertiary)">Error 500: Internal Server Error</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;density&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Padat&quot;, &quot;Normal&quot;, &quot;Sentuh&quot;], &quot;default&quot;: &quot;Normal&quot;, &quot;tsType&quot;: &quot;'Padat'|'Normal'|'Sentuh'&quot;, &quot;section&quot;: &quot;Kepadatan&quot; },
+  &quot;showAnnotations&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Lembar&quot; },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#1D5B8F&quot;, &quot;options&quot;: [&quot;#1D5B8F&quot;, &quot;#1F5F5B&quot;, &quot;var(--cat-cad-ink)&quot;, &quot;#4A4E57&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Token&quot; }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  state = { density: null, sw: true };
+
+  componentDidMount() { this.applyAccent(); }
+  componentDidUpdate() { this.applyAccent(); }
+
+  applyAccent() {
+    const a = this.props.accent;
+    if (!a) return;
+    const r = document.documentElement;
+    r.style.setProperty('--primary', a);
+    r.style.setProperty('--primary-hover', this.shade(a, -0.16));
+    r.style.setProperty('--border-focus', a);
+  }
+
+  shade(hex, amt) {
+    const n = parseInt(String(hex).replace('#', ''), 16);
+    if (isNaN(n)) return hex;
+    const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v =>
+      Math.max(0, Math.min(255, Math.round(v + (amt < 0 ? v * amt : (255 - v) * amt))))
+    );
+    return '#' + ch.map(v => v.toString(16).padStart(2, '0')).join('');
+  }
+
+  get density() { return this.state.density || this.props.density || 'Normal'; }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const d = this.density;
+    const on = 'var(--cat-doc-ink)', ink = 'var(--ink-secondary)';
+    const seg = k => (d === k
+      ? { bg: 'var(--surface-selected)', ink: 'var(--primary-ink)' }
+      : { bg: 'var(--surface)', ink: ink });
+    const p = seg('Padat'), n = seg('Normal'), s = seg('Sentuh');
+    const accent = this.props.accent || 'var(--cat-doc-ink)';
+    return {
+      density: d,
+      rowH: { Padat: 36, Normal: 44, Sentuh: 56 }[d] || 44,
+      isPadat: d === 'Padat', isNormal: d === 'Normal', isSentuh: d === 'Sentuh',
+      padatBg: p.bg, padatInk: p.ink,
+      normalBg: n.bg, normalInk: n.ink,
+      sentuhBg: s.bg, sentuhInk: s.ink,
+      setPadat: () => this.setState({ density: 'Padat' }),
+      setNormal: () => this.setState({ density: 'Normal' }),
+      setSentuh: () => this.setState({ density: 'Sentuh' }),
+      accentHex: accent.toUpperCase(),
+      accentHoverHex: this.shade(accent, -0.16).toUpperCase(),
+      annotations: this.props.showAnnotations ?? false,
+      switchBg: this.state.sw ? 'var(--primary)' : 'var(--surface-hover)',
+      switchJustify: this.state.sw ? 'flex-end' : 'flex-start',
+      toggleSwitch: () => this.setState(st => ({ sw: !st.sw }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+/*
+ * RAF NAS — design token tersentralisasi.
+ * Nilai kanonik diambil dari README + "State dan Error.dc.html" (hex konkret),
+ * BUKAN dari blok :root "Sistem Desain.dc.html" yang memakai var() sirkular.
+ * Nama token identik di kedua mode — komponen tak perlu tahu tema aktif.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Permukaan */
+  --surface: #ffffff;
+  --surface-sunken: #f6f7f9;
+  --surface-raised: #ffffff;
+  --surface-hover: #f0f2f5;
+  --surface-selected: #e7eff7;
+
+  /* Garis */
+  --border: #dfe3e9;
+  --border-strong: #c3cad4;
+  --border-focus: #1d5b8f;
+
+  /* Teks */
+  --ink: #131820;
+  --ink-secondary: #59616f;
+  --ink-tertiary: #626a77; /* dinaikkan agar lulus 4.5:1 di 4 permukaan — JANGAN turunkan */
+  --ink-inverse: #ffffff;
+
+  /* Primer & tautan */
+  --primary: #1d5b8f;
+  --primary-hover: #17496f;
+  --primary-active: #123a59;
+  --primary-subtle: #e7eff7;
+  --primary-border: #cbdceb;
+  --primary-ink: #144a75;
+  --link: #1d5b8f;
+  --link-hover: #17496f;
+
+  /* Semantik */
+  --success: #0a7040;
+  --success-subtle: #e4f3eb;
+  --success-border: #c3e3d1;
+  --success-ink: #075430;
+  --warning: #a65b00;
+  --warning-subtle: #fdf0df;
+  --warning-border: #ebd3ae;
+  --warning-ink: #6e3d00;
+  --danger: #b3261e;
+  --danger-hover: #96201a;
+  --danger-solid: #b3261e;
+  --danger-solid-hover: #96201a;
+  --danger-subtle: #fceae8;
+  --danger-border: #f0c9c5;
+  --danger-ink: #8e1e17;
+  --info-subtle: #edf3f8;
+  --info-border: #dbe6f0;
+
+  /* Sorotan hasil pencarian */
+  --highlight: #fbe7a6;
+  --highlight-ink: #131820;
+
+  /* Tint baris audit */
+  --tint-danger: #fdf3f2;
+  --tint-warning: #fef8ee;
+  --tint-info: #f4f8fb;
+
+  /* Kertas dokumen — TETAP terang di mode gelap; hanya didefinisikan di sini */
+  --paper: #ffffff;
+  --paper-sunken: #f6f7f9;
+  --paper-ink: #131820;
+  --paper-ink-dim: #59616f;
+  --paper-line: #dfe3e9;
+  --paper-hover: #edeff3;
+
+  /* Bayangan (khusus elemen yang benar-benar melayang) */
+  --shadow-overlay: 0 4px 12px rgba(19, 24, 32, 0.1), 0 1px 3px rgba(19, 24, 32, 0.08);
+  --shadow-modal: 0 16px 40px rgba(19, 24, 32, 0.16);
+  --shadow-fab: 0 6px 16px rgba(19, 24, 32, 0.22);
+
+  /* ---- Token non-tema (sama di kedua mode) ---- */
+  --font-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --row-compact: 36px;
+  --row-default: 44px;
+  --row-touch: 56px;
+  --header-height: 56px;
+  --sidebar-width: 240px;
+  --sidebar-rail: 56px;
+  --detail-width: 320px;
+}
+
+/* Mode gelap default (OS), kecuali pengguna memilih terang secara eksplisit */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --surface: #151a21;
+    --surface-sunken: #0f141a;
+    --surface-raised: #1b2129;
+    --surface-hover: #1f262f;
+    --surface-selected: #16303f;
+
+    --border: #2a313a;
+    --border-strong: #3c4653;
+    --border-focus: #7fb3dc;
+
+    --ink: #e7ebf1;
+    --ink-secondary: #a4adba;
+    --ink-tertiary: #949dab;
+    --ink-inverse: #f7fafd;
+
+    --primary: #2c74ae;
+    --primary-hover: #3a87c4;
+    --primary-active: #4a97d4;
+    --primary-subtle: #17293a;
+    --primary-border: #2e5474;
+    --primary-ink: #9bc8e8;
+    --link: #9bc8e8;
+    --link-hover: #bbd9ee;
+
+    --success: #48ac7d;
+    --success-subtle: #12261c;
+    --success-border: #2c4e3a;
+    --success-ink: #7fd0a5;
+    --warning: #c8892c;
+    --warning-subtle: #28200f;
+    --warning-border: #4e3e20;
+    --warning-ink: #e8b978;
+    --danger: #e4807a;
+    --danger-hover: #d4635d;
+    --danger-solid: #a83a34;
+    --danger-solid-hover: #b0403a;
+    --danger-subtle: #2b1717;
+    --danger-border: #5a2e2c;
+    --danger-ink: #ee9c97;
+    --info-subtle: #16202a;
+    --info-border: #27384a;
+
+    --highlight: #6b5a17;
+    --highlight-ink: #f6e7b6;
+
+    --tint-danger: #211618;
+    --tint-warning: #1f1b12;
+    --tint-info: #141d26;
+
+    --shadow-overlay: 0 4px 14px rgba(0, 0, 0, 0.44), 0 1px 3px rgba(0, 0, 0, 0.36);
+    --shadow-modal: 0 18px 44px rgba(0, 0, 0, 0.56);
+    --shadow-fab: 0 6px 18px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Pilihan eksplisit gelap menang di kedua arah */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --surface: #151a21;
+  --surface-sunken: #0f141a;
+  --surface-raised: #1b2129;
+  --surface-hover: #1f262f;
+  --surface-selected: #16303f;
+
+  --border: #2a313a;
+  --border-strong: #3c4653;
+  --border-focus: #7fb3dc;
+
+  --ink: #e7ebf1;
+  --ink-secondary: #a4adba;
+  --ink-tertiary: #949dab;
+  --ink-inverse: #f7fafd;
+
+  --primary: #2c74ae;
+  --primary-hover: #3a87c4;
+  --primary-active: #4a97d4;
+  --primary-subtle: #17293a;
+  --primary-border: #2e5474;
+  --primary-ink: #9bc8e8;
+  --link: #9bc8e8;
+  --link-hover: #bbd9ee;
+
+  --success: #48ac7d;
+  --success-subtle: #12261c;
+  --success-border: #2c4e3a;
+  --success-ink: #7fd0a5;
+  --warning: #c8892c;
+  --warning-subtle: #28200f;
+  --warning-border: #4e3e20;
+  --warning-ink: #e8b978;
+  --danger: #e4807a;
+  --danger-hover: #d4635d;
+  --danger-solid: #a83a34;
+  --danger-solid-hover: #b0403a;
+  --danger-subtle: #2b1717;
+  --danger-border: #5a2e2c;
+  --danger-ink: #ee9c97;
+  --info-subtle: #16202a;
+  --info-border: #27384a;
+
+  --highlight: #6b5a17;
+  --highlight-ink: #f6e7b6;
+
+  --tint-danger: #211618;
+  --tint-warning: #1f1b12;
+  --tint-info: #141d26;
+
+  --shadow-overlay: 0 4px 14px rgba(0, 0, 0, 0.44), 0 1px 3px rgba(0, 0, 0, 0.36);
+  --shadow-modal: 0 18px 44px rgba(0, 0, 0, 0.56);
+  --shadow-fab: 0 6px 18px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,36 @@
+/* Warna chip kategori tipe file (README §Ikon tipe file). Light di :root, dark di dua blok. */
+:root {
+  --cat-pdf-bg: #fceae8; --cat-pdf-bd: #f0c9c5; --cat-pdf-ink: #b3261e;
+  --cat-sheet-bg: #e4f3eb; --cat-sheet-bd: #c3e3d1; --cat-sheet-ink: #0a7040;
+  --cat-doc-bg: #e7eff7; --cat-doc-bd: #cbdceb; --cat-doc-ink: #1d5b8f;
+  --cat-slide-bg: #fdf0df; --cat-slide-bd: #ebd3ae; --cat-slide-ink: #a65b00;
+  --cat-image-bg: #e3f1f2; --cat-image-bd: #bedcde; --cat-image-ink: #0e6e73;
+  --cat-video-bg: #ede8f6; --cat-video-bd: #d6cbe9; --cat-video-ink: #6d3f8c;
+  --cat-zip-bg: #f2eee2; --cat-zip-bd: #dfd5be; --cat-zip-ink: #6b5a2b;
+  --cat-cad-bg: #e9ecf7; --cat-cad-bd: #cbd2e8; --cat-cad-ink: #3a4b7a;
+  --cat-any-bg: #f0f2f5; --cat-any-bd: #c3cad4; --cat-any-ink: #626a77;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --cat-pdf-bg: #2b1717; --cat-pdf-bd: #5a2e2c; --cat-pdf-ink: #ee9c97;
+    --cat-sheet-bg: #12261c; --cat-sheet-bd: #2c4e3a; --cat-sheet-ink: #7fd0a5;
+    --cat-doc-bg: #17293a; --cat-doc-bd: #2e5474; --cat-doc-ink: #9bc8e8;
+    --cat-slide-bg: #28200f; --cat-slide-bd: #4e3e20; --cat-slide-ink: #e8b978;
+    --cat-image-bg: #102528; --cat-image-bd: #254549; --cat-image-ink: #7fc7ce;
+    --cat-video-bg: #1e1930; --cat-video-bd: #3a3055; --cat-video-ink: #b6a0e2;
+    --cat-zip-bg: #221e13; --cat-zip-bd: #443c24; --cat-zip-ink: #cdbb8e;
+    --cat-cad-bg: #181d2c; --cat-cad-bd: #333c58; --cat-cad-ink: #a3b3de;
+    --cat-any-bg: #1f262f; --cat-any-bd: #3c4653; --cat-any-ink: #949dab;
+  }
+}
+:root[data-theme='dark'] {
+  --cat-pdf-bg: #2b1717; --cat-pdf-bd: #5a2e2c; --cat-pdf-ink: #ee9c97;
+  --cat-sheet-bg: #12261c; --cat-sheet-bd: #2c4e3a; --cat-sheet-ink: #7fd0a5;
+  --cat-doc-bg: #17293a; --cat-doc-bd: #2e5474; --cat-doc-ink: #9bc8e8;
+  --cat-slide-bg: #28200f; --cat-slide-bd: #4e3e20; --cat-slide-ink: #e8b978;
+  --cat-image-bg: #102528; --cat-image-bd: #254549; --cat-image-ink: #7fc7ce;
+  --cat-video-bg: #1e1930; --cat-video-bd: #3a3055; --cat-video-ink: #b6a0e2;
+  --cat-zip-bg: #221e13; --cat-zip-bd: #443c24; --cat-zip-ink: #cdbb8e;
+  --cat-cad-bg: #181d2c; --cat-cad-bd: #333c58; --cat-cad-ink: #a3b3de;
+  --cat-any-bg: #1f262f; --cat-any-bd: #3c4653; --cat-any-ink: #949dab;
+}

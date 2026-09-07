@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding-bottom:80px">
+
+  <div style="background:var(--surface);border-bottom:1px solid var(--border-strong)">
+    <div style="max-width:1200px;margin:0 auto;padding:22px 32px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h1 style="margin:0;font:600 20px/28px var(--font-ui);color:var(--ink)">State kosong dan error</h1>
+        <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;gap:7px;cursor:pointer;font:500 13px/18px var(--font-ui)" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}Mode {{ temaNama }}</button>
+      </div>
+      <p style="margin:3px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:76ch;text-wrap:pretty">Setiap halaman wajib punya state ini, bukan hanya happy path. Nada tulisan menjelaskan keadaan lalu langkah berikutnya — tidak meminta maaf, tidak menyalahkan pengguna, tidak memakai istilah teknis. Banyak pengguna di pabrik akan menganggap layar kosong tanpa penjelasan sebagai sistem rusak.</p>
+    </div>
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:32px">
+
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px">
+      <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">01</span>
+      <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Memuat — skeleton yang meniru bentuk konten</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+        <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 96px 124px;align-items:center;height:32px;padding-right:12px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+          <span></span><span></span>
+          <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Nama</span>
+          <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Ukuran</span>
+          <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);padding-left:16px">Diubah</span>
+        </div>
+        <sc-for list="{{ skel }}" as="s" hint-placeholder-count="7">
+          <div style="display:grid;grid-template-columns:36px 30px minmax(0,1fr) 96px 124px;align-items:center;height:44px;padding-right:12px;border-bottom:1px solid var(--border)">
+            <span></span>
+            <span style="display:flex;justify-content:center"><span style="width:20px;height:24px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span><span style="display:block;width:{{ s.w }}px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span style="display:flex;justify-content:flex-end"><span style="width:48px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+            <span style="padding-left:16px"><span style="display:block;width:76px;height:10px;border-radius:2px;background:var(--surface-hover)"></span></span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:400 15px/22px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">
+        <p style="margin:0 0 12px">Skeleton memakai kolom dan tinggi baris yang sama dengan tabel sungguhan, jadi layar tidak melompat saat data masuk. Lebar batang teks bervariasi supaya tidak terbaca seperti pola.</p>
+        <p style="margin:0 0 12px">Tanpa spinner di tengah layar: spinner tidak memberi tahu apa pun tentang isi yang akan datang, dan di koneksi pabrik yang lambat spinner terasa seperti macet.</p>
+        <p style="margin:0">Skeleton tidak berkedip atau beranimasi kalau <code style="font-family:var(--font-mono)">prefers-reduced-motion</code> aktif.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:12px;margin:36px 0 14px">
+      <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">02</span>
+      <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Kosong, tidak ada hasil, tanpa akses, error</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:16px">
+      <sc-for list="{{ states }}" as="s" hint-placeholder-count="6">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);display:flex;flex-direction:column;overflow:hidden">
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--surface-sunken);border-bottom:1px solid var(--border)">
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">{{ s.tag }}</span>
+            <span style="font:500 12px/16px var(--font-ui);color:var(--ink-secondary);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.where }}</span>
+          </div>
+          <div style="flex:1;padding:32px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <span style="display:flex;margin-bottom:12px">{{ s.icon }}</span>
+            <div style="font:500 15px/22px var(--font-ui);color:var(--ink);text-wrap:pretty">{{ s.title }}</div>
+            <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:3px;text-wrap:pretty">{{ s.body }}</div>
+            <sc-if value="{{ s.action }}" hint-placeholder-val="{{ true }}">
+              <button type="button" style="margin-top:16px;height:36px;padding:0 14px;border:1px solid {{ s.btnBorder }};border-radius:var(--radius-sm);background:{{ s.btnBg }};color:{{ s.btnInk }};font:500 14px/20px var(--font-ui);cursor:pointer;display:inline-flex;align-items:center;gap:8px">{{ s.btnIcon }}{{ s.action }}</button>
+            </sc-if>
+            <sc-if value="{{ s.foot }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">{{ s.foot }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:12px;margin:36px 0 14px">
+      <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">03</span>
+      <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Banner — tidak memblokir pekerjaan</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ banners }}" as="b" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;gap:10px;min-height:38px;padding:8px 16px;background:{{ b.bg }};border:1px solid {{ b.border }};border-radius:var(--radius-sm)">
+          <span style="flex:none;display:flex">{{ b.icon }}</span>
+          <span style="font:400 14px/20px var(--font-ui);color:{{ b.ink }};text-wrap:pretty">{{ b.text }}</span>
+          <sc-if value="{{ b.action }}" hint-placeholder-val="{{ false }}">
+            <button type="button" style="margin-left:auto;flex:none;height:30px;padding:0 11px;border:1px solid {{ b.btnBorder }};border-radius:var(--radius-sm);background:var(--surface);color:{{ b.ink }};font:500 13px/18px var(--font-ui);cursor:pointer">{{ b.action }}</button>
+          </sc-if>
+          <sc-if value="{{ b.meta }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left:auto;flex:none;font:400 12px/16px var(--font-mono);color:{{ b.ink }};opacity:.8;font-variant-numeric:tabular-nums">{{ b.meta }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:12px;margin:36px 0 14px">
+      <span style="font:500 12px/16px var(--font-mono);color:var(--ink-tertiary)">04</span>
+      <h2 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Nada penulisan</h2>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;font:400 14px/20px var(--font-ui)">
+        <div style="padding:9px 14px;background:var(--success-subtle);border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--success-ink);font-weight:500">Pakai</div>
+        <div style="padding:9px 14px;background:var(--danger-subtle);border-bottom:1px solid var(--border);color:var(--danger-ink);font-weight:500">Hindari</div>
+        <sc-for list="{{ tone }}" as="t" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:subgrid;grid-column:1 / -1">
+            <div style="padding:9px 14px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--ink);text-wrap:pretty">{{ t.good }}</div>
+            <div style="padding:9px 14px;border-bottom:1px solid var(--border);color:var(--ink-tertiary);text-wrap:pretty">{{ t.bad }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1260, &quot;height&quot;: 1400 }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  mkSvg(nodes, o) {
+    o = o || {};
+    const s = o.size || 16;
+    const p = { width: s, height: s, viewBox: '0 0 24 24', fill: o.fill || 'none', strokeWidth: o.sw == null ? 1.9 : o.sw, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    if (o.stroke !== 'none') p.stroke = o.stroke || 'currentColor';
+    return React.createElement('svg', p, nodes.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+  }
+
+  glyph(n, o) {
+    const G = {
+      folder: [['path', { d: 'M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z' }]],
+      search: [['circle', { cx: 10.5, cy: 10.5, r: 6.5 }], ['path', { d: 'M15.5 15.5 21 21' }]],
+      lock: [['rect', { x: 5, y: 10.5, width: 14, height: 9.5, rx: 1.5 }], ['path', { d: 'M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3' }]],
+      warn: [['path', { d: 'M12 4.5 21 19.5H3z' }], ['path', { d: 'M12 10v4.5' }]],
+      trash: [['path', { d: 'M4.5 7h15' }], ['path', { d: 'M9.5 7V4.5h5V7' }], ['path', { d: 'M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z' }]],
+      link: [['path', { d: 'M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3' }], ['path', { d: 'M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3' }]],
+      refresh: [['path', { d: 'M20 12a8 8 0 1 1-2.3-5.6' }], ['path', { d: 'M20 4v3.5h-3.5' }]],
+      upload: [['path', { d: 'M12 15V4' }], ['path', { d: 'M7.5 8.5 12 4l4.5 4.5' }], ['path', { d: 'M4 17v3h16v-3' }]],
+      info: [['circle', { cx: 12, cy: 12, r: 8.5 }], ['path', { d: 'M12 11v5.5' }], ['path', { d: 'M12 7.6v.6' }]],
+      plug: [['path', { d: 'M9 4v5M15 4v5' }], ['path', { d: 'M6.5 9h11v3a5.5 5.5 0 0 1-11 0z' }], ['path', { d: 'M12 17.5V21' }]]
+    };
+    return this.mkSvg(G[n] || [], o);
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const big = n => this.glyph(n, { size: 30, stroke: 'var(--ink-tertiary)', sw: 1.4 });
+    const primary = { btnBg: 'var(--primary)', btnInk: 'var(--ink-inverse)', btnBorder: 'var(--primary)' };
+    const secondary = { btnBg: 'var(--surface)', btnInk: 'var(--ink)', btnBorder: 'var(--border-strong)' };
+
+    const states = [
+      Object.assign({
+        tag: 'kosong', where: 'Folder di ruang Produksi', icon: big('folder'),
+        title: 'Folder ini masih kosong',
+        body: 'Tarik file ke sini atau klik Unggah.',
+        action: 'Unggah file', btnIcon: this.glyph('upload', { size: 15, stroke: 'currentColor' }), foot: ''
+      }, primary),
+      Object.assign({
+        tag: 'tidak ada hasil', where: 'Pencarian', icon: big('search'),
+        title: 'Tidak ada file bernama “kalibrasi”',
+        body: 'Coba kata kunci lain, kurangi filter, atau periksa ruang lain.',
+        action: 'Hapus semua filter', btnIcon: null, foot: '2 filter aktif'
+      }, secondary),
+      Object.assign({
+        tag: 'tanpa akses', where: 'Ruang Engineering', icon: big('lock'),
+        title: 'Anda tidak punya akses ke ruang ini',
+        body: 'Akses ruang diatur per group. Minta ke manager departemen Anda atau Admin IT di ekstensi 214.',
+        action: 'Kembali ke Produksi', btnIcon: null, foot: ''
+      }, secondary),
+      Object.assign({
+        tag: 'error', where: 'Tabel file', icon: big('warn'),
+        title: 'Gagal memuat daftar file',
+        body: 'Periksa koneksi ke server lalu coba lagi. File yang sudah diunduh tetap ada di komputer Anda.',
+        action: 'Coba lagi', btnIcon: this.glyph('refresh', { size: 15, stroke: 'currentColor' }), foot: 'kode rujukan untuk Admin IT: LS-503'
+      }, secondary),
+      Object.assign({
+        tag: 'kosong', where: 'Sampah', icon: big('trash'),
+        title: 'Sampah kosong',
+        body: 'File yang dihapus muncul di sini dan tersimpan 30 hari sebelum terhapus permanen.',
+        action: '', btnIcon: null, foot: ''
+      }, secondary),
+      Object.assign({
+        tag: 'kosong', where: 'File dibagikan', icon: big('link'),
+        title: 'Belum ada link berbagi',
+        body: 'Pilih file lalu klik Bagikan untuk membuat link yang bisa dibuka tanpa login.',
+        action: 'Pelajari link berbagi', btnIcon: null, foot: ''
+      }, secondary)
+    ];
+
+    const banners = [
+      {
+        bg: 'var(--surface-hover)', border: 'var(--border-strong)', ink: 'var(--ink-secondary)',
+        icon: this.glyph('plug', { size: 16, stroke: 'var(--ink-secondary)' }),
+        text: 'Koneksi ke server terputus. Daftar file mungkin belum yang terbaru dan perubahan akan dikirim ulang otomatis.',
+        action: '', meta: 'mencoba ulang 8s', btnBorder: 'var(--border-strong)'
+      },
+      {
+        bg: 'var(--warning-subtle)', border: 'var(--warning-border)', ink: 'var(--warning-ink)',
+        icon: this.glyph('warn', { size: 16, stroke: 'var(--warning)' }),
+        text: 'Kuota Ruang QC tersisa 52 GB. Unggahan besar bisa gagal.',
+        action: 'Lihat pemakaian', meta: '', btnBorder: 'var(--warning-border)'
+      },
+      {
+        bg: 'var(--danger-subtle)', border: 'var(--danger-border)', ink: 'var(--danger-ink)',
+        icon: this.glyph('warn', { size: 16, stroke: 'var(--danger)' }),
+        text: 'Kuota Ruang Gudang penuh. Unggahan baru ke ruang ini akan ditolak sampai ada file yang dihapus atau kuota ditambah.',
+        action: 'Hubungi Admin IT', meta: '', btnBorder: 'var(--danger-border)'
+      },
+      {
+        bg: 'var(--info-subtle)', border: 'var(--info-border)', ink: 'var(--primary-ink)',
+        icon: this.glyph('refresh', { size: 16, stroke: 'var(--primary)' }),
+        text: 'Ada 3 unggahan yang belum selesai dari sesi sebelumnya.',
+        action: 'Lanjutkan', meta: '', btnBorder: 'var(--primary-border)'
+      },
+      {
+        bg: 'var(--info-subtle)', border: 'var(--info-border)', ink: 'var(--primary-ink)',
+        icon: this.glyph('info', { size: 16, stroke: 'var(--primary)' }),
+        text: 'Anda hanya punya akses baca di folder ini. Tombol unggah, ganti nama, dan hapus tetap terlihat dalam keadaan nonaktif.',
+        action: '', meta: 'peran: Pelihat', btnBorder: 'var(--primary-border)'
+      }
+    ];
+
+    const tone = [
+      { good: 'Gagal memuat daftar file. Periksa koneksi lalu coba lagi.', bad: 'Error 500: Internal Server Error' },
+      { good: 'Hapus 12 file ke sampah? Bisa dipulihkan dalam 30 hari.', bad: 'Anda yakin?' },
+      { good: 'Anda hanya punya akses baca di folder ini.', bad: 'Akses ditolak (403)' },
+      { good: 'Kuota Ruang Gudang penuh. Hubungi Admin IT untuk menambah kuota.', bad: 'Maaf, terjadi kesalahan. Silakan coba beberapa saat lagi.' },
+      { good: 'Nama folder tidak boleh memakai tanda garis miring.', bad: 'Input tidak valid' }
+    ];
+
+    return {
+      skel: [188, 232, 164, 210, 176, 244, 198].map(w => ({ w })),
+      states, banners, tone
+    };
+  }
+}
+</script>
+</body>
+</html>

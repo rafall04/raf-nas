@@ -1,0 +1,44 @@
+.preview { position: fixed; inset: 0; z-index: 200; background: rgba(8, 11, 15, 0.92); display: flex; flex-direction: column; }
+.pv-top { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.pv-name { font-size: var(--text-base); font-weight: 600; color: #eef1f5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pv-count { font-size: var(--text-sm); color: #a8b0bc; }
+.pv-spacer { flex: 1; }
+.pv-btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.08); color: #eef1f5; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-ui); font-size: var(--text-sm); }
+.pv-btn:hover { background: rgba(255, 255, 255, 0.16); }
+.pv-btn.solid { background: var(--primary); border-color: var(--primary); }
+
+.pv-stage { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 24px; overflow: auto; }
+.pv-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #eef1f5; cursor: pointer; }
+.pv-arrow:hover { background: rgba(255, 255, 255, 0.2); }
+.pv-arrow.left { left: 14px; }
+.pv-arrow.right { right: 14px; }
+.pv-arrow .flip { transform: scaleX(-1); }
+
+.pv-pdf { width: min(520px, 78vw); aspect-ratio: 1 / 1.414; background: var(--paper); color: var(--paper-ink); border-radius: 4px; box-shadow: 0 10px 44px rgba(0, 0, 0, 0.5); padding: 40px; display: flex; flex-direction: column; }
+.pv-paper-head { font-size: 12px; color: var(--paper-ink-dim); font-family: var(--font-mono); margin-bottom: 20px; }
+.pv-lines { display: flex; flex-direction: column; gap: 12px; }
+.pv-line { height: 9px; border-radius: 3px; background: var(--paper-line); }
+
+.pv-media { width: min(560px, 80vw); aspect-ratio: 3 / 4; max-height: 72vh; border-radius: 6px; position: relative; background: repeating-linear-gradient(45deg, #2a323d, #2a323d 12px, #333c48 12px, #333c48 24px); display: flex; align-items: flex-end; justify-content: center; }
+.pv-dim { margin-bottom: 12px; font-family: var(--font-mono); font-size: 12px; color: #cdd3db; background: rgba(0, 0, 0, 0.4); padding: 3px 8px; border-radius: 4px; }
+
+.pv-video { width: min(680px, 84vw); aspect-ratio: 16 / 9; border-radius: 6px; background: #10141a; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+.pv-play { width: 64px; height: 64px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); color: #fff; display: flex; align-items: center; justify-content: center; }
+.pv-progress { position: absolute; left: 16px; right: 16px; bottom: 16px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.2); }
+.pv-progress span { display: block; height: 100%; border-radius: 2px; background: var(--primary); }
+
+.pv-text { width: min(680px, 84vw); max-height: 72vh; overflow: auto; background: var(--paper); color: var(--paper-ink); border-radius: 6px; padding: 16px 0; font-family: var(--font-mono); font-size: 13px; }
+.pv-text-row { display: flex; gap: 14px; padding: 2px 16px; }
+.pv-ln { width: 24px; text-align: right; color: var(--paper-ink-dim); user-select: none; }
+.pv-code.head { font-weight: 600; }
+
+.pv-unsupported { text-align: center; color: #eef1f5; max-width: 360px; }
+.pv-big-icon { width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: #cdd3db; }
+.pv-us-name { font-size: var(--text-md); font-weight: 600; }
+.pv-us-meta { font-size: var(--text-sm); color: #a8b0bc; margin-top: 2px; }
+.pv-us-text { font-size: var(--text-sm); color: #cdd3db; line-height: 1.5; margin: 14px 0 18px; }
+
+.pv-switch { display: flex; gap: 6px; justify-content: center; padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.pv-tab { height: 32px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.16); background: transparent; color: #cdd3db; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-ui); font-size: var(--text-sm); }
+.pv-tab:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.pv-tab.active { background: #fff; color: #131820; border-color: #fff; font-weight: 600; }

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover)}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding-bottom:80px">
+
+  <div style="background:var(--surface);border-bottom:1px solid var(--border-strong)">
+    <div style="max-width:1080px;margin:0 auto;padding:28px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="flex:none;width:36px;height:36px;border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);display:flex;align-items:center;justify-content:center;font:600 14px/1 var(--font-mono)">RAF</span>
+          <h1 style="margin:0;font:600 20px/28px var(--font-ui);color:var(--ink)">RAF NAS — sistem file internal</h1>
+        </div>
+        <p style="margin:8px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:70ch;text-wrap:pretty">Sepuluh berkas desain, satu sistem. Instrumen kerja untuk 100 orang di lantai produksi: kepadatan yang terbaca, struktur dari garis, dan perhatian penuh pada tabel file serta matriks hak akses.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;height:32px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;gap:7px;cursor:pointer;font:500 13px/18px var(--font-ui)" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}Mode {{ temaNama }}</button>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(88px,auto));border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-sunken)">
+        <div style="padding:6px 12px;border-right:1px solid var(--border)">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Revisi</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">1.0</div>
+        </div>
+        <div style="padding:6px 12px;border-right:1px solid var(--border)">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Target</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">1366×768</div>
+        </div>
+        <div style="padding:6px 12px">
+          <div style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Bahasa</div>
+          <div style="font:500 13px/18px var(--font-mono);color:var(--ink)">ID</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:28px 32px">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden">
+      <sc-for list="{{ files }}" as="f" hint-placeholder-count="10">
+        <a href="{{ f.href }}" data-resp="row" style="display:grid;grid-template-columns:44px minmax(0,1.05fr) minmax(0,1.5fr) 22px;gap:16px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);text-decoration:none;background:var(--surface)" style-hover="background:var(--surface-hover)">
+          <span style="font:500 13px/18px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ f.n }}</span>
+          <span style="min-width:0">
+            <span style="display:block;font:600 15px/22px var(--font-ui);color:var(--ink)">{{ f.name }}</span>
+            <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.file }}</span>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font:400 14px/20px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">{{ f.desc }}</span>
+            <sc-if value="{{ f.tweaks }}" hint-placeholder-val="{{ false }}">
+              <span style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">
+                <sc-for list="{{ f.tweakList }}" as="t" hint-placeholder-count="3">
+                  <span style="height:20px;padding:0 7px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:400 12px/16px var(--font-mono);color:var(--ink-secondary)">{{ t.name }}</span>
+                </sc-for>
+              </span>
+            </sc-if>
+          </span>
+          <span data-resp="hide" style="display:flex;justify-content:flex-end">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+        <div style="font:600 14px/20px var(--font-ui);color:var(--ink)">Kepadatan yang terbaca</div>
+        <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:4px;text-wrap:pretty">Baris 36 / 44 / 56px, pilihan tersimpan per pengguna. Tabel virtualized supaya folder 5.000 file tetap mulus.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+        <div style="font:600 14px/20px var(--font-ui);color:var(--ink)">Struktur dari garis</div>
+        <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:4px;text-wrap:pretty">Pemisah tipis dan perbedaan permukaan. Bayangan hanya untuk yang benar-benar melayang: dropdown, modal, panel unggah, toast.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px">
+        <div style="font:600 14px/20px var(--font-ui);color:var(--ink)">Berani di satu tempat</div>
+        <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:4px;text-wrap:pretty">Perhatian terbesar ada di tabel file dan matriks hak akses. Sisanya sengaja sunyi dan disiplin.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <span style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary)">RAF NAS — hak cipta oleh RAF</span>
+      <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+      <span style="font:400 13px/18px var(--font-ui);color:var(--ink-tertiary)">Dipakai internal PT SHOU FONG LASTINDO</span>
+      <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+      <span style="font:400 13px/18px var(--font-mono);color:var(--ink-tertiary)">mode terang dan gelap</span>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 16px;background:var(--info-subtle);border:1px solid var(--info-border);border-radius:var(--radius-md);display:flex;gap:10px">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.9" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5.5" /><path d="M12 7.6v.6" /></svg>
+      <div style="font:400 14px/20px var(--font-ui);color:var(--ink);text-wrap:pretty">Setiap halaman punya kontrol tweak untuk berpindah state tanpa membuka file lain — misalnya <span style="font-family:var(--font-mono)">demoState</span> di file browser, <span style="font-family:var(--font-mono)">tipe</span> di pratinjau, dan <span style="font-family:var(--font-mono)">halaman</span> di area admin. Ukuran layar diikuti langsung: perkecil jendela untuk melihat perilaku 1024px dan tablet.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1120, &quot;height&quot;: 1000 }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const src = [
+      ['01', 'Sistem desain', 'Sistem Desain.dc.html', 'Token warna, skala tipografi, dan seluruh komponen inti dalam semua state — sumber tunggal untuk halaman lain.', ['density', 'showAnnotations', 'accent']],
+      ['02', 'File browser', 'File Browser.dc.html', 'Inti produk. Tabel virtualized 5.000 baris, seleksi keyboard penuh, panel detail, drag-drop, menu konteks, panel unggah. Adaptif 1440 → 1024 → tablet.', ['demoState', 'akses', 'density', 'panelUnggah', 'koneksi']],
+      ['03', 'File browser mobile', 'File Browser Mobile.dc.html', 'Didesain ulang untuk HP di lapangan: drawer ruang, daftar dua baris, bottom sheet, dan FAB kamera — dua ketuk dari folder ke foto terunggah.', ['layar', 'panelUnggah', 'koneksi']],
+      ['04', 'Pratinjau file', 'Pratinjau File.dc.html', 'Overlay gelap dengan varian PDF, gambar, video, teks dan CSV, serta tipe yang jujur diakui tidak didukung.', ['tipe', 'panelInfo']],
+      ['05', 'Panel unggah', 'Panel Unggah.dc.html', 'Sedang berjalan, diciutkan, selesai, ada yang gagal, dialog konflik nama, dan banner lanjutkan unggahan.', []],
+      ['06', 'Login', 'Login.dc.html', 'Layar yang dilihat 100 orang setiap pagi. Kredensial salah, akun nonaktif, percobaan berlebih, ganti sandi pertama, dan 2FA admin.', ['state']],
+      ['07', 'Sampah, pencarian, link', 'Sampah Pencarian Link.dc.html', 'Sampah dengan sisa hari, pencarian berpath lengkap dan filter, serta daftar link berbagi beserta dialog pembuatan link dan QR.', ['halaman', 'dialog']],
+      ['08', 'Halaman link publik', 'Halaman Link Publik.dc.html', 'Dilihat penerima tanpa login. Sengaja minimalis dan tidak membocorkan struktur folder internal maupun nama pengirim.', ['state']],
+      ['09', 'Administrasi', 'Admin.dc.html', 'Pengguna, group, ruang penyimpanan, matriks hak akses group × ruang, audit, link aktif, dan ringkasan sistem.', ['halaman', 'perubahanBelumDisimpan', 'dialog']],
+      ['10', 'State dan error', 'State dan Error.dc.html', 'Kumpulan state wajib: memuat, kosong, tidak ada hasil, tanpa akses, error, koneksi terputus, kuota penuh, plus panduan nada tulisan.', []]
+    ];
+    return {
+      files: src.map(([n, name, file, desc, tweaks]) => ({
+        n, name, file, desc, href: file,
+        tweaks: tweaks.length > 0,
+        tweakList: tweaks.map(t => ({ name: t }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

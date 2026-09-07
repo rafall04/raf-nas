@@ -1,0 +1,185 @@
+// RAF NAS — model data. DEV memakai SQLite (portabel, zero-config).
+// Produksi: ganti provider ke "postgresql" + DATABASE_URL Postgres 12+.
+// Enum peran/kategori/status disimpan sebagai String agar skema portabel
+// lintas SQLite/Postgres; nilainya divalidasi enum Role di paket `shared`.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String        @id @default(cuid())
+  username           String        @unique
+  displayName        String
+  passwordHash       String
+  mustChangePassword Boolean       @default(true)
+  isActive           Boolean       @default(true)
+  isSuperuser        Boolean       @default(false)
+  twoFactorSecret    String?
+  twoFactorEnabled   Boolean       @default(false)
+  createdAt          DateTime      @default(now())
+  lastLoginAt        DateTime?
+
+  memberships        GroupMember[]
+  sessions           Session[]
+  ownedNodes         Node[]        @relation("NodeOwner")
+  auditEvents        AuditEvent[]  @relation("AuditActor")
+}
+
+model Group {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  description String?
+  createdAt   DateTime          @default(now())
+
+  members     GroupMember[]
+  grants      Grant[]
+  exceptions  FolderException[]
+}
+
+model GroupMember {
+  groupId String
+  userId  String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([groupId, userId])
+}
+
+model Space {
+  id             String   @id @default(cuid())
+  name           String   @unique
+  description    String?
+  quotaBytes     BigInt   @default(0)
+  snapshotPolicy String?
+  createdAt      DateTime @default(now())
+
+  nodes          Node[]
+  grants         Grant[]
+}
+
+// Pohon file/folder logis. path = jalur dari root ruang, mis. "/Laporan/Shift-A".
+model Node {
+  id          String        @id @default(cuid())
+  spaceId     String
+  parentId    String?
+  name        String
+  isFolder    Boolean       @default(false)
+  ext         String?
+  category    String        @default("any")
+  path        String
+  sizeBytes   BigInt        @default(0)
+  ownerId     String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  trashedAt   DateTime?
+  trashedById String?
+
+  space       Space         @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  parent      Node?         @relation("NodeChildren", fields: [parentId], references: [id])
+  children    Node[]        @relation("NodeChildren")
+  owner       User?         @relation("NodeOwner", fields: [ownerId], references: [id])
+  versions    FileVersion[]
+  shareLinks  ShareLink[]
+
+  @@unique([spaceId, path])
+  @@index([spaceId, parentId])
+}
+
+model FileVersion {
+  id          String   @id @default(cuid())
+  nodeId      String
+  storageKey  String   @unique
+  sizeBytes   BigInt   @default(0)
+  checksum    String?
+  isCurrent   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  createdById String?
+
+  node        Node     @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+
+  @@index([nodeId])
+}
+
+// Satu sel matriks Group x Ruang. role: VIEWER|CONTRIBUTOR|EDITOR|MANAGER.
+model Grant {
+  id      String @id @default(cuid())
+  groupId String
+  spaceId String
+  role    String
+
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, spaceId])
+}
+
+// Pengecualian per-folder. role NONE = "Tidak ada akses" (deny-override).
+model FolderException {
+  id         String @id @default(cuid())
+  folderPath String
+  groupId    String
+  role       String
+
+  group      Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+}
+
+model ShareLink {
+  id            String    @id @default(cuid())
+  nodeId        String
+  slug          String    @unique
+  passwordHash  String?
+  expiresAt     DateTime
+  downloadLimit Int?
+  downloadCount Int       @default(0)
+  status        String    @default("ACTIVE")
+  createdById   String?
+  createdAt     DateTime  @default(now())
+  revokedAt     DateTime?
+
+  node          Node      @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+
+  @@index([nodeId])
+}
+
+// Append-only di lapisan aplikasi. Retensi 24 bulan.
+model AuditEvent {
+  id         String   @id @default(cuid())
+  at         DateTime @default(now())
+  actorId    String?
+  action     String
+  objectType String?
+  objectId   String?
+  ip         String?
+  before     String? // JSON ter-serialisasi (portabel SQLite/Postgres)
+  after      String?
+  refCode    String?
+
+  actor      User?    @relation("AuditActor", fields: [actorId], references: [id])
+
+  @@index([at])
+  @@index([actorId])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  userId     String
+  tokenHash  String   @unique
+  remember   Boolean  @default(false)
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  expiresAt  DateTime
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}

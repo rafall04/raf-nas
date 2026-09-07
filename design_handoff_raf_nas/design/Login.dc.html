@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;background:var(--surface-sunken)">
+
+  <div style="width:100%;max-width:400px">
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+      <span style="flex:none;width:40px;height:40px;border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);display:flex;align-items:center;justify-content:center;font:600 15px/1 var(--font-mono)">RAF</span>
+      <span>
+        <span style="display:block;font:600 16px/22px var(--font-ui);color:var(--ink)">RAF NAS</span>
+        <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">PT SHOU FONG LASTINDO</span>
+      </span>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px">
+
+      <h1 style="margin:0;font:600 20px/28px var(--font-ui);color:var(--ink)">{{ title }}</h1>
+      <p style="margin:6px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">{{ subtitle }}</p>
+
+      <sc-if value="{{ showAlert }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;gap:10px;margin-top:16px;padding:10px 12px;background:{{ alertBg }};border:1px solid {{ alertBorder }};border-radius:var(--radius-sm)">
+          <span style="flex:none;display:flex;margin-top:1px">{{ alertIcon }}</span>
+          <span style="min-width:0">
+            <span style="display:block;font:500 14px/20px var(--font-ui);color:{{ alertInk }}">{{ alertTitle }}</span>
+            <span style="display:block;font:400 13px/18px var(--font-ui);color:{{ alertInk }};text-wrap:pretty">{{ alertBody }}</span>
+          </span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showCreds }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px">
+          <div>
+            <label for="u" style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Nama pengguna</label>
+            <input id="u" type="text" value="{{ userValue }}" autocomplete="username" style="width:100%;height:44px;padding:0 12px;border:1px solid {{ userBorder }};border-radius:var(--radius-sm);background:{{ fieldBg }};color:var(--ink);font:400 15px/22px var(--font-ui)" />
+          </div>
+          <div>
+            <label for="p" style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Kata sandi</label>
+            <div style="display:flex;align-items:center;gap:6px;height:44px;padding:0 6px 0 12px;border:1px solid {{ passBorder }};border-radius:var(--radius-sm);background:{{ fieldBg }}">
+              <input id="p" type="{{ passType }}" value="{{ passValue }}" autocomplete="current-password" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:var(--ink);font:{{ passFont }}" />
+              <button type="button" onClick="{{ toggleReveal }}" aria-pressed="{{ revealed }}" aria-label="{{ revealLabel }}" style="flex:none;width:36px;height:36px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--surface-hover)">{{ revealIcon }}</button>
+            </div>
+            <sc-if value="{{ fieldError }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:6px;margin-top:5px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                <span style="font:400 13px/18px var(--font-ui);color:var(--danger)">{{ fieldErrorText }}</span>
+              </div>
+            </sc-if>
+          </div>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+            <button type="button" role="checkbox" aria-checked="{{ remember }}" onClick="{{ toggleRemember }}" style="flex:none;width:20px;height:20px;padding:0;border:1px solid {{ rememberBorder }};border-radius:3px;background:{{ rememberBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ rememberCheck }}</button>
+            Ingat saya di komputer ini
+          </label>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showOtp }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:20px">
+          <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:6px">Kode 6 digit dari aplikasi autentikator</label>
+          <div style="display:flex;gap:8px">
+            <sc-for list="{{ otpCells }}" as="c" hint-placeholder-count="6">
+              <span style="flex:1;height:52px;border:1px solid {{ c.border }};border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;font:500 20px/28px var(--font-mono);color:var(--ink);outline:{{ c.outline }};outline-offset:2px">{{ c.v }}</span>
+            </sc-for>
+          </div>
+          <div style="margin-top:8px;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Kode berganti setiap 30 detik. Masuk sebagai <span style="font-family:var(--font-mono);color:var(--ink)">admin.it</span>.</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showNewPass }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px">
+          <div>
+            <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Kata sandi baru</label>
+            <input type="password" value="••••••••••••" style="width:100%;height:44px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 15px/22px var(--font-mono);letter-spacing:2px" />
+            <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+              <span style="flex:1;height:4px;border-radius:2px;background:var(--surface-hover);overflow:hidden"><span style="display:block;width:72%;height:100%;background:var(--success)"></span></span>
+              <span style="flex:none;font:400 12px/16px var(--font-ui);color:var(--success)">Cukup kuat</span>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Ulangi kata sandi baru</label>
+            <input type="password" value="••••••••••••" style="width:100%;height:44px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 15px/22px var(--font-mono);letter-spacing:2px" />
+          </div>
+          <div style="padding:10px 12px;background:var(--surface-sunken);border:1px solid var(--border);border-radius:var(--radius-sm)">
+            <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:6px">Syarat kata sandi</div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{ rules }}" as="r" hint-placeholder-count="3">
+                <span style="display:flex;align-items:center;gap:8px;font:400 13px/18px var(--font-ui);color:{{ r.ink }}">
+                  <span style="flex:none;display:flex">{{ r.icon }}</span>
+                  {{ r.text }}
+                </span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <button type="button" onClick="{{ submit }}" disabled="{{ locked }}" style="width:100%;height:44px;margin-top:20px;border:1px solid {{ submitBorder }};border-radius:var(--radius-sm);background:{{ submitBg }};color:{{ submitInk }};font:500 15px/22px var(--font-ui);cursor:{{ submitCursor }};display:flex;align-items:center;justify-content:center;gap:8px">{{ submitLabel }}</button>
+
+      <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px;text-align:center;font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Coba lagi dalam <span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">{{ countdown }}</span></div>
+      </sc-if>
+
+      <sc-if value="{{ showHelp }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">Lupa kata sandi? Hubungi Admin IT di ekstensi 214 — kata sandi hanya bisa direset dari sisi admin.</div>
+      </sc-if>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
+      <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">rafnas.sfl.local</span>
+      <span style="width:1px;height:11px;background:var(--border-strong)"></span>
+      <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">192.168.10.4</span>
+      <span style="width:1px;height:11px;background:var(--border-strong)"></span>
+      <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">v2.4.1</span>
+      <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;height:26px;padding:0 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;gap:6px;cursor:pointer;font:400 12px/16px var(--font-ui)" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}{{ temaNama }}</button>
+    </div>
+    <div style="margin-top:10px;text-align:center;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">RAF NAS — hak cipta oleh RAF. Dipakai internal PT SHOU FONG LASTINDO.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 520, &quot;height&quot;: 780 },
+  &quot;state&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Normal&quot;, &quot;Kredensial salah&quot;, &quot;Akun dinonaktifkan&quot;, &quot;Terlalu banyak percobaan&quot;, &quot;Wajib ganti kata sandi&quot;, &quot;Kode 2FA admin&quot;], &quot;default&quot;: &quot;Normal&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;State login&quot; }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  state = { reveal: false, remember: true };
+
+  mkSvg(nodes, o) {
+    o = o || {};
+    const s = o.size || 16;
+    const p = { width: s, height: s, viewBox: '0 0 24 24', fill: o.fill || 'none', strokeWidth: o.sw == null ? 1.9 : o.sw, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    if (o.stroke !== 'none') p.stroke = o.stroke || 'currentColor';
+    return React.createElement('svg', p, nodes.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const s = this.props.state || 'Normal';
+    const reveal = this.state.reveal, remember = this.state.remember;
+    const wrong = s === 'Kredensial salah';
+    const disabled = s === 'Akun dinonaktifkan';
+    const locked = s === 'Terlalu banyak percobaan';
+    const newPass = s === 'Wajib ganti kata sandi';
+    const otp = s === 'Kode 2FA admin';
+
+    const eye = reveal
+      ? this.mkSvg([['path', { d: 'M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z' }], ['circle', { cx: 12, cy: 12, r: 3 }], ['path', { d: 'M4 20 20 4' }]], { size: 18, stroke: 'var(--ink-secondary)', sw: 1.8 })
+      : this.mkSvg([['path', { d: 'M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z' }], ['circle', { cx: 12, cy: 12, r: 3 }]], { size: 18, stroke: 'var(--ink-secondary)', sw: 1.8 });
+
+    const warnIcon = c => this.mkSvg([['path', { d: 'M12 4.5 21 19.5H3z' }], ['path', { d: 'M12 10v4.5' }]], { size: 17, stroke: c, sw: 2 });
+    const lockIcon = c => this.mkSvg([['rect', { x: 5, y: 10.5, width: 14, height: 9.5, rx: 1.5 }], ['path', { d: 'M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3' }]], { size: 17, stroke: c, sw: 2 });
+    const clockIcon = c => this.mkSvg([['circle', { cx: 12, cy: 12, r: 8 }], ['path', { d: 'M12 7.5V12l3.5 2' }]], { size: 17, stroke: c, sw: 2 });
+    const infoIcon = c => this.mkSvg([['circle', { cx: 12, cy: 12, r: 8.5 }], ['path', { d: 'M12 11v5.5' }], ['path', { d: 'M12 7.6v.6' }]], { size: 17, stroke: c, sw: 2 });
+
+    let title = 'Masuk', subtitle = 'Gunakan akun pabrik Anda. Sistem ini hanya bisa diakses dari jaringan internal.';
+    let alert = null;
+    if (newPass) {
+      title = 'Buat kata sandi baru';
+      subtitle = 'Ini login pertama Anda, jadi kata sandi awal dari Admin IT harus diganti dulu.';
+      alert = { bg: 'var(--info-subtle)', border: 'var(--info-border)', ink: 'var(--primary-ink)', icon: infoIcon('var(--primary)'), title: 'Kata sandi awal hanya untuk sekali pakai', body: 'Pilih kata sandi yang tidak Anda pakai di sistem lain.' };
+    } else if (otp) {
+      title = 'Verifikasi dua langkah';
+      subtitle = 'Akun admin wajib memasukkan kode dari aplikasi autentikator.';
+    } else if (wrong) {
+      alert = { bg: 'var(--danger-subtle)', border: 'var(--danger-border)', ink: 'var(--danger-ink)', icon: warnIcon('var(--danger)'), title: 'Nama pengguna atau kata sandi salah', body: 'Tersisa 3 percobaan sebelum akun dikunci sementara.' };
+    } else if (disabled) {
+      alert = { bg: 'var(--danger-subtle)', border: 'var(--danger-border)', ink: 'var(--danger-ink)', icon: lockIcon('var(--danger)'), title: 'Akun ini dinonaktifkan', body: 'Akun dinonaktifkan pada 08 Mar 2026. Hubungi Admin IT di ekstensi 214 untuk mengaktifkan kembali.' };
+    } else if (locked) {
+      alert = { bg: 'var(--warning-subtle)', border: 'var(--warning-border)', ink: 'var(--warning-ink)', icon: clockIcon('var(--warning)'), title: 'Terlalu banyak percobaan masuk', body: 'Demi keamanan, login dari komputer ini dijeda sebentar. Percobaan berikutnya tidak akan lebih cepat kalau dipaksa.' };
+    }
+
+    const rules = [
+      ['Minimal 12 karakter', true],
+      ['Ada huruf besar dan angka', true],
+      ['Bukan kata sandi yang pernah dipakai', false]
+    ].map(([text, ok]) => ({
+      text, ink: ok ? 'var(--success)' : 'var(--ink-secondary)',
+      icon: ok
+        ? this.mkSvg([['path', { d: 'M5 12.5 9.5 17 19 7.5' }]], { size: 14, stroke: 'var(--success)', sw: 2.6 })
+        : this.mkSvg([['circle', { cx: 12, cy: 12, r: 7 }]], { size: 14, stroke: 'var(--ink-tertiary)', sw: 1.8 })
+    }));
+
+    return {
+      title, subtitle,
+      showAlert: !!alert,
+      alertBg: alert ? alert.bg : '', alertBorder: alert ? alert.border : '',
+      alertInk: alert ? alert.ink : '', alertIcon: alert ? alert.icon : null,
+      alertTitle: alert ? alert.title : '', alertBody: alert ? alert.body : '',
+      showCreds: !newPass && !otp, showOtp: otp, showNewPass: newPass, rules,
+      userValue: disabled ? 'rudi.h' : (wrong || locked ? 'ani.w' : ''),
+      passValue: reveal ? 'Pabrik2026' : '••••••••••',
+      passType: 'text',
+      passFont: reveal ? '400 15px/22px var(--font-mono)' : '400 15px/22px var(--font-mono)',
+      userBorder: disabled ? 'var(--danger)' : 'var(--border-strong)',
+      passBorder: wrong ? 'var(--danger)' : 'var(--border-strong)',
+      fieldBg: locked ? 'var(--surface-hover)' : 'var(--surface)',
+      fieldError: wrong, fieldErrorText: 'Periksa huruf besar-kecil dan pastikan Caps Lock mati.',
+      revealed: reveal, revealIcon: eye,
+      revealLabel: reveal ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi',
+      toggleReveal: () => this.setState({ reveal: !reveal }),
+      remember,
+      rememberBg: remember ? 'var(--primary)' : 'var(--surface)',
+      rememberBorder: remember ? 'var(--primary)' : 'var(--border-strong)',
+      rememberCheck: remember ? this.mkSvg([['path', { d: 'M5 12.5 9.5 17 19 7.5' }]], { size: 13, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+      toggleRemember: () => this.setState({ remember: !remember }),
+      otpCells: ['4', '8', '2', '', '', ''].map((v, i) => ({
+        v, border: i === 3 ? 'var(--primary)' : 'var(--border-strong)',
+        outline: i === 3 ? '2px solid var(--border-focus)' : 'none'
+      })),
+      locked,
+      countdown: '2 menit 48 detik',
+      submitLabel: newPass ? 'Simpan kata sandi dan masuk' : (otp ? 'Verifikasi dan masuk' : (locked ? 'Login dijeda sementara' : 'Masuk')),
+      submitBg: locked || disabled ? 'var(--surface-hover)' : 'var(--primary)',
+      submitInk: locked || disabled ? 'var(--ink-tertiary)' : 'var(--ink-inverse)',
+      submitBorder: locked || disabled ? 'var(--border)' : 'var(--primary)',
+      submitCursor: locked || disabled ? 'not-allowed' : 'pointer',
+      submit: () => {},
+      showHelp: !newPass && !otp
+    };
+  }
+}
+</script>
+</body>
+</html>

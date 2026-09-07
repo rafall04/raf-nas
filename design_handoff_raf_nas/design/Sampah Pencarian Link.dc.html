@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --surface:#FFFFFF;
+  --surface-sunken:#F6F7F9;
+  --surface-raised:#FFFFFF;
+  --surface-hover:#F0F2F5;
+  --surface-selected:#E7EFF7;
+  --border:#DFE3E9;
+  --border-strong:#C3CAD4;
+  --border-focus:#1D5B8F;
+  --ink:#131820;
+  --ink-secondary:#59616F;
+  --ink-tertiary:#626A77;
+  --ink-inverse:#FFFFFF;
+  --primary:#1D5B8F;
+  --primary-hover:#17496F;
+  --primary-active:#123A59;
+  --primary-subtle:#E7EFF7;
+  --primary-border:#CBDCEB;
+  --primary-ink:#144A75;
+  --link:#1D5B8F;
+  --link-hover:#17496F;
+  --success:#0A7040;
+  --success-subtle:#E4F3EB;
+  --success-border:#C3E3D1;
+  --success-ink:#075430;
+  --warning:#A65B00;
+  --warning-subtle:#FDF0DF;
+  --warning-border:#EBD3AE;
+  --warning-ink:#6E3D00;
+  --danger:#B3261E;
+  --danger-hover:#96201A;
+  --danger-solid:#B3261E;
+  --danger-solid-hover:#96201A;
+  --danger-subtle:#FCEAE8;
+  --danger-border:#F0C9C5;
+  --danger-ink:#8E1E17;
+  --info-subtle:#EDF3F8;
+  --info-border:#DBE6F0;
+  --tint-danger:#FDF3F2;
+  --tint-warning:#FEF8EE;
+  --tint-info:#F4F8FB;
+  --highlight:#FBE7A6;
+  --highlight-ink:#131820;
+  --scrim:rgba(19,24,32,.88);
+  --scrim-veil:rgba(19,24,32,.44);
+  --on-scrim:#EEF1F5;
+  --on-scrim-dim:#A8B0BC;
+  --scrim-ctl:rgba(255,255,255,.10);
+  --scrim-line:rgba(255,255,255,.16);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#2A323D;
+  --media-b:#333C48;
+  --cat-pdf-bg:#FCEAE8;
+  --cat-pdf-bd:#F0C9C5;
+  --cat-pdf-ink:#B3261E;
+  --cat-sheet-bg:#E4F3EB;
+  --cat-sheet-bd:#C3E3D1;
+  --cat-sheet-ink:#0A7040;
+  --cat-doc-bg:#E7EFF7;
+  --cat-doc-bd:#CBDCEB;
+  --cat-doc-ink:#1D5B8F;
+  --cat-slide-bg:#FDF0DF;
+  --cat-slide-bd:#EBD3AE;
+  --cat-slide-ink:#A65B00;
+  --cat-image-bg:#E3F1F2;
+  --cat-image-bd:#BEDCDE;
+  --cat-image-ink:#0E6E73;
+  --cat-video-bg:#EDE8F6;
+  --cat-video-bd:#D6CBE9;
+  --cat-video-ink:#6D3F8C;
+  --cat-zip-bg:#F2EEE2;
+  --cat-zip-bd:#DFD5BE;
+  --cat-zip-ink:#6B5A2B;
+  --cat-cad-bg:#E9ECF7;
+  --cat-cad-bd:#CBD2E8;
+  --cat-cad-ink:#3A4B7A;
+  --cat-any-bg:#F0F2F5;
+  --cat-any-bd:#C3CAD4;
+  --cat-any-ink:#626A77;
+  --shadow-overlay:0 4px 12px rgba(19,24,32,.10),0 1px 3px rgba(19,24,32,.08);
+  --shadow-modal:0 16px 40px rgba(19,24,32,.16);
+  --shadow-fab:0 6px 16px rgba(19,24,32,.22);
+  --font-ui:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --radius-sm:4px;
+  --radius-md:6px;
+  --radius-lg:8px;
+  --row-compact:36px;
+  --row-default:44px;
+  --row-touch:56px;
+  --header-height:56px;
+  --sidebar-width:240px;
+  --sidebar-rail:56px;
+  --detail-width:320px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surface:#151A21;
+  --surface-sunken:#0F141A;
+  --surface-raised:#1B2129;
+  --surface-hover:#1F262F;
+  --surface-selected:#16303F;
+  --border:#2A313A;
+  --border-strong:#3C4653;
+  --border-focus:#7FB3DC;
+  --ink:#E7EBF1;
+  --ink-secondary:#A4ADBA;
+  --ink-tertiary:#949DAB;
+  --ink-inverse:#F7FAFD;
+  --primary:#2C74AE;
+  --primary-hover:#3A87C4;
+  --primary-active:#4A97D4;
+  --primary-subtle:#17293A;
+  --primary-border:#2E5474;
+  --primary-ink:#9BC8E8;
+  --link:#9BC8E8;
+  --link-hover:#BBD9EE;
+  --success:#48AC7D;
+  --success-subtle:#12261C;
+  --success-border:#2C4E3A;
+  --success-ink:#7FD0A5;
+  --warning:#C8892C;
+  --warning-subtle:#28200F;
+  --warning-border:#4E3E20;
+  --warning-ink:#E8B978;
+  --danger:#E4807A;
+  --danger-hover:#D4635D;
+  --danger-solid:#A83A34;
+  --danger-solid-hover:#B0403A;
+  --danger-subtle:#2B1717;
+  --danger-border:#5A2E2C;
+  --danger-ink:#EE9C97;
+  --info-subtle:#16202A;
+  --info-border:#27384A;
+  --tint-danger:#211618;
+  --tint-warning:#1F1B12;
+  --tint-info:#141D26;
+  --highlight:#6B5A17;
+  --highlight-ink:#F6E7B6;
+  --scrim:rgba(6,9,13,.92);
+  --scrim-veil:rgba(6,9,13,.60);
+  --on-scrim:#E7EBF1;
+  --on-scrim-dim:#98A2AF;
+  --scrim-ctl:rgba(255,255,255,.08);
+  --scrim-line:rgba(255,255,255,.14);
+  --focus-on-scrim:#7FB3DC;
+  --media-a:#1B2129;
+  --media-b:#232B34;
+  --cat-pdf-bg:#2B1717;
+  --cat-pdf-bd:#5A2E2C;
+  --cat-pdf-ink:#EE9C97;
+  --cat-sheet-bg:#12261C;
+  --cat-sheet-bd:#2C4E3A;
+  --cat-sheet-ink:#7FD0A5;
+  --cat-doc-bg:#17293A;
+  --cat-doc-bd:#2E5474;
+  --cat-doc-ink:#9BC8E8;
+  --cat-slide-bg:#28200F;
+  --cat-slide-bd:#4E3E20;
+  --cat-slide-ink:#E8B978;
+  --cat-image-bg:#102528;
+  --cat-image-bd:#254549;
+  --cat-image-ink:#7FC7CE;
+  --cat-video-bg:#1E1930;
+  --cat-video-bd:#3A3055;
+  --cat-video-ink:#B6A0E2;
+  --cat-zip-bg:#221E13;
+  --cat-zip-bd:#443C24;
+  --cat-zip-ink:#CDBB8E;
+  --cat-cad-bg:#181D2C;
+  --cat-cad-bd:#333C58;
+  --cat-cad-ink:#A3B3DE;
+  --cat-any-bg:#1F262F;
+  --cat-any-bd:#3C4653;
+  --cat-any-ink:#949DAB;
+  --shadow-overlay:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.36);
+  --shadow-modal:0 18px 44px rgba(0,0,0,.56);
+  --shadow-fab:0 6px 18px rgba(0,0,0,.5);
+  color-scheme:dark;
+}}
+@media (max-width:820px){[data-resp="stack"]{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}}
+@media (max-width:640px){[data-resp="row"]{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}[data-resp="row"] [data-resp="hide"]{display:none!important}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-ui);-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover);text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</helmet>
+
+<div style="height:100vh;display:flex;overflow:hidden;background:var(--surface)">
+
+  <aside style="width:240px;flex:none;background:var(--surface-sunken);border-right:1px solid var(--border-strong);display:flex;flex-direction:column;min-height:0">
+    <div style="height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--border)">
+      <span style="flex:none;width:28px;height:28px;border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);display:flex;align-items:center;justify-content:center;font:600 13px/1 var(--font-mono)">RAF</span>
+      <span style="min-width:0">
+        <span style="display:block;font:600 14px/18px var(--font-ui);color:var(--ink)">RAF NAS</span>
+        <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary)">rafnas.sfl.local</span>
+      </span>
+    </div>
+
+    <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:12px 14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <span style="font:600 13px/18px var(--font-ui);color:var(--ink)">Filter hasil</span>
+          <button type="button" style="height:24px;padding:0 8px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--primary);font:500 13px/18px var(--font-ui);cursor:pointer">Reset</button>
+        </div>
+
+        <div style="font:500 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-bottom:6px">Ruang</div>
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:16px">
+          <sc-for list="{{ fRuang }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;align-items:center;gap:9px;height:30px;cursor:pointer;font:400 13px/18px var(--font-ui);color:var(--ink)">
+              <span style="flex:none;width:16px;height:16px;border:1px solid {{ f.border }};border-radius:3px;background:{{ f.bg }};display:flex;align-items:center;justify-content:center">{{ f.check }}</span>
+              <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</span>
+              <span style="flex:none;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ f.n }}</span>
+            </label>
+          </sc-for>
+        </div>
+
+        <div style="font:500 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-bottom:6px">Tipe file</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+          <sc-for list="{{ fTipe }}" as="t" hint-placeholder-count="6">
+            <button type="button" onClick="{{ t.toggle }}" aria-pressed="{{ t.on }}" style="height:26px;padding:0 9px;border:1px solid {{ t.border }};border-radius:var(--radius-sm);background:{{ t.bg }};color:{{ t.ink }};font:500 12px/16px var(--font-ui);cursor:pointer">{{ t.name }}</button>
+          </sc-for>
+        </div>
+
+        <div style="font:500 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-bottom:6px">Rentang tanggal</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Dari</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">01 Mar 2026</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Sampai</span>
+            <span style="font:400 13px/18px var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">12 Mar 2026</span>
+          </div>
+        </div>
+
+        <div style="font:500 12px/16px var(--font-ui);color:var(--ink-tertiary);margin-bottom:6px">Pengunggah</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface)">
+          <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">Ani W.</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 9.5 12 16l6.5-6.5" /></svg>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isNotSearch }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:12px 8px">
+        <div style="padding:0 6px 6px;font:500 12px/16px var(--font-ui);color:var(--ink-tertiary)">Ruang</div>
+        <sc-for list="{{ spaces }}" as="s" hint-placeholder-count="4">
+          <button type="button" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 8px;margin-bottom:2px;border:0;border-left:2px solid transparent;border-radius:var(--radius-sm);background:transparent;color:var(--ink-secondary);font:400 14px/20px var(--font-ui);text-align:left;cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex:none;opacity:.7" aria-hidden="true"><path d="M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z" /></svg>
+            <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</span>
+            <span style="flex:none;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">{{ s.n }}</span>
+          </button>
+        </sc-for>
+        <div style="height:1px;background:var(--border);margin:12px 6px"></div>
+        <sc-for list="{{ shelves }}" as="v" hint-placeholder-count="3">
+          <button type="button" onClick="{{ v.open }}" style="width:100%;display:flex;align-items:center;gap:10px;height:34px;padding:0 8px;margin-bottom:2px;border:0;border-left:2px solid {{ v.edge }};border-radius:var(--radius-sm);background:{{ v.bg }};color:{{ v.ink }};font:{{ v.font }};text-align:left;cursor:pointer">
+            <span style="flex:none;display:flex;opacity:.8">{{ v.icon }}</span>
+            <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ v.name }}</span>
+            <sc-if value="{{ v.badge }}" hint-placeholder-val="{{ false }}">
+              <span style="flex:none;height:18px;padding:0 6px;display:inline-flex;align-items:center;border-radius:9px;background:var(--warning-subtle);border:1px solid var(--warning-border);font:500 11px/14px var(--font-mono);color:var(--warning-ink);font-variant-numeric:tabular-nums">{{ v.badge }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </aside>
+
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+
+    <div style="height:56px;flex:none;display:flex;align-items:center gap:12px;gap:12px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--surface)">
+      <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:36px;max-width:520px;padding:0 10px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--surface)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+          <input type="text" value="{{ q }}" onChange="{{ onQ }}" aria-label="Kata kunci pencarian" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font:400 14px/20px var(--font-ui);color:var(--ink)" />
+          <button type="button" onClick="{{ clearQ }}" aria-label="Hapus kata kunci" style="flex:none;width:24px;height:24px;border:0;border-radius:12px;background:var(--surface-hover);display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isNotSearch }}" hint-placeholder-val="{{ true }}">
+        <span style="flex:1;min-width:0;display:flex;align-items:baseline;gap:12px">
+          <span style="font:600 17px/24px var(--font-ui);color:var(--ink)">{{ pageTitle }}</span>
+          <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ pageSub }}</span>
+        </span>
+      </sc-if>
+
+      <button type="button" onClick="{{ toggleTema }}" aria-label="{{ temaLabel }}" title="{{ temaLabel }}" style="flex:none;width:32px;height:32px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--surface-hover);color:var(--ink)">{{ temaIcon }}</button>
+
+      <sc-if value="{{ isTrash }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ openPurge }}" style="flex:none;height:32px;padding:0 12px;border:1px solid var(--danger);border-radius:var(--radius-sm);background:var(--surface);color:var(--danger);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:8px" style-hover="background:var(--danger-subtle)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 7h15" /><path d="M9.5 7V4.5h5V7" /><path d="M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z" /></svg>
+          Kosongkan sampah
+        </button>
+      </sc-if>
+      <sc-if value="{{ isLinks }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ openCreate }}" style="flex:none;height:32px;padding:0 12px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 13px/18px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:8px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12" /></svg>
+          Buat link berbagi
+        </button>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none;display:flex;align-items:center;gap:12px;height:38px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--surface-sunken)">
+        <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ resultCount }}</span>
+        <span style="width:1px;height:14px;background:var(--border-strong)"></span>
+        <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Diurutkan berdasarkan kecocokan</span>
+        <sc-if value="{{ hasChips }}" hint-placeholder-val="{{ false }}">
+          <span style="display:flex;align-items:center;gap:6px;margin-left:auto">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
+              <span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 6px 0 9px;border-radius:var(--radius-sm);background:var(--primary-subtle);border:1px solid var(--primary-border);font:500 12px/16px var(--font-ui);color:var(--primary-ink)">
+                {{ c.label }}
+                <button type="button" onClick="{{ c.remove }}" aria-label="Hapus filter {{ c.label }}" style="width:16px;height:16px;border:0;border-radius:8px;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                </button>
+              </span>
+            </sc-for>
+          </span>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <div style="flex:1;min-height:0;overflow-y:auto">
+
+      <sc-if value="{{ isTrash }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--info-subtle);border-bottom:1px solid var(--info-border)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.9" stroke-linecap="round" style="flex:none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5.5" /><path d="M12 7.6v.6" /></svg>
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink)">File di sampah tetap memakai kuota ruang asalnya sampai terhapus permanen.</span>
+          </div>
+          <div style="position:sticky;top:0;z-index:5;display:grid;grid-template-columns:36px 30px minmax(0,1.5fr) minmax(0,1fr) 104px 116px 124px;align-items:center;height:34px;padding-right:12px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border:1px solid var(--border-strong);border-radius:3px;background:var(--surface)"></span></span>
+            <span></span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink);padding-right:12px">Nama</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);padding-right:12px">Lokasi asal</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Dihapus oleh</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Dihapus</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Terhapus permanen</span>
+          </div>
+          <sc-for list="{{ trashRows }}" as="r" hint-placeholder-count="9">
+            <div style="display:grid;grid-template-columns:36px 30px minmax(0,1.5fr) minmax(0,1fr) 104px 116px 124px;align-items:center;height:44px;padding-right:12px;border-bottom:1px solid var(--border);background:var(--surface)" style-hover="background:var(--surface-hover)">
+              <span style="display:flex;justify-content:center"><span style="width:16px;height:16px;border:1px solid var(--border-strong);border-radius:3px;background:var(--surface)"></span></span>
+              <span style="display:flex;justify-content:center">{{ r.icon }}</span>
+              <span title="{{ r.name }}" style="display:flex;align-items:baseline;min-width:0;padding-right:12px">
+                <span style="min-width:0;font:400 14px/20px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.base }}</span>
+                <span style="flex:none;font:400 14px/20px var(--font-ui);color:var(--ink-secondary)">{{ r.suffix }}</span>
+              </span>
+              <span title="{{ r.from }}" style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:12px">{{ r.parent }}</span>
+              <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.by }}</span>
+              <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ r.when }}</span>
+              <span style="display:flex;align-items:center;justify-content:flex-end;gap:6px">
+                <span style="font:500 13px/18px var(--font-mono);color:{{ r.leftInk }};font-variant-numeric:tabular-nums">{{ r.left }}</span>
+                <sc-if value="{{ r.urgent }}" hint-placeholder-val="{{ false }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" style="flex:none" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                </sc-if>
+              </span>
+            </div>
+          </sc-for>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 16px">
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">42 item di sampah, 1,8 GB</span>
+            <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Pilih baris untuk memulihkan atau menghapus permanen</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 24px">
+              <span style="display:flex;margin-bottom:12px">{{ emptyIcon }}</span>
+              <div style="font:500 15px/22px var(--font-ui);color:var(--ink)">Tidak ada file bernama “{{ q }}”</div>
+              <div style="font:400 14px/20px var(--font-ui);color:var(--ink-secondary);margin-top:2px;max-width:44ch;text-wrap:pretty">Coba kata kunci lain, kurangi filter, atau periksa ruang lain — pencarian hanya mencakup ruang yang boleh Anda akses.</div>
+              <div style="display:flex;gap:8px;margin-top:16px">
+                <button type="button" onClick="{{ clearFilters }}" style="height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Hapus semua filter</button>
+                <button type="button" onClick="{{ demoQuery }}" style="height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Cari “laporan qc”</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <sc-for list="{{ results }}" as="r" hint-placeholder-count="8">
+                <div style="display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface);cursor:pointer" style-hover="background:var(--surface-hover)">
+                  <span style="flex:none;display:flex">{{ r.icon }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font:400 14px/20px var(--font-ui);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      {{ r.pre }}<mark style="background:var(--highlight);color:var(--ink);border-radius:2px;padding:0 1px">{{ r.hit }}</mark>{{ r.post }}
+                    </span>
+                    <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">{{ r.path }}</span>
+                  </span>
+                  <span style="flex:none;width:88px;text-align:right;font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ r.size }}</span>
+                  <span style="flex:none;width:112px;text-align:right;font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ r.when }}</span>
+                  <span style="flex:none;width:104px;display:flex;justify-content:flex-end">
+                    <span style="height:22px;padding:0 8px;display:inline-flex;align-items:center;border-radius:var(--radius-sm);background:var(--surface-sunken);border:1px solid var(--border-strong);font:500 12px/16px var(--font-ui);color:var(--ink-secondary)">{{ r.space }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isLinks }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="position:sticky;top:0;z-index:5;display:grid;grid-template-columns:30px minmax(0,1fr) 116px 132px 96px 128px 120px;align-items:center;height:34px;padding:0 16px;background:var(--surface-sunken);border-bottom:1px solid var(--border-strong)">
+            <span></span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink)">File atau folder</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Dibuat</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary)">Kedaluwarsa</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);text-align:right">Unduhan</span>
+            <span style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);padding-left:16px">Status</span>
+            <span></span>
+          </div>
+          <sc-for list="{{ linkRows }}" as="r" hint-placeholder-count="7">
+            <div style="display:grid;grid-template-columns:30px minmax(0,1fr) 116px 132px 96px 128px 120px;align-items:center;height:52px;padding:0 16px;border-bottom:1px solid var(--border);background:{{ r.bg }}" style-hover="background:var(--surface-hover)">
+              <span style="display:flex">{{ r.icon }}</span>
+              <span style="min-width:0;padding-right:12px">
+                <span title="{{ r.name }}" style="display:flex;align-items:baseline;min-width:0">
+                  <span style="min-width:0;font:400 14px/20px var(--font-ui);color:{{ r.nameInk }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.base }}</span>
+                  <span style="flex:none;font:400 14px/20px var(--font-ui);color:var(--ink-secondary)">{{ r.suffix }}</span>
+                </span>
+                <span style="display:block;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.url }}</span>
+              </span>
+              <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);font-variant-numeric:tabular-nums">{{ r.created }}</span>
+              <span style="font:400 13px/18px var(--font-mono);color:{{ r.expInk }};font-variant-numeric:tabular-nums">{{ r.expires }}</span>
+              <span style="font:400 13px/18px var(--font-mono);color:var(--ink-secondary);text-align:right;font-variant-numeric:tabular-nums">{{ r.downloads }}</span>
+              <span style="padding-left:16px;display:flex">
+                <span style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:var(--radius-sm);background:{{ r.stBg }};border:1px solid {{ r.stBorder }};font:500 12px/16px var(--font-ui);color:{{ r.stInk }}">
+                  {{ r.stIcon }}{{ r.status }}
+                </span>
+              </span>
+              <span style="display:flex;justify-content:flex-end;gap:4px">
+                <button type="button" title="Salin link" aria-label="Salin link {{ r.name }}" style="width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1.6" /><path d="M15 6.5V5.6A1.6 1.6 0 0 0 13.4 4H5.6A1.6 1.6 0 0 0 4 5.6v7.8A1.6 1.6 0 0 0 5.6 15h.9" /></svg>
+                </button>
+                <button type="button" title="Ubah" aria-label="Ubah link {{ r.name }}" style="width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19h3.5L19 8.5 15.5 5 5 15.5z" /></svg>
+                </button>
+                <button type="button" title="Cabut link" aria-label="Cabut link {{ r.name }}" style="width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:var(--danger-subtle);border-color:var(--danger-border)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                </button>
+              </span>
+            </div>
+          </sc-for>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 16px">
+            <span style="font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">7 link, 2 akan kedaluwarsa dalam 3 hari</span>
+            <span style="width:1px;height:12px;background:var(--border-strong)"></span>
+            <span style="font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Link yang sudah kedaluwarsa hilang otomatis setelah 30 hari</span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+
+  <sc-if value="{{ purgeOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:var(--scrim-veil);display:flex;align-items:center;justify-content:center;padding:24px;z-index:60">
+      <div role="dialog" aria-label="Kosongkan sampah" style="width:400px;max-width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-modal);overflow:hidden">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 0">
+          <h3 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">Kosongkan sampah?</h3>
+          <button type="button" onClick="{{ closeModal }}" aria-label="Tutup" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        <p style="margin:8px 16px 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">42 item, 1,8 GB, akan dihapus permanen dan tidak bisa dipulihkan. Kuota ruang langsung kembali.</p>
+        <div style="margin:16px">
+          <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Ketik <span style="font-family:var(--font-mono);color:var(--ink)">HAPUS</span> untuk mengonfirmasi</label>
+          <input type="text" value="{{ purgeText }}" onChange="{{ onPurgeText }}" style="width:100%;height:36px;padding:0 10px;border:1px solid {{ purgeBorder }};border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-mono);letter-spacing:1px" />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;padding:16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+          <button type="button" onClick="{{ closeModal }}" style="height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Batalkan</button>
+          <button type="button" disabled="{{ purgeDisabled }}" style="height:36px;padding:0 14px;border:1px solid {{ purgeBtnBorder }};border-radius:var(--radius-sm);background:{{ purgeBtnBg }};color:{{ purgeBtnInk }};font:500 14px/20px var(--font-ui);cursor:{{ purgeCursor }}">Hapus permanen 42 item</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ createOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:var(--scrim-veil);display:flex;align-items:center;justify-content:center;padding:24px;z-index:60">
+      <div role="dialog" aria-label="Buat link berbagi" style="width:720px;max-width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-modal);overflow:hidden">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 0">
+          <div>
+            <h3 style="margin:0;font:600 17px/24px var(--font-ui);color:var(--ink)">{{ createTitle }}</h3>
+            <p style="margin:6px 0 0;font:400 15px/22px var(--font-ui);color:var(--ink-secondary);max-width:62ch;text-wrap:pretty">{{ createSub }}</p>
+          </div>
+          <button type="button" onClick="{{ closeModal }}" aria-label="Tutup" style="flex:none;width:28px;height:28px;border:0;border-radius:var(--radius-sm);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-secondary)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+
+        <sc-if value="{{ createForm }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:16px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-sunken);border:1px solid var(--border);border-radius:var(--radius-sm)">
+              <span style="flex:none;display:flex">{{ shareIcon }}</span>
+              <span style="font:500 14px/20px var(--font-ui);color:var(--ink)">Laporan-QC-Shift-1-2026-03-12.xlsx</span>
+              <span style="margin-left:auto;font:400 12px/16px var(--font-mono);color:var(--ink-tertiary);font-variant-numeric:tabular-nums">248 KB</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+              <div>
+                <div style="font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:6px">Izin penerima</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ perms }}" as="p" hint-placeholder-count="2">
+                    <button type="button" onClick="{{ p.pick }}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid {{ p.border }};border-radius:var(--radius-sm);background:{{ p.bg }};text-align:left;cursor:pointer">
+                      <span style="flex:none;width:16px;height:16px;border-radius:8px;border:1px solid {{ p.dotBorder }};background:var(--surface);display:flex;align-items:center;justify-content:center;margin-top:2px">
+                        <span style="width:8px;height:8px;border-radius:4px;background:{{ p.dot }}"></span>
+                      </span>
+                      <span style="min-width:0">
+                        <span style="display:block;font:500 14px/20px var(--font-ui);color:var(--ink)">{{ p.name }}</span>
+                        <span style="display:block;font:400 13px/18px var(--font-ui);color:var(--ink-secondary);text-wrap:pretty">{{ p.desc }}</span>
+                      </span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div>
+                  <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:4px">Kedaluwarsa <span style="color:var(--danger)">wajib</span></label>
+                  <div style="display:flex;gap:6px">
+                    <sc-for list="{{ exps }}" as="e" hint-placeholder-count="4">
+                      <button type="button" onClick="{{ e.pick }}" style="flex:1;height:36px;border:1px solid {{ e.border }};border-radius:var(--radius-sm);background:{{ e.bg }};color:{{ e.ink }};font:500 13px/18px var(--font-ui);cursor:pointer;font-variant-numeric:tabular-nums">{{ e.label }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:5px;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary)">Kedaluwarsa pada {{ expDate }}</div>
+                </div>
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+                  <button type="button" role="checkbox" aria-checked="{{ pwOn }}" onClick="{{ togglePw }}" style="flex:none;width:18px;height:18px;padding:0;border:1px solid {{ pwBorder }};border-radius:3px;background:{{ pwBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ pwCheck }}</button>
+                  Lindungi dengan kata sandi
+                </label>
+                <sc-if value="{{ pwOn }}" hint-placeholder-val="{{ false }}">
+                  <input type="text" value="qc-maret-2026" style="width:100%;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-mono)" />
+                </sc-if>
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font:400 14px/20px var(--font-ui);color:var(--ink)">
+                  <button type="button" role="checkbox" aria-checked="{{ limOn }}" onClick="{{ toggleLim }}" style="flex:none;width:18px;height:18px;padding:0;border:1px solid {{ limBorder }};border-radius:3px;background:{{ limBg }};display:flex;align-items:center;justify-content:center;cursor:pointer">{{ limCheck }}</button>
+                  Batasi jumlah unduhan
+                </label>
+                <sc-if value="{{ limOn }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <input type="text" value="25" style="width:80px;height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:400 14px/20px var(--font-mono);font-variant-numeric:tabular-nums" />
+                    <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">unduhan, lalu link ditutup</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <span style="font:400 13px/18px var(--font-ui);color:var(--ink-secondary)">Setiap akses link tercatat di audit log.</span>
+            <span style="margin-left:auto"></span>
+            <button type="button" onClick="{{ closeModal }}" style="height:36px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 14px/20px var(--font-ui);cursor:pointer">Batalkan</button>
+            <button type="button" onClick="{{ makeLink }}" style="height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Buat link</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ createDone }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:16px">
+            <div style="display:flex;gap:20px;align-items:flex-start">
+              <div style="flex:1;min-width:0">
+                <label style="display:block;font:500 13px/18px var(--font-ui);color:var(--ink-secondary);margin-bottom:6px">Link berbagi</label>
+                <div style="display:flex;gap:8px">
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;height:44px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-sunken);font:400 14px/20px var(--font-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">https://rafnas.sfl.local/l/7f3k9a2m</div>
+                  <button type="button" style="flex:none;height:44px;padding:0 18px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 15px/22px var(--font-ui);cursor:pointer;display:flex;align-items:center;gap:8px">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1.6" /><path d="M15 6.5V5.6A1.6 1.6 0 0 0 13.4 4H5.6A1.6 1.6 0 0 0 4 5.6v7.8A1.6 1.6 0 0 0 5.6 15h.9" /></svg>
+                    Salin link
+                  </button>
+                </div>
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:7px 12px;margin-top:16px;font:400 13px/18px var(--font-ui)">
+                  <span style="color:var(--ink-secondary)">Izin</span><span style="color:var(--ink)">Boleh unduh</span>
+                  <span style="color:var(--ink-secondary)">Kedaluwarsa</span><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">19 Mar 2026, 23:59</span>
+                  <span style="color:var(--ink-secondary)">Kata sandi</span><span style="font-family:var(--font-mono);color:var(--ink)">qc-maret-2026</span>
+                  <span style="color:var(--ink-secondary)">Batas unduhan</span><span style="font-family:var(--font-mono);color:var(--ink);font-variant-numeric:tabular-nums">25</span>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:16px;padding:10px 12px;background:var(--warning-subtle);border:1px solid var(--warning-border);border-radius:var(--radius-sm)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="1.9" stroke-linecap="round" style="flex:none;margin-top:1px" aria-hidden="true"><path d="M12 4.5 21 19.5H3z" /><path d="M12 10v4" /></svg>
+                  <span style="font:400 13px/18px var(--font-ui);color:var(--warning-ink);text-wrap:pretty">Kirim kata sandi lewat jalur terpisah, jangan di pesan yang sama dengan link.</span>
+                </div>
+              </div>
+              <div style="flex:none;width:196px;text-align:center">
+                <div style="border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:12px;background:var(--surface)">
+                  <div style="display:grid;grid-template-columns:repeat(21,1fr);gap:0;aspect-ratio:1/1">
+                    <sc-for list="{{ qr }}" as="c" hint-placeholder-count="60">
+                      <span style="background:{{ c.c }}"></span>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:8px;font:400 11px/16px var(--font-mono);color:var(--ink-tertiary)">kode QR link</div>
+                </div>
+                <button type="button" style="width:100%;margin-top:8px;height:32px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);font:500 13px/18px var(--font-ui);cursor:pointer">Unduh QR</button>
+                <p style="margin:8px 0 0;font:400 12px/16px var(--font-ui);color:var(--ink-tertiary);text-wrap:pretty">Pindai dari HP di lapangan tanpa mengetik link.</p>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;padding:16px;border-top:1px solid var(--border);background:var(--surface-sunken)">
+            <button type="button" onClick="{{ closeModal }}" style="height:36px;padding:0 14px;border:1px solid var(--primary);border-radius:var(--radius-sm);background:var(--primary);color:var(--ink-inverse);font:500 14px/20px var(--font-ui);cursor:pointer">Selesai</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 },
+  &quot;halaman&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Sampah&quot;, &quot;Pencarian&quot;, &quot;File dibagikan&quot;], &quot;default&quot;: &quot;Sampah&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Halaman&quot; },
+  &quot;dialog&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Tidak ada&quot;, &quot;Kosongkan sampah&quot;, &quot;Buat link&quot;, &quot;Link dibuat&quot;], &quot;default&quot;: &quot;Tidak ada&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Dialog&quot; }
+}">
+class Component extends DCLogic {
+  __applyTheme() {
+    let v = this.__tema;
+    if (!v) { try { v = localStorage.getItem('rafnas.tema') || ''; } catch (e) { v = ''; } }
+    if (v !== 'dark' && v !== 'light') {
+      v = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (document.documentElement.getAttribute('data-theme') !== v) document.documentElement.setAttribute('data-theme', v);
+    return v;
+  }
+
+  __themeVals(t) {
+    const dark = t === 'dark', ce = React.createElement;
+    const base = { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    const icon = dark
+      ? ce('svg', base, ce('path', { key: 'm', d: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z' }))
+      : ce('svg', base, [ce('circle', { key: 'c', cx: 12, cy: 12, r: 4.2 }), ce('path', { key: 'r', d: 'M12 3.6v2.1M12 18.3v2.1M3.6 12h2.1M18.3 12h2.1M6.2 6.2l1.5 1.5M16.3 16.3l1.5 1.5M17.8 6.2l-1.5 1.5M7.7 16.3l-1.5 1.5' })]);
+    return {
+      isDark: dark,
+      temaNama: dark ? 'Gelap' : 'Terang',
+      temaLabel: dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap',
+      temaIcon: icon,
+      toggleTema: () => {
+        const v = dark ? 'light' : 'dark';
+        this.__tema = v;
+        try { localStorage.setItem('rafnas.tema', v); } catch (e) { }
+        document.documentElement.setAttribute('data-theme', v);
+        this.forceUpdate();
+      }
+    };
+  }
+
+  state = {
+    page: null, q: null, modal: null, purge: '',
+    perm: 'unduh', exp: 7, pw: true, lim: false,
+    tipe: ['Spreadsheet', 'PDF']
+  };
+
+  mkSvg(nodes, o) {
+    o = o || {};
+    const s = o.size || 16;
+    const p = { width: s, height: s, viewBox: '0 0 24 24', fill: o.fill || 'none', strokeWidth: o.sw == null ? 1.9 : o.sw, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': 'true' };
+    if (o.stroke !== 'none') p.stroke = o.stroke || 'currentColor';
+    return React.createElement('svg', p, nodes.map((n, i) => React.createElement(n[0], Object.assign({ key: i }, n[1]))));
+  }
+
+  glyph(n, o) {
+    const G = {
+      user: [['circle', { cx: 12, cy: 8.5, r: 3.5 }], ['path', { d: 'M5.5 19.5a6.5 6.5 0 0 1 13 0' }]],
+      link: [['path', { d: 'M10.5 13.5a4 4 0 0 0 5.7 0l2.3-2.3a4 4 0 0 0-5.7-5.7l-1.3 1.3' }], ['path', { d: 'M13.5 10.5a4 4 0 0 0-5.7 0L5.5 12.8a4 4 0 0 0 5.7 5.7l1.3-1.3' }]],
+      trash: [['path', { d: 'M4.5 7h15' }], ['path', { d: 'M9.5 7V4.5h5V7' }], ['path', { d: 'M6.5 7h11v12a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 19z' }]],
+      search: [['circle', { cx: 10.5, cy: 10.5, r: 6.5 }], ['path', { d: 'M15.5 15.5 21 21' }]],
+      folder: [['path', { d: 'M3 6.6A1.6 1.6 0 0 1 4.6 5h4.1l2 2.6h8.7A1.6 1.6 0 0 1 21 9.2V18a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 18z' }]],
+      check: [['path', { d: 'M5 12.5 9.5 17 19 7.5' }]],
+      clock: [['circle', { cx: 12, cy: 12, r: 8 }], ['path', { d: 'M12 7.5V12l3.5 2' }]],
+      warn: [['path', { d: 'M12 4.5 21 19.5H3z' }], ['path', { d: 'M12 10v4.5' }]]
+    };
+    return this.mkSvg(G[n] || [], o);
+  }
+
+  mid(n, b) { return n.length <= b ? n : n.slice(0, Math.max(6, b - 13)) + '…' + n.slice(-10); }
+
+  tail(p, b) { return p.length <= b ? p : '…' + p.slice(-(b - 1)); }
+
+  catStyle(cat) {
+    const map = {
+      pdf: ['var(--cat-pdf-bg)', 'var(--danger-border)', 'var(--cat-pdf-ink)'], sheet: ['var(--cat-sheet-bg)', 'var(--success-border)', 'var(--cat-sheet-ink)'],
+      doc: ['var(--cat-doc-bg)', 'var(--primary-border)', 'var(--cat-doc-ink)'], image: ['var(--cat-image-bg)', 'var(--cat-image-bd)', 'var(--cat-image-ink)'],
+      video: ['var(--cat-video-bg)', 'var(--cat-video-bd)', 'var(--cat-video-ink)'], cad: ['var(--cat-cad-bg)', 'var(--cat-cad-bd)', 'var(--cat-cad-ink)'],
+      zip: ['var(--cat-zip-bg)', 'var(--cat-zip-bd)', 'var(--cat-zip-ink)']
+    };
+    return map[cat] || ['var(--cat-any-bg)', 'var(--cat-any-bd)', 'var(--cat-any-ink)'];
+  }
+
+  chip(cat, ext, size, dim) {
+    if (cat === 'folder') return this.glyph('folder', { size: size || 20, fill: dim ? 'var(--cat-any-ink)' : '#59616F', stroke: 'none', sw: 0 });
+    const c = this.catStyle(cat), s = size || 20;
+    return React.createElement('span', {
+      style: {
+        width: (s - 2) + 'px', height: (s + 4) + 'px', borderRadius: '2px', background: c[0], flex: 'none',
+        border: '1px solid ' + c[1], display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+        paddingBottom: '2px', opacity: dim ? 0.55 : 1, clipPath: 'polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)'
+      }
+    }, React.createElement('span', { style: { font: '500 8px/1 var(--font-mono)', color: c[2] } }, ext.toUpperCase()));
+  }
+
+  renderVals() {
+    const __t = this.__applyTheme();
+    return Object.assign({}, this.__themeVals(__t), this.renderValsBase());
+  }
+
+  renderValsBase() {
+    const st = this.state;
+    const page = st.page || this.props.halaman || 'Sampah';
+    const isTrash = page === 'Sampah', isSearch = page === 'Pencarian', isLinks = page === 'File dibagikan';
+    const q = st.q === null ? 'laporan qc' : st.q;
+    const modal = st.modal === null
+      ? (this.props.dialog === 'Buat link' ? 'create' : this.props.dialog === 'Link dibuat' ? 'created' : this.props.dialog === 'Kosongkan sampah' ? 'purge' : null)
+      : st.modal;
+
+    const spaces = [['Produksi', '5.000'], ['QC', '1.284'], ['Gudang', '642'], ['Maintenance', '318']].map(([name, n]) => ({ name, n }));
+    const shelves = [['pribadi', 'File pribadi', 'user', ''], ['dibagikan', 'File dibagikan', 'link', isLinks ? '' : '7'], ['sampah', 'Sampah', 'trash', '42']].map(([k, name, g, badge]) => {
+      const on = (k === 'sampah' && isTrash) || (k === 'dibagikan' && isLinks);
+      return {
+        name, badge, icon: this.glyph(g, { size: 18, sw: 1.8 }),
+        open: () => this.setState({ page: k === 'sampah' ? 'Sampah' : k === 'dibagikan' ? 'File dibagikan' : 'Sampah' }),
+        bg: on ? 'var(--surface-selected)' : 'transparent',
+        ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)',
+        edge: on ? 'var(--primary)' : 'transparent',
+        font: (on ? '500 ' : '400 ') + '14px/20px var(--font-ui)'
+      };
+    });
+
+    const trashSrc = [
+      ['Laporan-QC-Shift-2-2026-02-28.xlsx', 'sheet', 'xls', '/Produksi/Laporan QC Harian', 'Ani W.', '11 Mar 09:12', 28],
+      ['Foto-Injeksi-A2-28-11.jpg', 'image', 'jpg', '/Produksi/Foto Dokumentasi Mesin', 'Rudi H.', '10 Mar 14:40', 27],
+      ['Drawing-Plat-Guide-Rev1.dwg', 'cad', 'dwg', '/Produksi/Drawing Teknik', 'Budi S.', '08 Mar 08:02', 25],
+      ['Notulen-Rapat-Produksi-2026-01-30.docx', 'doc', 'doc', '/Produksi/Notulen Rapat', 'Sari P.', '20 Feb 16:22', 6],
+      ['Arsip-Laporan-QC-2024-Q4.zip', 'zip', 'zip', '/Produksi/Arsip 2025', 'Admin IT', '18 Feb 07:35', 3],
+      ['Form-Produksi-Line-B1-05-02.xlsx', 'sheet', 'xls', '/Produksi/Form Produksi', 'Dedi K.', '16 Feb 11:08', 2],
+      ['Rekaman-Trial-Konveyor-C2-03.mp4', 'video', 'mp4', '/Produksi/Foto Dokumentasi Mesin', 'Tono M.', '15 Feb 15:51', 1],
+      ['Manual-Boiler-02-Lama.pdf', 'pdf', 'pdf', '/Produksi/Manual Peralatan', 'Budi S.', '14 Feb 09:19', 1],
+      ['Foto Shift Malam', 'folder', '', '/Produksi/Foto Dokumentasi Mesin', 'Rudi H.', '13 Feb 22:04', 0]
+    ];
+
+    const linkSrc = [
+      ['Laporan-QC-Shift-1-2026-03-12.xlsx', 'sheet', 'xls', '7f3k9a2m', '12 Mar 14:06', '19 Mar 2026', 4, 'Aktif'],
+      ['Manual-Kompresor-01-Bahasa-Indonesia.pdf', 'pdf', 'pdf', 'b8q1x7de', '11 Mar 08:22', '18 Mar 2026', 12, 'Aktif'],
+      ['Foto Dokumentasi Mesin', 'folder', '', 'k2m5v9zt', '10 Mar 16:40', '14 Mar 2026', 31, 'Segera habis'],
+      ['Drawing-Rangka-Konveyor-Rev4.dwg', 'cad', 'dwg', 'p4w8n3ac', '09 Mar 11:15', '13 Mar 2026', 6, 'Segera habis'],
+      ['Paparan-Hasil-QC-Minggu-10.pptx', 'slide', 'ppt', 'r7t2y6bs', '02 Mar 09:03', '09 Mar 2026', 18, 'Kedaluwarsa'],
+      ['Data-Ekspor-Mesin-02-2026.csv', 'sheet', 'csv', 'x9c4h1kq', '26 Feb 13:47', '05 Mar 2026', 25, 'Batas tercapai'],
+      ['SOP-Penanganan-Reject-Rev2.pdf', 'pdf', 'pdf', 'm3j8s5fw', '20 Feb 10:31', '27 Feb 2026', 9, 'Dicabut']
+    ];
+
+    const stStyle = s => ({
+      'Aktif': ['var(--success-subtle)', 'var(--success-border)', 'var(--success-ink)', null],
+      'Segera habis': ['var(--warning-subtle)', 'var(--warning-border)', 'var(--warning-ink)', this.glyph('clock', { size: 12, stroke: 'currentColor', sw: 2.2 })],
+      'Kedaluwarsa': ['var(--surface-hover)', 'var(--border-strong)', 'var(--ink-secondary)', this.glyph('clock', { size: 12, stroke: 'currentColor', sw: 2.2 })],
+      'Batas tercapai': ['var(--surface-hover)', 'var(--border-strong)', 'var(--ink-secondary)', null],
+      'Dicabut': ['var(--danger-subtle)', 'var(--danger-border)', 'var(--danger-ink)', null]
+    }[s]);
+
+    const resSrc = [
+      ['Laporan-QC-Shift-1-2026-03-12.xlsx', 'sheet', 'xls', '/Produksi/Laporan QC Harian/2026-03', '248 KB', '12 Mar 07:52', 'Produksi'],
+      ['Laporan-QC-Shift-2-2026-03-12.xlsx', 'sheet', 'xls', '/Produksi/Laporan QC Harian/2026-03', '263 KB', '12 Mar 15:20', 'Produksi'],
+      ['Rekap-Laporan-QC-Februari.xlsx', 'sheet', 'xls', '/QC/Rekap Bulanan', '1,4 MB', '02 Mar 09:11', 'QC'],
+      ['Paparan-Laporan-QC-Minggu-10.pptx', 'slide', 'ppt', '/QC/Paparan Manajemen', '8,2 MB', '09 Mar 16:03', 'QC'],
+      ['Arsip-Laporan-QC-2025-Q4.zip', 'zip', 'zip', '/Produksi/Arsip 2025', '42 MB', '05 Jan 08:40', 'Produksi'],
+      ['SOP-Pengisian-Laporan-QC-Rev3.pdf', 'pdf', 'pdf', '/QC/SOP', '1,1 MB', '18 Feb 10:22', 'QC'],
+      ['Data-Ekspor-Laporan-QC-03-2026.csv', 'sheet', 'csv', '/QC/Data Ekspor', '2,1 MB', '12 Mar 18:00', 'QC'],
+      ['Foto-Verifikasi-Laporan-QC-12-03.jpg', 'image', 'jpg', '/Produksi/Foto Dokumentasi Mesin', '2,4 MB', '12 Mar 08:42', 'Produksi']
+    ];
+    const needle = q.trim().toLowerCase();
+    const results = needle
+      ? resSrc.filter(r => r[0].toLowerCase().replace(/-/g, ' ').indexOf(needle) >= 0 || r[0].toLowerCase().indexOf(needle) >= 0).map(r => {
+        const flat = r[0].toLowerCase().replace(/-/g, ' ');
+        let i = flat.indexOf(needle);
+        if (i < 0) i = r[0].toLowerCase().indexOf(needle);
+        const len = needle.length;
+        const dot = r[0].lastIndexOf('.');
+        const stem = dot > 0 ? r[0].slice(0, dot) : r[0];
+        return {
+          icon: this.chip(r[1], r[2], 22), path: r[3], size: r[4], when: r[5], space: r[6],
+          full: r[0], suffix: dot > 0 ? r[0].slice(dot) : '',
+          pre: i > 0 ? stem.slice(0, i) : '', hit: stem.slice(Math.max(0, i), Math.max(0, i) + len), post: stem.slice(Math.max(0, i) + len)
+        };
+      })
+      : [];
+
+    const tipeAll = ['Spreadsheet', 'PDF', 'Gambar', 'CAD', 'Video', 'Arsip'];
+    const perms = [
+      ['lihat', 'Lihat saja', 'Penerima bisa membuka pratinjau, tapi tombol unduh disembunyikan.'],
+      ['unduh', 'Boleh unduh', 'Penerima bisa mengunduh file aslinya. Dipakai untuk kirim ke vendor.']
+    ].map(([k, name, desc]) => {
+      const on = st.perm === k;
+      return {
+        name, desc, pick: () => this.setState({ perm: k }),
+        border: on ? 'var(--primary)' : 'var(--border)', bg: on ? 'var(--primary-subtle)' : 'var(--surface)',
+        dot: on ? 'var(--primary)' : 'transparent', dotBorder: on ? 'var(--primary)' : 'var(--border-strong)'
+      };
+    });
+    const exps = [1, 7, 30, 90].map(d => {
+      const on = st.exp === d;
+      return {
+        label: d + ' hari', pick: () => this.setState({ exp: d }),
+        border: on ? 'var(--primary)' : 'var(--border-strong)', bg: on ? 'var(--primary-subtle)' : 'var(--surface)',
+        ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)'
+      };
+    });
+    const expDates = { 1: '13 Mar 2026, 23:59', 7: '19 Mar 2026, 23:59', 30: '11 Apr 2026, 23:59', 90: '10 Jun 2026, 23:59' };
+
+    let qseed = 7;
+    const qr = [];
+    for (let i = 0; i < 441; i++) {
+      qseed = (qseed * 1103515245 + 12345) & 0x7fffffff;
+      const row = Math.floor(i / 21), col = i % 21;
+      const finder = (r, c) => (r < 7 && c < 7) || (r < 7 && c > 13) || (r > 13 && c < 7);
+      let on;
+      if (finder(row, col)) {
+        const rr = row % 14 > 6 ? row - 14 : row, cc = col > 13 ? col - 14 : col;
+        const a = Math.max(Math.abs((rr % 7) - 3), Math.abs((cc % 7) - 3));
+        on = a !== 2;
+      } else on = (qseed / 0x7fffffff) > 0.52;
+      qr.push({ c: on ? '#131820' : '#FFFFFF' });
+    }
+
+    return {
+      isTrash, isSearch, isLinks, isNotSearch: !isSearch,
+      pageTitle: isTrash ? 'Sampah' : isLinks ? 'File dibagikan' : 'Pencarian',
+      pageSub: isTrash ? 'File tersimpan 30 hari sebelum terhapus permanen' : 'Link yang Anda buat, beserta status dan jumlah unduhannya',
+      spaces, shelves,
+      q, onQ: e => this.setState({ q: e.target.value }),
+      clearQ: () => this.setState({ q: '' }),
+      demoQuery: () => this.setState({ q: 'laporan qc' }),
+      clearFilters: () => this.setState({ tipe: [] }),
+      resultCount: results.length ? results.length + ' hasil untuk “' + q + '”' : 'Tidak ada hasil',
+      results, hasResults: results.length > 0, noResults: results.length === 0,
+      emptyIcon: this.glyph('search', { size: 30, stroke: 'var(--ink-tertiary)', sw: 1.4 }),
+      chips: st.tipe.map(t => ({ label: t, remove: () => this.setState({ tipe: st.tipe.filter(x => x !== t) }) })),
+      hasChips: st.tipe.length > 0,
+      fRuang: [['Produksi', 5], ['QC', 3], ['Gudang', 0], ['Maintenance', 0]].map(([name, n], i) => {
+        const on = i < 2;
+        return {
+          name, n, bg: on ? 'var(--primary)' : 'var(--surface)',
+          border: on ? 'var(--primary)' : 'var(--border-strong)',
+          check: on ? this.glyph('check', { size: 11, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null
+        };
+      }),
+      fTipe: tipeAll.map(name => {
+        const on = st.tipe.indexOf(name) >= 0;
+        return {
+          name, on,
+          toggle: () => this.setState({ tipe: on ? st.tipe.filter(x => x !== name) : st.tipe.concat([name]) }),
+          bg: on ? 'var(--primary-subtle)' : 'var(--surface)',
+          border: on ? 'var(--primary-border)' : 'var(--border-strong)',
+          ink: on ? 'var(--primary-ink)' : 'var(--ink-secondary)'
+        };
+      }),
+      trashRows: trashSrc.map(([name, cat, ext, from, by, when, left]) => ({
+        name, from, by, when, icon: this.chip(cat, ext, 20),
+        base: name.lastIndexOf('.') > 0 ? name.slice(0, name.lastIndexOf('.')) : name,
+        suffix: name.lastIndexOf('.') > 0 ? name.slice(name.lastIndexOf('.')) : '',
+        parent: from.split('/').filter(Boolean).pop() || '/',
+        left: left === 0 ? 'hari ini' : left + ' hari',
+        leftInk: left <= 3 ? 'var(--warning-ink)' : 'var(--ink-secondary)',
+        urgent: left <= 3
+      })),
+      linkRows: linkSrc.map(([name, cat, ext, slug, created, expires, dl, status]) => {
+        const s = stStyle(status);
+        const dead = status === 'Kedaluwarsa' || status === 'Dicabut' || status === 'Batas tercapai';
+        return {
+          name, created, expires, downloads: dl, status,
+          base: name.lastIndexOf('.') > 0 ? name.slice(0, name.lastIndexOf('.')) : name,
+          suffix: name.lastIndexOf('.') > 0 ? name.slice(name.lastIndexOf('.')) : '',
+          url: 'rafnas.sfl.local/l/' + slug,
+          icon: this.chip(cat, ext || 'dir', 20, dead),
+          bg: dead ? 'var(--surface-sunken)' : 'var(--surface)',
+          nameInk: dead ? 'var(--ink-secondary)' : 'var(--ink)',
+          expInk: status === 'Segera habis' ? 'var(--warning-ink)' : (dead ? 'var(--ink-tertiary)' : 'var(--ink-secondary)'),
+          stBg: s[0], stBorder: s[1], stInk: s[2], stIcon: s[3]
+        };
+      }),
+      purgeOpen: modal === 'purge',
+      openPurge: () => this.setState({ modal: 'purge', purge: '' }),
+      purgeText: st.purge,
+      onPurgeText: e => this.setState({ purge: e.target.value }),
+      purgeBorder: st.purge && st.purge !== 'HAPUS' ? 'var(--warning-border)' : 'var(--border-strong)',
+      purgeDisabled: st.purge !== 'HAPUS',
+      purgeBtnBg: st.purge === 'HAPUS' ? 'var(--danger-solid)' : 'var(--surface-hover)',
+      purgeBtnInk: st.purge === 'HAPUS' ? 'var(--ink-inverse)' : 'var(--ink-tertiary)',
+      purgeBtnBorder: st.purge === 'HAPUS' ? 'var(--danger-solid)' : 'var(--border)',
+      purgeCursor: st.purge === 'HAPUS' ? 'pointer' : 'not-allowed',
+      createOpen: modal === 'create' || modal === 'created',
+      createForm: modal === 'create', createDone: modal === 'created',
+      createTitle: modal === 'created' ? 'Link berbagi siap dipakai' : 'Buat link berbagi',
+      createSub: modal === 'created'
+        ? 'Siapa pun yang punya link ini bisa membuka file tanpa login, sampai kedaluwarsa.'
+        : 'Link bisa dibuka tanpa login, jadi kedaluwarsa wajib diisi. Default 7 hari.',
+      openCreate: () => this.setState({ modal: 'create' }),
+      makeLink: () => this.setState({ modal: 'created' }),
+      closeModal: () => this.setState({ modal: 'none' }),
+      shareIcon: this.chip('sheet', 'xls', 22),
+      perms, exps, expDate: expDates[st.exp],
+      pwOn: st.pw, pwBg: st.pw ? 'var(--primary)' : 'var(--surface)',
+      pwBorder: st.pw ? 'var(--primary)' : 'var(--border-strong)',
+      pwCheck: st.pw ? this.glyph('check', { size: 12, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+      togglePw: () => this.setState({ pw: !st.pw }),
+      limOn: st.lim, limBg: st.lim ? 'var(--primary)' : 'var(--surface)',
+      limBorder: st.lim ? 'var(--primary)' : 'var(--border-strong)',
+      limCheck: st.lim ? this.glyph('check', { size: 12, stroke: 'var(--ink-inverse)', sw: 3.2 }) : null,
+      toggleLim: () => this.setState({ lim: !st.lim }),
+      qr
+    };
+  }
+}
+</script>
+</body>
+</html>
