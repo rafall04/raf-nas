@@ -1,8 +1,9 @@
 import { createContext, useContext, useRef, useState } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { capabilitiesFor, Role, type Capabilities } from '@rafnas/shared';
 import { useSession } from '../state/session';
 import { WorkspaceProvider, useWorkspace } from '../state/workspace';
+import { UploadProvider, useUpload } from '../state/uploads';
 import { formatBytes } from '../data/types';
 import type { SpaceDto } from '../lib/api';
 import { Icon } from '../ui/icons';
@@ -10,7 +11,6 @@ import { QuotaBar } from '../ui/primitives';
 import { currentTheme, toggleTheme } from '../lib/theme';
 import './shell.css';
 
-/** Sinyal refresh daftar file antara Header (aksi unggah) dan FileBrowser. */
 const FileRefreshContext = createContext<{ key: number; bump: () => void }>({ key: 0, bump: () => {} });
 export function useFileRefresh(): { key: number; bump: () => void } {
   return useContext(FileRefreshContext);
@@ -45,34 +45,22 @@ function Sidebar({ spaces, active }: { spaces: SpaceDto[]; active?: SpaceDto }):
           </NavLink>
         ))}
         {spaces.length === 0 && (
-          <div style={{ padding: '8px 10px', fontSize: 'var(--text-sm)', color: 'var(--ink-tertiary)' }}>
-            Belum ada ruang yang bisa Anda akses.
-          </div>
+          <div style={{ padding: '8px 10px', fontSize: 'var(--text-sm)', color: 'var(--ink-tertiary)' }}>Belum ada ruang yang bisa Anda akses.</div>
         )}
 
         <div className="sb-sep" />
-        <NavLink to="/dibagikan" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}>
-          <Icon name="share" size={18} /> <span>File dibagikan</span>
-        </NavLink>
-        <NavLink to="/sampah" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}>
-          <Icon name="trash" size={18} /> <span>Sampah</span>
-        </NavLink>
+        <NavLink to="/dibagikan" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="share" size={18} /> <span>File dibagikan</span></NavLink>
+        <NavLink to="/sampah" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="trash" size={18} /> <span>Sampah</span></NavLink>
 
         <div className="sb-sep" />
-        <NavLink to="/admin" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}>
-          <Icon name="shield" size={18} /> <span>Admin</span>
-        </NavLink>
-        <NavLink to="/state" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}>
-          <Icon name="info" size={18} /> <span>Contoh state</span>
-        </NavLink>
+        <NavLink to="/admin" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="shield" size={18} /> <span>Admin</span></NavLink>
+        <NavLink to="/state" className={({ isActive }) => `sb-item${isActive ? ' active' : ''}`}><Icon name="info" size={18} /> <span>Contoh state</span></NavLink>
 
         {active && (
           <div className="sb-quota">
             <div className="sb-quota-row">
               <span>Kuota {active.name}</span>
-              <span className="mono">
-                {formatBytes(active.usedBytes)} / {formatBytes(active.quotaBytes)}
-              </span>
+              <span className="mono">{formatBytes(active.usedBytes)} / {formatBytes(active.quotaBytes)}</span>
             </div>
             <QuotaBar used={active.usedBytes} total={active.quotaBytes} />
           </div>
@@ -95,29 +83,17 @@ function Sidebar({ spaces, active }: { spaces: SpaceDto[]; active?: SpaceDto }):
 
 function Header({ caps, active }: { caps: Capabilities; active?: SpaceDto }): JSX.Element {
   const navigate = useNavigate();
-  const { bump } = useFileRefresh();
-  const { refresh: refreshSpaces } = useWorkspace();
+  const [sp] = useSearchParams();
+  const path = sp.get('path') ?? '/';
+  const { upload } = useUpload();
   const [, force] = useState(0);
-  const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const isDark = currentTheme() === 'dark';
 
-  async function onFiles(list: FileList | null): Promise<void> {
+  function onFiles(list: FileList | null): void {
     if (!list || !active) return;
-    setUploading(true);
-    try {
-      for (const f of Array.from(list)) {
-        const fd = new FormData();
-        fd.append('file', f);
-        const res = await fetch(`/api/spaces/${active.id}/upload`, { method: 'POST', body: fd });
-        if (!res.ok) window.alert(`Gagal mengunggah ${f.name}.`);
-      }
-      bump();
-      refreshSpaces();
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = '';
-    }
+    upload(active.id, path, Array.from(list));
+    if (fileRef.current) fileRef.current.value = '';
   }
 
   return (
@@ -130,35 +106,32 @@ function Header({ caps, active }: { caps: Capabilities; active?: SpaceDto }): JS
       <button className="icon-btn" title="Ganti tema" onClick={() => { toggleTheme(); force((n) => n + 1); }}>
         <Icon name={isDark ? 'sun' : 'moon'} size={18} />
       </button>
-      <input ref={fileRef} type="file" multiple hidden onChange={(e) => void onFiles(e.target.files)} />
-      <button
-        className="btn btn-primary btn-md"
-        disabled={!caps.upload || uploading}
-        title={caps.upload ? 'Unggah file' : 'Anda hanya punya akses baca di folder ini'}
-        onClick={() => fileRef.current?.click()}
-      >
-        <Icon name="upload" size={18} /> {uploading ? 'Mengunggah…' : 'Unggah'}
+      <input ref={fileRef} type="file" multiple hidden onChange={(e) => onFiles(e.target.files)} />
+      <button className="btn btn-primary btn-md" disabled={!caps.upload} title={caps.upload ? 'Unggah file' : 'Anda hanya punya akses baca di folder ini'} onClick={() => fileRef.current?.click()}>
+        <Icon name="upload" size={18} /> Unggah
       </button>
     </header>
   );
 }
 
 function ShellInner(): JSX.Element {
-  const { spaces } = useWorkspace();
+  const { spaces, refresh } = useWorkspace();
   const active = useActiveSpace(spaces);
   const caps = capabilitiesFor(active?.role ?? Role.NONE);
   const [key, setKey] = useState(0);
   return (
     <FileRefreshContext.Provider value={{ key, bump: () => setKey((k) => k + 1) }}>
-      <div className="shell">
-        <Sidebar spaces={spaces} active={active} />
-        <div className="main">
-          <Header caps={caps} active={active} />
-          <div className="content">
-            <Outlet />
+      <UploadProvider onComplete={() => { setKey((k) => k + 1); refresh(); }}>
+        <div className="shell">
+          <Sidebar spaces={spaces} active={active} />
+          <div className="main">
+            <Header caps={caps} active={active} />
+            <div className="content">
+              <Outlet />
+            </div>
           </div>
         </div>
-      </div>
+      </UploadProvider>
     </FileRefreshContext.Provider>
   );
 }

@@ -26,6 +26,7 @@ function mapNode(n: Node, updatedBy: string, childCount = 0, shared = false) {
     ext: n.ext,
     isFolder: n.isFolder,
     category: n.category,
+    path: n.path,
     sizeBytes: n.sizeBytes,
     updatedAt: n.updatedAt,
     updatedBy,

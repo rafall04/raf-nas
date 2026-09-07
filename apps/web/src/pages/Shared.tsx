@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { fetchShareLinks, revokeShareLink, type LinkStatus, type MyLinkDto } from '../lib/api';
 import { Badge, Button, EmptyState } from '../ui/primitives';
 import { Icon } from '../ui/icons';
+import { useToast } from '../state/toasts';
 import './pages.css';
 
 function statusBadge(s: LinkStatus): JSX.Element {
@@ -23,6 +24,7 @@ export function Shared(): JSX.Element {
   const [links, setLinks] = useState<MyLinkDto[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const { notify } = useToast();
 
   const reload = useCallback(() => {
     fetchShareLinks()
@@ -44,8 +46,9 @@ export function Shared(): JSX.Element {
     try {
       await revokeShareLink(id);
       reload();
+      notify('Link dicabut.', { tone: 'success' });
     } catch {
-      window.alert('Gagal mencabut link.');
+      notify('Gagal mencabut link.', { tone: 'danger' });
     } finally {
       setBusy(false);
     }

@@ -30,6 +30,7 @@ export interface NodeDto {
   ext: string | null;
   isFolder: boolean;
   category: string;
+  path: string;
   sizeBytes: number;
   updatedAt: string;
   updatedBy: string;

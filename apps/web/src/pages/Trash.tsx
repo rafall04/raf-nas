@@ -3,6 +3,7 @@ import { Modal } from '../ui/Modal';
 import { Button, EmptyState, FileTypeChip } from '../ui/primitives';
 import { Icon } from '../ui/icons';
 import { emptyTrash, fetchTrash, restoreNode, type TrashItemDto } from '../lib/api';
+import { useToast } from '../state/toasts';
 import './pages.css';
 
 export function Trash(): JSX.Element {
@@ -10,6 +11,7 @@ export function Trash(): JSX.Element {
   const [confirm, setConfirm] = useState(false);
   const [typed, setTyped] = useState('');
   const [busy, setBusy] = useState(false);
+  const { notify } = useToast();
 
   const reload = useCallback(() => {
     fetchTrash()
@@ -26,8 +28,9 @@ export function Trash(): JSX.Element {
     try {
       await restoreNode(id);
       reload();
+      notify('File dipulihkan.', { tone: 'success' });
     } catch {
-      window.alert('Gagal memulihkan (tidak cukup hak akses).');
+      notify('Gagal memulihkan (tidak cukup hak akses).', { tone: 'danger' });
     } finally {
       setBusy(false);
     }
@@ -36,12 +39,13 @@ export function Trash(): JSX.Element {
   async function doEmpty(): Promise<void> {
     setBusy(true);
     try {
-      await emptyTrash();
+      const res = await emptyTrash();
       setConfirm(false);
       setTyped('');
       reload();
+      notify(`Sampah dikosongkan (${res.count} file dihapus permanen).`, { tone: 'success' });
     } catch {
-      window.alert('Gagal mengosongkan sampah.');
+      notify('Gagal mengosongkan sampah.', { tone: 'danger' });
     } finally {
       setBusy(false);
     }

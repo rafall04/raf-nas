@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { capabilitiesFor, Role, ROLE_LABEL_ID } from '@rafnas/shared';
 import { useWorkspace } from '../state/workspace';
 import { useFileRefresh } from '../layout/AppShell';
+import { useToast } from '../state/toasts';
 import {
   createFolderApi,
   downloadNodeUrl,
@@ -10,6 +11,7 @@ import {
   fetchVersions,
   HttpError,
   renameNode,
+  restoreNode,
   restoreVersion,
   trashNode,
   type NodeDto,
@@ -44,6 +46,10 @@ export function FileBrowser(): JSX.Element {
   const { spaces, loading: spacesLoading, refresh: refreshSpaces } = useWorkspace();
   const { key: refreshKey, bump } = useFileRefresh();
   const navigate = useNavigate();
+  const { notify } = useToast();
+  const [sp, setSp] = useSearchParams();
+  const path = sp.get('path') ?? '/';
+  const pathSegs = path.split('/').filter(Boolean);
   const space = spaces.find((s) => s.id === spaceId) ?? spaces[0];
 
   const [data, setData] = useState<NodesResponse | null>(null);
@@ -60,20 +66,20 @@ export function FileBrowser(): JSX.Element {
   const reload = useCallback(() => {
     if (!space) return;
     setView('loading');
-    fetchNodes(space.id)
+    fetchNodes(space.id, path)
       .then((d) => {
         setData(d);
         setView('ok');
       })
       .catch((e: unknown) => setView(e instanceof HttpError && e.status === 403 ? 'forbidden' : 'error'));
-  }, [space?.id]);
+  }, [space?.id, path]);
 
   useEffect(() => {
     setSel(new Set());
     setActiveId(null);
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [space?.id, refreshKey]);
+  }, [space?.id, path, refreshKey]);
 
   const role = data?.role ?? space?.role ?? Role.NONE;
   const caps = data?.caps ?? capabilitiesFor(role);
@@ -94,6 +100,12 @@ export function FileBrowser(): JSX.Element {
   }, [activeNode?.id]);
 
   function rowClick(n: NodeDto): void {
+    if (n.isFolder) {
+      setSel(new Set());
+      setActiveId(null);
+      setSp({ path: n.path });
+      return;
+    }
     setSel(new Set([n.id]));
     setActiveId(n.id);
   }
@@ -130,8 +142,12 @@ export function FileBrowser(): JSX.Element {
       setActiveId(null);
       reload();
       refreshSpaces();
+      notify('Dipindahkan ke sampah.', {
+        tone: 'success',
+        undo: () => void restoreNode(id).then(() => { reload(); refreshSpaces(); }).catch(() => notify('Gagal memulihkan.', { tone: 'danger' })),
+      });
     } catch {
-      window.alert('Gagal menghapus (tidak cukup hak akses).');
+      notify('Gagal menghapus (tidak cukup hak akses).', { tone: 'danger' });
     } finally {
       setBusy(false);
     }
@@ -148,7 +164,8 @@ export function FileBrowser(): JSX.Element {
           failed += 1;
         }
       }
-      if (failed) window.alert(`${failed} item gagal dihapus (tidak cukup hak akses).`);
+      if (failed) notify(`${failed} item gagal dihapus (tidak cukup hak akses).`, { tone: 'danger' });
+      else notify(`${selectedNodes.length} item dipindahkan ke sampah.`, { tone: 'success' });
       setSel(new Set());
       setActiveId(null);
       reload();
@@ -165,8 +182,9 @@ export function FileBrowser(): JSX.Element {
       await renameNode(renameTarget.id, renameValue.trim());
       setRenameTarget(null);
       reload();
+      notify('Nama diganti.', { tone: 'success' });
     } catch {
-      window.alert('Gagal mengganti nama (nama dipakai atau tidak cukup hak).');
+      notify('Gagal mengganti nama (nama dipakai atau tidak cukup hak).', { tone: 'danger' });
     } finally {
       setBusy(false);
     }
@@ -179,8 +197,9 @@ export function FileBrowser(): JSX.Element {
       await restoreVersion(activeNode.id, vid);
       fetchVersions(activeNode.id).then(setVersions).catch(() => {});
       reload();
+      notify('Versi dipulihkan.', { tone: 'success' });
     } catch {
-      window.alert('Gagal memulihkan versi.');
+      notify('Gagal memulihkan versi.', { tone: 'danger' });
     } finally {
       setBusy(false);
     }
@@ -192,10 +211,11 @@ export function FileBrowser(): JSX.Element {
     if (!name) return;
     setBusy(true);
     try {
-      await createFolderApi(space.id, name);
+      await createFolderApi(space.id, name, path);
       bump();
+      notify('Folder dibuat.', { tone: 'success' });
     } catch {
-      window.alert('Gagal membuat folder (nama sudah ada atau tidak cukup hak).');
+      notify('Gagal membuat folder (nama sudah ada atau tidak cukup hak).', { tone: 'danger' });
     } finally {
       setBusy(false);
     }
@@ -224,9 +244,15 @@ export function FileBrowser(): JSX.Element {
         ) : (
           <div className="fb-bar">
             <div className="crumb">
-              <span>Ruang</span>
+              <span className="crumb-link" onClick={() => setSp({})}>Ruang</span>
               <Icon name="chevron-right" size={14} />
-              <span className="cur">{space.name}</span>
+              <span className={pathSegs.length ? 'crumb-link' : 'cur'} onClick={() => pathSegs.length && setSp({})}>{space.name}</span>
+              {pathSegs.map((seg, i) => (
+                <span key={i} style={{ display: 'contents' }}>
+                  <Icon name="chevron-right" size={14} />
+                  <span className={i === pathSegs.length - 1 ? 'cur' : 'crumb-link'} onClick={() => i < pathSegs.length - 1 && setSp({ path: '/' + pathSegs.slice(0, i + 1).join('/') })}>{seg}</span>
+                </span>
+              ))}
             </div>
             <div className="fb-bar-spacer" />
             {caps.upload && (

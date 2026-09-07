@@ -12,6 +12,8 @@
 .fb-bar.sel { background: var(--surface-selected); }
 .crumb { display: flex; align-items: center; gap: 6px; font-size: var(--text-base); color: var(--ink-secondary); }
 .crumb .cur { color: var(--ink); font-weight: 600; }
+.crumb-link { cursor: pointer; }
+.crumb-link:hover { color: var(--ink); text-decoration: underline; }
 .fb-bar-spacer { flex: 1; }
 .sel-count { font-size: var(--text-base); font-weight: 600; }
 
