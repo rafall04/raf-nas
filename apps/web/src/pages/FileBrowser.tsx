@@ -7,6 +7,7 @@ import { useToast } from '../state/toasts';
 import {
   createFolderApi,
   downloadNodeUrl,
+  nodeContentUrl,
   fetchNodes,
   fetchVersions,
   HttpError,
@@ -41,6 +42,22 @@ function previewUrl(n: NodeDto): string {
   return `/pratinjau?node=${n.id}&name=${encodeURIComponent(n.name)}&ext=${n.ext ?? ''}&cat=${n.category}`;
 }
 
+function lsBool(key: string, def: boolean): boolean {
+  try {
+    const v = localStorage.getItem(key);
+    return v === null ? def : v === '1';
+  } catch {
+    return def;
+  }
+}
+function lsSet(key: string, val: string): void {
+  try {
+    localStorage.setItem(key, val);
+  } catch {
+    /* ignore */
+  }
+}
+
 export function FileBrowser(): JSX.Element {
   const { spaceId } = useParams();
   const { spaces, loading: spacesLoading, refresh: refreshSpaces } = useWorkspace();
@@ -62,6 +79,9 @@ export function FileBrowser(): JSX.Element {
   const [renameTarget, setRenameTarget] = useState<NodeDto | null>(null);
   const [renameValue, setRenameValue] = useState('');
   const [versions, setVersions] = useState<VersionDto[] | null>(null);
+  const [dense, setDense] = useState<boolean>(() => lsBool('rafnas.dense', false));
+  const [grid, setGrid] = useState<boolean>(() => lsBool('rafnas.grid', false));
+  const [showDetail, setShowDetail] = useState<boolean>(() => lsBool('rafnas.detail', true));
 
   const reload = useCallback(() => {
     if (!space) return;
@@ -221,6 +241,18 @@ export function FileBrowser(): JSX.Element {
     }
   }
 
+  function onTableKey(e: { key: string; preventDefault(): void }): void {
+    if (!nodes.length) return;
+    const idx = activeId ? nodes.findIndex((n) => n.id === activeId) : -1;
+    if (e.key === 'ArrowDown') { e.preventDefault(); const n = nodes[Math.min(nodes.length - 1, idx + 1)]; if (n) { setActiveId(n.id); setSel(new Set([n.id])); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); const n = nodes[Math.max(0, idx <= 0 ? 0 : idx - 1)]; if (n) { setActiveId(n.id); setSel(new Set([n.id])); } }
+    else if (e.key === 'Enter') { const n = idx >= 0 ? nodes[idx] : undefined; if (n) { if (n.isFolder) setSp({ path: n.path }); else navigate(previewUrl(n)); } }
+    else if (e.key === ' ') { const n = idx >= 0 ? nodes[idx] : undefined; if (n) { e.preventDefault(); toggle(n.id, !sel.has(n.id)); } }
+  }
+  function toggleDense(): void { setDense((v) => { lsSet('rafnas.dense', v ? '0' : '1'); return !v; }); }
+  function toggleGrid(): void { setGrid((v) => { lsSet('rafnas.grid', v ? '0' : '1'); return !v; }); }
+  function toggleDetail(): void { setShowDetail((v) => { lsSet('rafnas.detail', v ? '0' : '1'); return !v; }); }
+
   if (spacesLoading && !space) {
     return <div className="fb"><div className="fb-main"><div className="fb-bar" /><TableSkeleton /></div></div>;
   }
@@ -258,6 +290,10 @@ export function FileBrowser(): JSX.Element {
             {caps.upload && (
               <Button size="sm" variant="ghost" disabled={busy} onClick={() => void newFolder()}><Icon name="plus" size={16} /> Folder baru</Button>
             )}
+            <Button size="sm" variant="ghost" onClick={toggleDense}>{dense ? 'Normal' : 'Padat'}</Button>
+            <button className={`fb-viewbtn${grid ? ' on' : ''}`} title="Tampilan grid" onClick={toggleGrid}><Icon name="grid" size={16} /></button>
+            <button className={`fb-viewbtn${!grid ? ' on' : ''}`} title="Tampilan daftar" onClick={() => grid && toggleGrid()}><Icon name="list" size={16} /></button>
+            <button className={`fb-viewbtn${showDetail ? ' on' : ''}`} title="Panel detail" onClick={toggleDetail}><Icon name="panel" size={16} /></button>
           </div>
         )}
 
@@ -267,15 +303,15 @@ export function FileBrowser(): JSX.Element {
           </div>
         )}
 
-        <div className="fb-table-wrap">
+        <div className="fb-table-wrap" tabIndex={0} onKeyDown={onTableKey}>
           {view === 'loading' && <TableSkeleton />}
           {view === 'forbidden' && <EmptyState title="Tidak ada akses." description="Anda tidak punya akses ke ruang ini. Minta akses ke Admin IT." />}
           {view === 'error' && <EmptyState title="Gagal memuat daftar file." description="Periksa koneksi lalu coba lagi." action={<Button size="sm" variant="secondary" onClick={reload}>Coba lagi</Button>} />}
           {view === 'ok' && nodes.length === 0 && (
             <EmptyState title="Folder ini masih kosong." description={caps.upload ? 'Tarik file ke sini atau klik Unggah.' : 'Minta akses unggah ke Admin IT.'} />
           )}
-          {view === 'ok' && nodes.length > 0 && (
-            <table className="fb-table">
+          {view === 'ok' && nodes.length > 0 && !grid && (
+            <table className={`fb-table${dense ? ' compact' : ''}`}>
               <thead>
                 <tr>
                   <th className="col-check"></th>
@@ -322,6 +358,24 @@ export function FileBrowser(): JSX.Element {
               </tbody>
             </table>
           )}
+          {view === 'ok' && nodes.length > 0 && grid && (
+            <div className="fb-grid">
+              {nodes.map((n) => (
+                <button
+                  key={n.id}
+                  className={`fb-card${sel.has(n.id) ? ' selected' : ''}`}
+                  onClick={() => rowClick(n)}
+                  onContextMenu={(e) => { e.preventDefault(); openMenu(n, e.clientX, e.clientY); }}
+                >
+                  <span className="fb-card-thumb">
+                    {n.isFolder ? <Icon name="folder" size={30} /> : n.category === 'image' ? <img src={nodeContentUrl(n.id)} alt="" /> : <FileTypeChip ext={n.ext ?? undefined} />}
+                  </span>
+                  <span className="fb-card-name">{n.name}</span>
+                  <span className="fb-card-meta mono">{n.isFolder ? `${n.itemCount ?? 0} item` : formatBytes(n.sizeBytes)}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="fb-status">
@@ -331,6 +385,7 @@ export function FileBrowser(): JSX.Element {
         </div>
       </div>
 
+      {showDetail && (
       <aside className="fb-detail">
         {selectedNodes.length === 0 && (
           <div className="fb-detail-empty">Pilih satu file untuk melihat metadata, akses, dan riwayat versinya.</div>
@@ -386,6 +441,7 @@ export function FileBrowser(): JSX.Element {
           </div>
         )}
       </aside>
+      )}
 
       {menu && (
         <ContextMenu x={menu.x} y={menu.y} items={menuItems(menu.node)} onClose={() => setMenu(null)} />
