@@ -36,7 +36,7 @@ export function Login(): JSX.Element {
     setError(null);
     setBusy(true);
     try {
-      await login(username.trim(), password, twoFa ? code.trim() : undefined);
+      await login(username.trim(), password, twoFa ? code.trim() : undefined, remember);
       navigate('/', { replace: true });
     } catch (err) {
       if (err instanceof LoginError) {

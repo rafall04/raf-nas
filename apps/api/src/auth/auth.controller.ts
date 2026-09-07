@@ -9,6 +9,7 @@ interface LoginBody {
   username?: string;
   password?: string;
   code?: string;
+  remember?: boolean;
 }
 
 @Controller('auth')
@@ -23,8 +24,15 @@ export class AuthController {
       body.code,
       req.ip,
       req.headers['user-agent'],
+      body.remember ?? false,
     );
-    res.cookie('rafnas_sess', token, { httpOnly: true, sameSite: 'lax', path: '/', maxAge: ttlMs });
+    // "Ingat saya": cookie persisten (maxAge). Tanpa itu: cookie sesi (hilang saat browser ditutup).
+    res.cookie('rafnas_sess', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      path: '/',
+      ...(body.remember ? { maxAge: ttlMs } : {}),
+    });
     return this.auth.publicUser(user);
   }
 

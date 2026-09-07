@@ -16,6 +16,7 @@ function initialsOf(name: string): string {
 }
 
 const TTL_MS = Number(process.env.SESSION_TTL_HOURS ?? 12) * 3_600_000;
+const REMEMBER_TTL_MS = Number(process.env.SESSION_REMEMBER_DAYS ?? 30) * 86_400_000;
 
 // Rate limit login (in-memory, per proses). Cukup untuk satu server.
 const MAX_FAILS = 5;
@@ -62,7 +63,7 @@ export class AuthService {
     return argonHash(pw);
   }
 
-  async login(username: string, password: string, code: string | undefined, ip?: string, ua?: string) {
+  async login(username: string, password: string, code: string | undefined, ip?: string, ua?: string, remember = false) {
     const uKey = `u:${username}`;
     const ipKey = `ip:${ip ?? '?'}`;
     const locked = Math.max(lockedUntil(uKey), lockedUntil(ipKey));
@@ -95,11 +96,12 @@ export class AuthService {
     clearFails(uKey);
     clearFails(ipKey);
     const token = randomBytes(32).toString('hex');
+    const ttlMs = remember ? REMEMBER_TTL_MS : TTL_MS;
     await this.prisma.session.create({
-      data: { userId: user.id, tokenHash: sha256(token), ip: ip ?? null, userAgent: ua ?? null, expiresAt: new Date(Date.now() + TTL_MS) },
+      data: { userId: user.id, tokenHash: sha256(token), ip: ip ?? null, userAgent: ua ?? null, expiresAt: new Date(Date.now() + ttlMs) },
     });
     await this.prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
-    return { user, token, ttlMs: TTL_MS };
+    return { user, token, ttlMs };
   }
 
   async logout(token?: string): Promise<void> {

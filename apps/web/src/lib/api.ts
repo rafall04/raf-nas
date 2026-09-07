@@ -114,11 +114,11 @@ export async function getHealth(): Promise<HealthResponse> {
   return getJson<HealthResponse>('/api/health');
 }
 
-export async function apiLogin(username: string, password: string, code?: string): Promise<PublicUser> {
+export async function apiLogin(username: string, password: string, code?: string, remember?: boolean): Promise<PublicUser> {
   const res = await fetch('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password, code }),
+    body: JSON.stringify({ username, password, code, remember }),
   });
   if (!res.ok) {
     const b = (await res.json().catch(() => ({}))) as LoginErrorBody;
@@ -219,6 +219,26 @@ export function nodeContentUrl(id: string): string {
 export async function trashNode(id: string): Promise<void> {
   const res = await fetch(`/api/nodes/${id}/trash`, { method: 'POST' });
   if (!res.ok) throw new HttpError(res.status);
+}
+
+export interface FolderOptionDto {
+  path: string;
+  name: string;
+}
+export async function fetchSpaceFolders(spaceId: string): Promise<FolderOptionDto[]> {
+  return getJson<FolderOptionDto[]>(`/api/spaces/${spaceId}/folders`);
+}
+
+export async function moveNode(id: string, destPath: string): Promise<void> {
+  const res = await fetch(`/api/nodes/${id}/move`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ destPath }),
+  });
+  if (!res.ok) {
+    const b = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(b.message ?? 'Gagal memindahkan.');
+  }
 }
 
 export async function renameNode(id: string, name: string): Promise<NodeDto> {

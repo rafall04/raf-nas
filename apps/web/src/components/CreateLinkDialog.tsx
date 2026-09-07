@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/primitives';
 import { Icon } from '../ui/icons';
-import { QRPlaceholder } from '../ui/QRPlaceholder';
+import { QRCode, qrPngDataUrl } from '../ui/QRCode';
 import { createShareLink, type CreatedLinkDto } from '../lib/api';
 import './createlink.css';
 
@@ -18,7 +18,6 @@ export function CreateLinkDialog({
   onClose: () => void;
 }): JSX.Element {
   const [step, setStep] = useState<'config' | 'done'>('config');
-  const [perm, setPerm] = useState<'view' | 'download'>('download');
   const [expiry, setExpiry] = useState(7);
   const [password, setPassword] = useState('');
   const [limit, setLimit] = useState('');
@@ -54,6 +53,19 @@ export function CreateLinkDialog({
     });
   }
 
+  function downloadQr(): void {
+    if (!publicUrl) return;
+    const url = qrPngDataUrl(publicUrl, 512);
+    if (!url) return;
+    const safe = (fileName || 'link').replace(/[^\w.-]+/g, '_').slice(0, 40);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `qr-${safe}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
   if (step === 'config') {
     return (
       <Modal
@@ -68,18 +80,6 @@ export function CreateLinkDialog({
         }
       >
         {error && <div className="cl-warn" style={{ marginTop: 0, marginBottom: 12 }}>{error}</div>}
-        <div className="cl-label">Izin</div>
-        <div className="radio-cards">
-          <button className={`radio-card${perm === 'view' ? ' sel' : ''}`} onClick={() => setPerm('view')}>
-            <div className="rc-title">Lihat saja</div>
-            <div className="rc-desc">Penerima membuka pratinjau, tidak mengunduh.</div>
-          </button>
-          <button className={`radio-card${perm === 'download' ? ' sel' : ''}`} onClick={() => setPerm('download')}>
-            <div className="rc-title">Boleh unduh</div>
-            <div className="rc-desc">Penerima membuka dan mengunduh file.</div>
-          </button>
-        </div>
-
         <div className="cl-label">Kedaluwarsa</div>
         <div className="expiry-row">
           {EXPIRY.map((d) => (
@@ -114,7 +114,6 @@ export function CreateLinkDialog({
 
           <div className="cl-label">Pengaturan</div>
           <ul className="settings">
-            <li><span>Izin</span><b>{perm === 'view' ? 'Lihat saja' : 'Boleh unduh'}</b></li>
             <li><span>Kedaluwarsa</span><b>{expiry} hari</b></li>
             <li><span>Kata sandi</span><b>{password ? 'Ya' : 'Tidak'}</b></li>
             <li><span>Batas unduhan</span><b>{limit || 'Tak terbatas'}</b></li>
@@ -126,8 +125,8 @@ export function CreateLinkDialog({
         </div>
 
         <div className="qr-box">
-          <QRPlaceholder seed={created?.slug ?? 'rafnas'} size={140} />
-          <Button size="sm" variant="ghost"><Icon name="download" size={16} /> Unduh QR</Button>
+          <QRCode value={publicUrl} size={140} />
+          <Button size="sm" variant="ghost" onClick={downloadQr}><Icon name="download" size={16} /> Unduh QR</Button>
           <span className="qr-cap">Pindai untuk berbagi ke HP di lapangan.</span>
         </div>
       </div>

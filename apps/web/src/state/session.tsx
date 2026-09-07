@@ -5,7 +5,7 @@ interface SessionValue {
   user: PublicUser | null;
   /** null = masih memeriksa /me, true/false = hasil. */
   authed: boolean | null;
-  login: (username: string, password: string, code?: string) => Promise<void>;
+  login: (username: string, password: string, code?: string, remember?: boolean) => Promise<void>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 }
@@ -30,8 +30,8 @@ export function SessionProvider({ children }: { children: ReactNode }): JSX.Elem
     () => ({
       user,
       authed,
-      login: async (username, password, code) => {
-        const u = await apiLogin(username, password, code);
+      login: async (username, password, code, remember) => {
+        const u = await apiLogin(username, password, code, remember);
         setUser(u);
         setAuthed(true);
       },
